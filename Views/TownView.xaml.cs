@@ -10,18 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Maze_Knight
+namespace Maze_Knight.Views
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for TownView.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class TownView : UserControl
     {
-        public Window1()
+        public TownView()
         {
             InitializeComponent();
+            DataContext = Mediator.theApp;
         }
     }
 }

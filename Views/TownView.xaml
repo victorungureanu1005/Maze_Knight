@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Maze_Knight.Views.TownView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maze_Knight.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="AntiqueWhite">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">HEY I AM THE TOWN!!!</Label>
+        <Button Content="just go back home" Command="{Binding UpdateViewCommand}" CommandParameter="MainMenu"></Button>
+    </Grid>
+</UserControl>

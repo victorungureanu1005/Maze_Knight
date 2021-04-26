@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Maze_Knight.Commands;
+using Maze_Knight.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +15,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Maze_Knight
+namespace Maze_Knight.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow_Menu.xaml
+    /// Interaction logic for MainMenu.xaml
     /// </summary>
-    public partial class MainWindow_Menu : Window
+    public partial class MainMenuView : UserControl
     {
-        public MainWindow_Menu()
+        public MainMenuView()
         {
             InitializeComponent();
+            DataContext = Mediator.theApp;
         }
+
+       
     }
 }
