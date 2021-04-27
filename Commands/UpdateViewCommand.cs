@@ -23,13 +23,17 @@ namespace Maze_Knight.Commands
             {
                 viewModel.SelectedViewModel = new TownViewModel() ;
             }
-            else if(parameter.ToString() == "LoadGame")
+            else if(parameter.ToString() == "LoadView")
             {
                 viewModel.SelectedViewModel = new LoadGameViewModel();
             }
-            else if(parameter.ToString() == "MainMenu")
+            else if(parameter.ToString() == "MainMenuView")
             {
                 viewModel.SelectedViewModel = new MainMenuViewModel();
+            }
+            else if(parameter.ToString() == "CreditsView")
+            {
+                viewModel.SelectedViewModel = new CreditsViewModel();
             }
         }
     }

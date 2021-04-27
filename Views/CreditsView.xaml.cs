@@ -17,23 +17,24 @@ using System.Windows.Shapes;
 namespace Maze_Knight.Views
 {
     /// <summary>
-    /// Interaction logic for LoadGameView.xaml
+    /// Interaction logic for CreditsView.xaml
     /// </summary>
-    public partial class LoadGameView : UserControl
+    public partial class CreditsView : UserControl
     {
-        public LoadGameView()
+        public CreditsView()
         {
             InitializeComponent();
         }
 
-        private void Load_Game(object sender, RoutedEventArgs e)
+        private void QuitApp(object sender, RoutedEventArgs e)
         {
-
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void GoToMenu(object sender, RoutedEventArgs e)
         {
             Mediator.theApp.SelectedViewModel = new MainMenuViewModel();
         }
+
     }
 }

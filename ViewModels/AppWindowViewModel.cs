@@ -39,7 +39,6 @@ namespace Maze_Knight.ViewModels
         {
             UpdateViewCommand = new UpdateViewCommand(this);
         }
-        
-
+      
     }
 }

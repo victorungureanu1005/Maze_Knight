@@ -6,13 +6,14 @@
              xmlns:local="clr-namespace:Maze_Knight.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Background="AntiqueWhite">
+             Background="AntiqueWhite"
+             Padding="20">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">HEY I AM THE TOWN!!!</Label>
-        <Button Content="just go back home" Command="{Binding UpdateViewCommand}" CommandParameter="MainMenu"></Button>
+        <Button Content="just go back home" Click="Button_Click"></Button>
     </Grid>
 </UserControl>

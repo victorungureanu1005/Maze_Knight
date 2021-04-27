@@ -62,9 +62,13 @@
     <Compile Include="StaticClasses\Mediator.cs" />
     <Compile Include="ViewModels\AppWindowViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CreditsViewModel.cs" />
     <Compile Include="ViewModels\LoadGameViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\TownViewModel.cs" />
+    <Compile Include="Views\CreditsView.xaml.cs">
+      <DependentUpon>CreditsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoadGameView.xaml.cs">
       <DependentUpon>LoadGameView.xaml</DependentUpon>
     </Compile>
@@ -79,6 +83,10 @@
       <DependentUpon>TownView.xaml</DependentUpon>
     </Compile>
     <Page Include="AppWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreditsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

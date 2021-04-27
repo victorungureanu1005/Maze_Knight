@@ -28,6 +28,9 @@ namespace Maze_Knight.Views
             DataContext = Mediator.theApp;
         }
 
-       
+        private void QuitApp(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maze_Knight.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,13 @@ namespace Maze_Knight.Views
         public TownView()
         {
             InitializeComponent();
-            DataContext = Mediator.theApp;
+            DataContext = new TownViewModel();
+            }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Mediator.theApp.SelectedViewModel = new MainMenuViewModel();
+            
         }
     }
 }
