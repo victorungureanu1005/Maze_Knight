@@ -59,15 +59,20 @@
       <DependentUpon>AppWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\UpdateViewCommand.cs" />
+    <Compile Include="Models\Player.cs" />
     <Compile Include="StaticClasses\Mediator.cs" />
     <Compile Include="ViewModels\AppWindowViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CreditsViewModel.cs" />
+    <Compile Include="ViewModels\ExploreViewModel.cs" />
     <Compile Include="ViewModels\LoadGameViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\TownViewModel.cs" />
     <Compile Include="Views\CreditsView.xaml.cs">
       <DependentUpon>CreditsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExploreView.xaml.cs">
+      <DependentUpon>ExploreView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoadGameView.xaml.cs">
       <DependentUpon>LoadGameView.xaml</DependentUpon>
@@ -87,6 +92,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreditsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExploreView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,6 +141,8 @@
   <ItemGroup>
     <Resource Include="Content\Images\Menu_RightPicture.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Content\Images\OldTown_TownView.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,18 +10,20 @@
         <DataTemplate DataType="{x:Type viewmodels:MainMenuViewModel}">
             <views:MainMenuView/>
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type viewmodels:LoadGameViewModel}">
             <views:LoadGameView/>
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type viewmodels:TownViewModel}">
             <views:TownView/>
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type viewmodels:CreditsViewModel}">
             <views:CreditsView/>
         </DataTemplate>
-        
+        <DataTemplate DataType="{x:Type viewmodels:ExploreViewModel}">
+            <views:ExploreView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

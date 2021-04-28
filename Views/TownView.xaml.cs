@@ -25,12 +25,27 @@ namespace Maze_Knight.Views
         {
             InitializeComponent();
             DataContext = new TownViewModel();
-            }
+        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void GoToMainMenu(object sender, RoutedEventArgs e)
         {
             Mediator.theApp.SelectedViewModel = new MainMenuViewModel();
-            
+
+        }
+
+        private void SaveGame(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoadGame(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ExploreOutsideTown(object sender, RoutedEventArgs e)
+        {
+            Mediator.theApp.SelectedViewModel = new ExploreViewModel();
         }
     }
 }

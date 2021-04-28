@@ -28,21 +28,23 @@
         <!-- Labels Buttons and Image-->
         
         <Label x:Name="Menu_Title" Content="Maze Knight" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20px"  Grid.ColumnSpan="2" Foreground="#FFECE4D5"  />
-        <Button x:Name="Menu_ContinueGameButton" Content="Continue" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="10" FontSize="20px" Width="200" Height="40px" Grid.Row="1" Background="#FFECE4D5" />
+        <Button x:Name="Menu_ContinueGameButton" Content="Continue" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="10" 
+                FontSize="20px" Width="200" Height="40" Grid.Row="1" Background="#FFECE4D5" />
+        
         <Button x:Name="Menu_NewGameButton" Content="New Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="200" Height="40px" Grid.Row="2" Background="#FFECE4D5"             
+                FontSize="20px" Width="200" Height="40" Grid.Row="2" Background="#FFECE4D5"             
                 Command="{Binding UpdateViewCommand}" CommandParameter="TownView"/>
       
         <Button x:Name="Menu_LoadGameButton" Content="Load Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="200" Height="40px" Grid.Row="3" Background="#FFECE4D5"
+                FontSize="20px" Width="200" Height="40" Grid.Row="3" Background="#FFECE4D5"
                 Command="{Binding UpdateViewCommand}" CommandParameter="LoadView"/>
         
         <Button x:Name="Menu_CreditsButton" Content="Credits" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="200" Height="40px" Grid.Row="4" Background="#FFECE4D5"
+                FontSize="20px" Width="200" Height="40" Grid.Row="4" Background="#FFECE4D5"
                 Command="{Binding UpdateViewCommand}" CommandParameter="CreditsView"/>
         
         <Button x:Name="Menu_QuitGameButton" Content="Quit" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="200" Height="40px" Grid.Row="5" Background="#FFECE4D5"
+                FontSize="20px" Width="200" Height="40" Grid.Row="5" Background="#FFECE4D5"
                 Click="QuitApp"/>
         
         <!-- Image to the right -->

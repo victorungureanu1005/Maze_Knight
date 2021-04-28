@@ -6,14 +6,58 @@
              xmlns:local="clr-namespace:Maze_Knight.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Background="AntiqueWhite"
+             Background="#FF0A1428"
              Padding="20">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+                      
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">HEY I AM THE TOWN!!!</Label>
-        <Button Content="just go back home" Click="Button_Click"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Town description and story -->
+        <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0">
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFECE4D5" >After a long road, you finally arrive in the town! The streets are calm, there is nothing out of the ordinary going on...</Label>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFECE4D5" >With nothing else left to do, you go to the inn, take a table in the darkest corner and start to carefully prepare your next steps.</Label>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFECE4D5" >You decide to:</Label>
+        </StackPanel>
+
+        <!-- Actions to take as a player -->
+        <Button Width="170" Height="40" FontSize="14px" Content="Play a dice game" 
+                Background="#FFECE4D5" Margin="10" Grid.Row="2" Grid.Column="0"/>
+        <Button Width="170" Height="40" FontSize="14px" Content="Explore outside the town" 
+                Background="#FFECE4D5" Margin="10" Grid.Row="3" Grid.Column="0" Click="ExploreOutsideTown"/>
+        <Button Width="170" Height="40" FontSize="14px" Content="Get back on your quest" 
+                Background="#FFECE4D5" Margin="10" Grid.Row="4" Grid.Column="0"/>
+        <Button Width="170" Height="40" FontSize="14px" Content="Go to the shady dealer" 
+                Background="#FFECE4D5" Margin="10" Grid.Row="2" Grid.Column="1"/>
+        <Button Width="170" Height="40" FontSize="14px" Content="Open your inventory" 
+                Background="#FFECE4D5" Margin="10" Grid.Row="3" Grid.Column="1"/>
+        <Button Width="170" Height="40" FontSize="14px" Content="Upgrade your stats" 
+                Background="#FFECE4D5" Margin="10" Grid.Row="4" Grid.Column="1"/>
+        
+        <!-- Buttons on the bottom bar -->
+
+        <Button BorderThickness="3" Width="120" Height="40" FontSize="17px" FontWeight="Bold" Content="Save Game" Click="SaveGame" 
+                BorderBrush="#FF29447C" Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="0"/>
+        <Button BorderThickness="3" Width="120" Height="40" FontSize="17px" FontWeight="Bold" Content="Main Menu" Click="GoToMainMenu" 
+                BorderBrush="#FF29447C" Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="1"/>
+        <Button BorderThickness="3" Width="120" Height="40" FontSize="17px" FontWeight="Bold" Content="Load Game" Click="LoadGame" 
+                BorderBrush="#FF29447C" Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="2"/>
+        
+
+        <Image Grid.Column="3" Grid.RowSpan="3" Source="pack://application:,,,/Content/Images/OldTown_TownView.jpg" Stretch="Fill" Opacity="0.7"/>
+
+
     </Grid>
 </UserControl>
