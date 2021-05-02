@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="Commands\UpdateViewCommand.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="StaticClasses\PlayerInstances.cs" />
     <Compile Include="StaticClasses\Mediator.cs" />
     <Compile Include="ViewModels\AppWindowViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
