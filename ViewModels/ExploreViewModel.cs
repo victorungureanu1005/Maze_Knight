@@ -14,38 +14,47 @@ namespace Maze_Knight.ViewModels
 {
     public class ExploreViewModel : BaseViewModel
     {
-        private string _text = "hey";
-        public string Texty
+
+
+        #region Propreties
+
+        //private field for the MapGridCellCollection
+        private ObservableCollection<MapGridCell> _mapGridCellCollection = new ObservableCollection<MapGridCell>();
+
+        //property MapGridCellCollection to be linked to the View - ExploreView
+        public ObservableCollection<MapGridCell> MapGridCellCollection
         {
-            get { return _text; }
+            get { return _mapGridCellCollection; }
             set
             {
-                _text = value;
-                OnPropertyChanged(nameof(Texty));
+                _mapGridCellCollection = value;
+                OnPropertyChanged(nameof(MapGridCellCollection));
             }
         }
 
-        private BindingList<TextBoxContentTest> _textBoxContentTestCollection = new BindingList<TextBoxContentTest>();
+        #endregion
 
-        public BindingList<TextBoxContentTest> TextBoxContentTestsCollection
-        {
-            get { return _textBoxContentTestCollection; }
-            set
-            {
-                _textBoxContentTestCollection = value;
-                OnPropertyChanged(nameof(TextBoxContentTestsCollection));
-            }
-        }
+        //Constructor of the Grid, Task Run is kept for testing purposes. 
 
-
-        //Constructor for testing purposes only
         public ExploreViewModel()
         {
+            //Intrebare
+            // Ar trebui sa obtin deja masurile la initializare sau sa folosesc call de fiecare data? Stocare vs. Procesare?
+            //Intrebare
 
-            for (int i = 0; i < 20; i++)
+            MapMeasures mapMeasures = new MapMeasures();
+
+
+            #region GridCreationInViewModel
+            //The MapGridCells must be added to the collection! - logic to be implemented
+            for (int i = 0; i < mapMeasures.GetMaxCellNumber(); i++)
             {
-                TextBoxContentTestsCollection.Add(new TextBoxContentTest { Age = i, Name = $"{i}+Hey", Occupation = "lala" });
+                MapGridCellCollection.Add(new MapGridCell { WhatIsContained = $"{i}" });
             }
+            #endregion
+
+            #region TaskRunnerForTest
+            //The below to only be used if Tests need to be implemented
 
             Task.Run(async () =>
             {
@@ -53,23 +62,13 @@ namespace Maze_Knight.ViewModels
                 while (true)
                 {
                     await Task.Delay(300);
-                    TextBoxContentTestsCollection[0].Age = j;
+                    MapGridCellCollection[0].WhatIsContained += j;
                     j++;
-
-                    TextBoxContentTestsCollection[9].Age = j*3;
-
                 }
-            }
-);
+            });
 
-        }
-
-        private void ExploreViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            throw new NotImplementedException();
+            #endregion
         }
     }
-
-
 }
 

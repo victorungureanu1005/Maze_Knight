@@ -18,26 +18,19 @@ namespace Maze_Knight.Commands
         public bool CanExecute(object parameter) => true;
 
         public void Execute(object parameter)
-        {
-            if (parameter.ToString() == "TownView")
+        {      
+            //Intrebare
+            //Try-catch-la catch intru in debug mode, e ok???!?!?
+            //Intrebare!
+
+            switch (parameter.ToString())
             {
-                viewModel.SelectedViewModel = new TownViewModel();
-            }
-            else if (parameter.ToString() == "LoadView")
-            {
-                viewModel.SelectedViewModel = new LoadGameViewModel();
-            }
-            else if (parameter.ToString() == "MainMenuView")
-            {
-                viewModel.SelectedViewModel = new MainMenuViewModel();
-            }
-            else if (parameter.ToString() == "CreditsView")
-            {
-                viewModel.SelectedViewModel = new CreditsViewModel();
-            }
-            else if (parameter.ToString() == "ExploreView")
-            {
-                viewModel.SelectedViewModel = new ExploreViewModel();
+                case "TownView": viewModel.SelectedViewModel = new TownViewModel(); break;
+                case "LoadView": viewModel.SelectedViewModel = new LoadGameViewModel(); break;
+                case "MainMenuView": viewModel.SelectedViewModel = new MainMenuViewModel(); break;
+                case "CreditsView": viewModel.SelectedViewModel = new CreditsViewModel(); break;
+                case "ExploreView": viewModel.SelectedViewModel = new ExploreViewModel(); break;
+                default: viewModel.SelectedViewModel = new MainMenuViewModel(); break;
             }
         }
     }

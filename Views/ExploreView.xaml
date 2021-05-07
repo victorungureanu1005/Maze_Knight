@@ -30,7 +30,7 @@
         <!--  Test above  -->
 
         <!-- Events Block -->
-        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="Text"  Width="auto" Height="auto" Foreground="NavajoWhite" TextWrapping="Wrap" MouseDown="Text_MouseDown" >sadasd</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="Text"  Width="auto" Height="auto" Foreground="NavajoWhite" TextWrapping="Wrap">sadasd</TextBlock>
 
         <!-- Actions Block -->
         <!-- Actions Block Grid Definitions -->

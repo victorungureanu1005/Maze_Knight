@@ -60,8 +60,9 @@
     </Compile>
     <Compile Include="Commands\UpdateViewCommand.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\MapMeasures.cs" />
+    <Compile Include="Models\MapGridCell.cs" />
     <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\TextBoxContentTest.cs" />
     <Compile Include="StaticClasses\PlayerInstances.cs" />
     <Compile Include="StaticClasses\Mediator.cs" />
     <Compile Include="ViewModels\AppWindowViewModel.cs" />

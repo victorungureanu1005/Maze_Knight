@@ -20,92 +20,75 @@ using System.Windows.Shapes;
 
 namespace Maze_Knight.Views
 {
-    /// <summary>
-    /// Interaction logic for ExploreView.xaml
-    /// </summary>
     public partial class ExploreView : UserControl
     {
-        #region Private Fields and Constants
-        const int MIN_WIDTH = 6;
-        const int MIN_HEIGHT = 6;
-        const float GRID_EXPANSE_RATE = 0.3f;
-
-
-
-        #endregion
-
-        #region Constructor
+        #region ExploreViewConstructor
         public ExploreView()
         {
+
+            //Intrebare
+            // Ar trebui sa obtin deja masurile la initializare sau sa folosesc call de fiecare data? Stocare vs. Procesare?
+            //Intrebare
+
+            //Standard initialization
             InitializeComponent();
-            InitializeMapGrid((float)PlayerInstances.CurrentPlayerInstance.Level);
 
+            MapMeasures mapMeasures = new MapMeasures();
+            //Map Grid actual creation called
+            InitializeMapGrid((int)PlayerInstances.CurrentPlayerInstance.Level, mapMeasures);
 
+            //Setting the DataContext for this View - shall be set to the ExploreViewModel created by the static App class instantiated and stored in the Mediator static class
+            //Also setting Binders between TextBoxes and relevant MapGridCell objects
             DataContext = Mediator.theApp.SelectedViewModel;
-
-            int i = 0;
-            foreach (var child in MapGrid.Children.OfType<TextBlock>())
-            {
-                //ObservableCollection<TextBoxContentTest> test = testExploreViewModel.TextBoxContentTestsCollection;
-                //child.Text = test[0].Name;
-                //SetBinding(TextBlock.TextProperty, test[0].Name).ToString(); 
-             
-
-                if (i < 20)
-                {
-
-                    Binding childBinding = new Binding();
-                    var testObject2 = ((ExploreViewModel)Mediator.theApp.SelectedViewModel).TextBoxContentTestsCollection[i];
-                    childBinding.Source = testObject2;
-                    childBinding.Path = new PropertyPath("Age");
-                    childBinding.BindsDirectlyToSource = true;
-
-                    child.SetBinding(TextBlock.TextProperty, childBinding);
-                    i++;
-                    
-                }
-
-
-
-            }
-
-
-
-
-
-
+            SetBindersToCells((int)PlayerInstances.CurrentPlayerInstance.Level, mapMeasures);
 
         }
         #endregion
 
+        #region ExploreViewMethods
 
-
-        #region MapGrid Construction
-
-        /// <summary>
-        /// Initializing Grid based on player level
-        /// </summary>
-        /// <param name="_playerLevel"></param>
-        public void InitializeMapGrid(float _playerLevel)
+        private void SetBindersToCells(int currentPlayerLevel, MapMeasures mapMeasures)
         {
-            //set actual width and height of the map grid
-            int actualWidth = (int)Math.Round(MIN_WIDTH + (_playerLevel * GRID_EXPANSE_RATE));
-            int actualHeight = (int)Math.Round(MIN_HEIGHT + (_playerLevel * GRID_EXPANSE_RATE));
+            //Bind each cell(TextBlock) of the MapGrid to the MapGridCell Object in the ObservableCollection of the ExploreViewModel
+            //Indexer is needed as to not go less than or over the Collection Length
+            int i = 0;
+            foreach (var child in MapGrid.Children.OfType<TextBlock>())
+            {
+                if (i < mapMeasures.GetMaxCellNumber())
+                {
+                    //Create new binding to be able to set binding
+                    Binding binding = new Binding();
 
-            // add columns and rows
-            for (int i = 0; i < actualWidth; i++)
+                    //Find the mapGridCellObject to which the binding must be linked
+                    var mapGridCellObject = ((ExploreViewModel)Mediator.theApp.SelectedViewModel).MapGridCellCollection[i];
+
+                    //Bind the source to the object and set the path to the relevant property
+                    binding.Source = mapGridCellObject;
+                    binding.Path = new PropertyPath("WhatIsContained");
+
+                    //Set the binding and increase the indexer
+                    child.SetBinding(TextBlock.TextProperty, binding);
+                    i++;
+                }
+            }
+        }
+
+        public void InitializeMapGrid(int _playerLevel, MapMeasures mapMeasures)
+        {
+            //Add columns and rows to the grid
+            for (int i = 0; i < mapMeasures.GetWidth(); i++)
             {
                 MapGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
             }
-            for (int i = 0; i < actualHeight; i++)
+            for (int i = 0; i < mapMeasures.GetHeight(); i++)
             {
                 MapGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
             }
 
-            //add the actual Text Blocks = Maze
-            for (int i = 0; i < actualWidth; i++)
+            //Add the actual Text Blocks and Borders
+            for (int i = 0; i < mapMeasures.GetWidth(); i++)
             {
-                for (int j = 0; j < actualHeight; j++)
+                for (int j = 0; j < mapMeasures.GetHeight(); j++)
                 {
                     TextBlock textBlock = new TextBlock();
                     Grid.SetColumn(textBlock, i);
@@ -114,10 +97,7 @@ namespace Maze_Knight.Views
                     textBlock.HorizontalAlignment = HorizontalAlignment.Center;
                     textBlock.VerticalAlignment = VerticalAlignment.Center;
 
-
-
                     MapGrid.Children.Add(textBlock);
-
 
                     var myBorder = new Border { BorderBrush = new SolidColorBrush(Color.FromRgb(10, 20, 40)), BorderThickness = new Thickness { Bottom = 0.5, Top = 0.5, Left = 0.5, Right = 0.5 } };
                     MapGrid.Children.Add(myBorder);
@@ -125,16 +105,11 @@ namespace Maze_Knight.Views
                     myBorder.SetValue(Grid.RowProperty, j);
                 }
             }
-
-
-
         }
+
         #endregion
 
-
         #region MapGrid Functions
-
-
 
         #endregion
 
@@ -145,10 +120,5 @@ namespace Maze_Knight.Views
         }
 
         #endregion
-
-        private void Text_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Grid.GetColumn((TextBlock)sender);
-        }
     }
 }
