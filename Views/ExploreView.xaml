@@ -22,11 +22,15 @@
 
         <!-- Map Grid Settings -->
 
-        <Grid x:Name="MapGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Background="#FFECE4D5"/>
+        <Grid x:Name="MapGrid" HorizontalAlignment="Center" VerticalAlignment="Center" 
+              Grid.Row="0" Grid.Column="0" Background="#FFECE4D5"/>
 
+
+
+        <!--  Test above  -->
 
         <!-- Events Block -->
-        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="Text"  Width="auto" Height="auto" Foreground="NavajoWhite" TextWrapping="Wrap" >sadasd</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="Text"  Width="auto" Height="auto" Foreground="NavajoWhite" TextWrapping="Wrap" MouseDown="Text_MouseDown" >sadasd</TextBlock>
 
         <!-- Actions Block -->
         <!-- Actions Block Grid Definitions -->

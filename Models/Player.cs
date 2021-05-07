@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Maze_Knight.Models
 {
-    public class Player
+    public class Player 
     {
         #region Generic Player Information
         //Level of Player

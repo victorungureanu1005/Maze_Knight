@@ -1,7 +1,9 @@
-﻿using Maze_Knight.StaticClasses;
+﻿using Maze_Knight.Models;
+using Maze_Knight.StaticClasses;
 using Maze_Knight.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace Maze_Knight.Views
 {
     /// <summary>
@@ -27,24 +30,55 @@ namespace Maze_Knight.Views
         const int MIN_HEIGHT = 6;
         const float GRID_EXPANSE_RATE = 0.3f;
 
+
+
         #endregion
 
         #region Constructor
         public ExploreView()
         {
             InitializeComponent();
-                        //Initializing Grid for the current selected player based on CurrentPlayerInstance level - see static classes - Player Instances
             InitializeMapGrid((float)PlayerInstances.CurrentPlayerInstance.Level);
+
 
             DataContext = Mediator.theApp.SelectedViewModel;
 
+            int i = 0;
             foreach (var child in MapGrid.Children.OfType<TextBlock>())
             {
-                child.SetBinding(TextBlock.TextProperty, new Binding("Texty") { Source = DataContext });
+                //ObservableCollection<TextBoxContentTest> test = testExploreViewModel.TextBoxContentTestsCollection;
+                //child.Text = test[0].Name;
+                //SetBinding(TextBlock.TextProperty, test[0].Name).ToString(); 
+             
+
+                if (i < 20)
+                {
+
+                    Binding childBinding = new Binding();
+                    var testObject2 = ((ExploreViewModel)Mediator.theApp.SelectedViewModel).TextBoxContentTestsCollection[i];
+                    childBinding.Source = testObject2;
+                    childBinding.Path = new PropertyPath("Age");
+                    childBinding.BindsDirectlyToSource = true;
+
+                    child.SetBinding(TextBlock.TextProperty, childBinding);
+                    i++;
+                    
+                }
+
+
+
             }
+
+
+
+
+
+
 
         }
         #endregion
+
+
 
         #region MapGrid Construction
 
@@ -56,12 +90,12 @@ namespace Maze_Knight.Views
         {
             //set actual width and height of the map grid
             int actualWidth = (int)Math.Round(MIN_WIDTH + (_playerLevel * GRID_EXPANSE_RATE));
-            int actualHeight = (int)Math.Round(MIN_HEIGHT +( _playerLevel * GRID_EXPANSE_RATE));
+            int actualHeight = (int)Math.Round(MIN_HEIGHT + (_playerLevel * GRID_EXPANSE_RATE));
 
             // add columns and rows
             for (int i = 0; i < actualWidth; i++)
             {
-               MapGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
+                MapGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
             }
             for (int i = 0; i < actualHeight; i++)
             {
@@ -80,25 +114,41 @@ namespace Maze_Knight.Views
                     textBlock.HorizontalAlignment = HorizontalAlignment.Center;
                     textBlock.VerticalAlignment = VerticalAlignment.Center;
 
-                    
+
 
                     MapGrid.Children.Add(textBlock);
 
-                    var myBorder = new Border {BorderBrush = new SolidColorBrush(Color.FromRgb ( 10,  20, 40)), BorderThickness = new Thickness { Bottom = 0.5, Top = 0.5, Left = 0.5, Right = 0.5 } };
+
+                    var myBorder = new Border { BorderBrush = new SolidColorBrush(Color.FromRgb(10, 20, 40)), BorderThickness = new Thickness { Bottom = 0.5, Top = 0.5, Left = 0.5, Right = 0.5 } };
                     MapGrid.Children.Add(myBorder);
                     myBorder.SetValue(Grid.ColumnProperty, i);
                     myBorder.SetValue(Grid.RowProperty, j);
                 }
             }
 
-            
-            
+
+
         }
         #endregion
 
+
+        #region MapGrid Functions
+
+
+
+        #endregion
+
+        #region Action Buttons
         private void Flight(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new MainMenuViewModel() ;
+            Mediator.theApp.SelectedViewModel = new MainMenuViewModel();
+        }
+
+        #endregion
+
+        private void Text_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Grid.GetColumn((TextBlock)sender);
         }
     }
 }

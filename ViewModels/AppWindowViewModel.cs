@@ -35,10 +35,10 @@ namespace Maze_Knight.ViewModels
 
         public ICommand UpdateViewCommand { get; set; }
 
-        public AppWindowViewModel()
-        {
-            UpdateViewCommand = new UpdateViewCommand(this);
-        }
+       public AppWindowViewModel()
+       {
+           UpdateViewCommand = new UpdateViewCommand(this);
+       }
       
     }
 }
