@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maze_Knight.StaticClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Maze_Knight.Models
 {
-    public class Player 
+    public class Player
     {
         #region Generic Player Information
         //Level of Player
@@ -57,13 +58,79 @@ namespace Maze_Knight.Models
             get { return _halberdSkillLevel; }
             set { _halberdSkillLevel = value; }
         }
+
+        //Player Location on Map
+        private int[] _playerLocation;
+
+        public int[] PlayerLocation
+        {
+            get { return _playerLocation; }
+            set { _playerLocation = value; }
+        }
+
         #endregion
 
 
         #region Methods on Player Stats
+
+        // De testat si poate bagat in ExploreviewModel?
+        public HashSet<int[]> GetMoveOptions()
+        {
+            //Getting current location and storing the column and row number
+            int[] _currentPlayerLocation = PlayerInstances.CurrentPlayerInstance.PlayerLocation;
+            int column = _currentPlayerLocation[0];
+            int row = _currentPlayerLocation[1];
+            //Creating a new HashSet which will be updated and returned
+            HashSet<int[]> _moveOptions = new HashSet<int[]>();
+
+            //Start creating the options, player can only move in cross directions 1 step at a time, not outside of bounds
+            //Checking first the left and upper bounds (column and row should not be less than 0) and adding the options to the HashSet
+            if (column - 1 < 0)
+            {
+                if (row - 1 < 0)
+                {
+                    _moveOptions.Add(new int[] { column + 1, row });
+                    _moveOptions.Add(new int[] { column, row + 1 });
+                }
+                else
+                {
+                    _moveOptions.Add(new int[] { column + 1, row });
+                    _moveOptions.Add(new int[] { column, row + 1 });
+                    _moveOptions.Add(new int[] { column, row - 1 });
+                }
+            }
+            else
+            {
+                _moveOptions.Add(new int[] { column + 1, row });
+                _moveOptions.Add(new int[] { column, row + 1 });
+                _moveOptions.Add(new int[] { column, row - 1 });
+                _moveOptions.Add(new int[] { column - 1, row - 1 });
+            }
+            
+            //!!!Daca mut asta in ExploreViewModel nu mai e nevoie sa instantiez MapMeasures!!!
+            MapMeasures _mapMeasures = new MapMeasures();
+
+            //Checking then from the existing options whether options go out of bounds, checking right and bottom bounds ([0] - column; [1] - row)
+            foreach (int[] item in _moveOptions)
+            {
+                if (item[0] > _mapMeasures.GetMaxColumn())
+                {
+                    _moveOptions.Remove(item);
+                }
+                if (item[1] > _mapMeasures.GetMaxRow())
+                {
+                    _moveOptions.Remove(item);
+                }
+            }
+
+            return _moveOptions;
+        }
+
+
+
         public void IncreaseHealth(double _healthAmount)
         {
-            if(_healthAmount<=0)
+            if (_healthAmount <= 0)
                 return;
             if (_healthAmount + _health <= 100)
                 _health += _healthAmount;

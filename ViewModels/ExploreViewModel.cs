@@ -1,4 +1,5 @@
 ﻿using Maze_Knight.Models;
+using Maze_Knight.StaticClasses;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,14 +43,18 @@ namespace Maze_Knight.ViewModels
             // Ar trebui sa obtin deja masurile la initializare sau sa folosesc call de fiecare data? Stocare vs. Procesare?
             //Intrebare
 
+            //Needed for below GridCreationInViewModel
             MapMeasures mapMeasures = new MapMeasures();
+
+            //Initialize PlayerLocation to 0,0 at the creation of the map
+            PlayerInstances.CurrentPlayerInstance.PlayerLocation = new int[] { 0, 0 };
 
 
             #region GridCreationInViewModel
             //The MapGridCells must be added to the collection! - logic to be implemented
             for (int i = 0; i < mapMeasures.GetMaxCellNumber(); i++)
             {
-                MapGridCellCollection.Add(new MapGridCell { WhatIsContained = $"{i}" });
+                MapGridCellCollection.Add(new MapGridCell { CellTextDisplay = $"{i}" });
             }
             #endregion
 
@@ -62,7 +67,7 @@ namespace Maze_Knight.ViewModels
                 while (true)
                 {
                     await Task.Delay(300);
-                    MapGridCellCollection[0].WhatIsContained += j;
+                    MapGridCellCollection[0].CellTextDisplay += j;
                     j++;
                 }
             });

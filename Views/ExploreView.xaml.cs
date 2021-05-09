@@ -49,6 +49,9 @@ namespace Maze_Knight.Views
 
         private void SetBindersToCells(int currentPlayerLevel, MapMeasures mapMeasures)
         {
+            //Get reference to property name
+            string _cellTextDisplay = nameof(MapGridCell.CellTextDisplay);
+
             //Bind each cell(TextBlock) of the MapGrid to the MapGridCell Object in the ObservableCollection of the ExploreViewModel
             //Indexer is needed as to not go less than or over the Collection Length
             int i = 0;
@@ -64,7 +67,7 @@ namespace Maze_Knight.Views
 
                     //Bind the source to the object and set the path to the relevant property
                     binding.Source = mapGridCellObject;
-                    binding.Path = new PropertyPath("WhatIsContained");
+                    binding.Path = new PropertyPath(_cellTextDisplay);
 
                     //Set the binding and increase the indexer
                     child.SetBinding(TextBlock.TextProperty, binding);
@@ -76,19 +79,19 @@ namespace Maze_Knight.Views
         public void InitializeMapGrid(int _playerLevel, MapMeasures mapMeasures)
         {
             //Add columns and rows to the grid
-            for (int i = 0; i < mapMeasures.GetWidth(); i++)
+            for (int i = 0; i < mapMeasures.GetMaxColumn(); i++)
             {
                 MapGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
             }
-            for (int i = 0; i < mapMeasures.GetHeight(); i++)
+            for (int i = 0; i < mapMeasures.GetMaxRow(); i++)
             {
                 MapGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
             }
 
             //Add the actual Text Blocks and Borders
-            for (int i = 0; i < mapMeasures.GetWidth(); i++)
+            for (int i = 0; i < mapMeasures.GetMaxColumn(); i++)
             {
-                for (int j = 0; j < mapMeasures.GetHeight(); j++)
+                for (int j = 0; j < mapMeasures.GetMaxRow(); j++)
                 {
                     TextBlock textBlock = new TextBlock();
                     Grid.SetColumn(textBlock, i);

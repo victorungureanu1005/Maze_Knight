@@ -9,28 +9,28 @@ namespace Maze_Knight.Models
 {
     public class MapMeasures
     {
-        private const int MIN_WIDTH = 4;
-        private const int MIN_HEIGHT = 4;
+        private const int MIN_COLUMN = 4;
+        private const int MIN_ROW = 4;
         //GRID_EXPANSE_RATE has been set to 0.24 after testing to ensure that limits increase by 1 after 3rd lvl and then after ~ an increase by 4 of the level
         private const float GRID_EXPANSE_RATE = 0.24f;
 
         //Get cell number of the grid
         public int GetMaxCellNumber()
         {
-            return GetHeight() * GetWidth();
+            return GetMaxRow() * GetMaxColumn();
         }
 
         //Get width of the grid
-        public int GetWidth()
+        public int GetMaxColumn()
         {
-            int actualWidth = MIN_WIDTH + GetActualExpanseIncrease();
+            int actualWidth = MIN_COLUMN + GetActualExpanseIncrease();
             return actualWidth;
         }
 
         //Get height of the grid
-        public int GetHeight()
+        public int GetMaxRow()
         {
-            int actualHeight = MIN_HEIGHT + GetActualExpanseIncrease();
+            int actualHeight = MIN_ROW + GetActualExpanseIncrease();
             return actualHeight;
         }
 
