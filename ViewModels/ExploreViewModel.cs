@@ -44,7 +44,7 @@ namespace Maze_Knight.ViewModels
             //Intrebare
 
             //Needed for below GridCreationInViewModel
-            MapMeasures mapMeasures = new MapMeasures();
+            MapMeasures mapMeasures = new MapMeasures(PlayerInstances.CurrentPlayerInstance);
 
             //Initialize PlayerLocation to 0,0 at the creation of the map
             PlayerInstances.CurrentPlayerInstance.PlayerLocation = new int[] { 0, 0 };

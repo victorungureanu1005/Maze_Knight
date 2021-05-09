@@ -61,6 +61,7 @@
     <Compile Include="Commands\UpdateViewCommand.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CellLocation.cs" />
+    <Compile Include="Models\Comparers\CoordinatesEqualityComparer.cs" />
     <Compile Include="Models\Enums\EnemyTypes.cs" />
     <Compile Include="Models\MapMeasures.cs" />
     <Compile Include="Models\MapGridCell.cs" />

@@ -1,4 +1,5 @@
-﻿using Maze_Knight.StaticClasses;
+﻿using Maze_Knight.Models.Comparers;
+using Maze_Knight.StaticClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,14 +75,16 @@ namespace Maze_Knight.Models
         #region Methods on Player Stats
 
         // De testat si poate bagat in ExploreviewModel?
-        public HashSet<int[]> GetMoveOptions()
+        //
+        public HashSet<List<int>> GetMoveOptions()
         {
+            var _comparer = new CoordinatesEqualityComparer();
             //Getting current location and storing the column and row number
-            int[] _currentPlayerLocation = PlayerInstances.CurrentPlayerInstance.PlayerLocation;
+            int[] _currentPlayerLocation = this.PlayerLocation;
             int column = _currentPlayerLocation[0];
             int row = _currentPlayerLocation[1];
             //Creating a new HashSet which will be updated and returned
-            HashSet<int[]> _moveOptions = new HashSet<int[]>();
+            HashSet<List<int>> _moveOptions = new HashSet<List<int>>(_comparer);
 
             //Start creating the options, player can only move in cross directions 1 step at a time, not outside of bounds
             //Checking first the left and upper bounds (column and row should not be less than 0) and adding the options to the HashSet
@@ -89,38 +92,51 @@ namespace Maze_Knight.Models
             {
                 if (row - 1 < 0)
                 {
-                    _moveOptions.Add(new int[] { column + 1, row });
-                    _moveOptions.Add(new int[] { column, row + 1 });
+                    _moveOptions.Add(new List<int> { column + 1, row });
+                    _moveOptions.Add(new List<int> { column, row + 1 });
                 }
                 else
                 {
-                    _moveOptions.Add(new int[] { column + 1, row });
-                    _moveOptions.Add(new int[] { column, row + 1 });
-                    _moveOptions.Add(new int[] { column, row - 1 });
+                    _moveOptions.Add(new List<int> { column + 1, row });
+                    _moveOptions.Add(new List<int> { column, row + 1 });
+                    _moveOptions.Add(new List<int> { column, row - 1 });
                 }
             }
             else
             {
-                _moveOptions.Add(new int[] { column + 1, row });
-                _moveOptions.Add(new int[] { column, row + 1 });
-                _moveOptions.Add(new int[] { column, row - 1 });
-                _moveOptions.Add(new int[] { column - 1, row - 1 });
+                if (row-1 < 0)
+                {
+                    _moveOptions.Add(new List<int> { column + 1, row });
+                    _moveOptions.Add(new List<int> { column, row + 1 });
+                    _moveOptions.Add(new List<int> { column - 1, row });
+                }
+                else
+                {
+                    _moveOptions.Add(new List<int> { column + 1, row });
+                    _moveOptions.Add(new List<int> { column, row + 1 });
+                    _moveOptions.Add(new List<int> { column, row - 1 });
+                    _moveOptions.Add(new List<int> { column - 1, row });
+                }
             }
-            
-            //!!!Daca mut asta in ExploreViewModel nu mai e nevoie sa instantiez MapMeasures!!!
-            MapMeasures _mapMeasures = new MapMeasures();
 
+            //!!!Daca mut asta in ExploreViewModel nu mai e nevoie sa instantiez MapMeasures!!!
+            MapMeasures _mapMeasures = new MapMeasures(this);
+
+            //HashSet containing to be removed items;
+            HashSet<List<int>> _toRemoveOptions = new HashSet<List<int>>();
             //Checking then from the existing options whether options go out of bounds, checking right and bottom bounds ([0] - column; [1] - row)
-            foreach (int[] item in _moveOptions)
+            foreach (var item in _moveOptions)
             {
-                if (item[0] > _mapMeasures.GetMaxColumn())
+                
+                if (item[0] > _mapMeasures.GetMaxColumn()-1 || item[1] > _mapMeasures.GetMaxRow()-1)
                 {
-                    _moveOptions.Remove(item);
+                    _toRemoveOptions.Add(item);
                 }
-                if (item[1] > _mapMeasures.GetMaxRow())
-                {
-                    _moveOptions.Remove(item);
-                }
+            }
+
+            foreach (var item in _toRemoveOptions)
+            {
+                _moveOptions.Remove(item);
             }
 
             return _moveOptions;
