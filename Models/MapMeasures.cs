@@ -13,7 +13,11 @@ namespace Maze_Knight.Models
         private const int MIN_ROW = 4;
         //GRID_EXPANSE_RATE has been set to 0.24 after testing to ensure that limits increase by 1 after 3rd lvl and then after ~ an increase by 4 of the level
         private const float GRID_EXPANSE_RATE = 0.24f;
-
+        private Player player;
+        public MapMeasures(Player player)
+        {
+            this.player = player;
+        }
         //Get cell number of the grid
         public int GetMaxCellNumber()
         {
@@ -37,7 +41,7 @@ namespace Maze_Knight.Models
         //Get increase of the width and height
         public int GetActualExpanseIncrease()
         {
-            int actualExpanse = (int)(Math.Round(GRID_EXPANSE_RATE * PlayerInstances.CurrentPlayerInstance.Level));
+            int actualExpanse = (int)(Math.Round(GRID_EXPANSE_RATE * player.Level));
             return actualExpanse;
         }
     }

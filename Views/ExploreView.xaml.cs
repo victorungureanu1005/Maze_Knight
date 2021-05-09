@@ -33,7 +33,7 @@ namespace Maze_Knight.Views
             //Standard initialization
             InitializeComponent();
 
-            MapMeasures mapMeasures = new MapMeasures();
+            MapMeasures mapMeasures = new MapMeasures(PlayerInstances.CurrentPlayerInstance);
             //Map Grid actual creation called
             InitializeMapGrid((int)PlayerInstances.CurrentPlayerInstance.Level, mapMeasures);
 
