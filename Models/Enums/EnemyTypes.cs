@@ -8,6 +8,6 @@ namespace Maze_Knight.Models.Enums
 {
     public enum EnemyTypes
     {
-        Rogues, Archers, CorruptPaladins, CorruptMages, Goblins, Orcs, Trolls, Dragons
+        Rogues, ThievyArchers, CorruptPaladins, CorruptMages, Goblins, Orcs, Trolls, Dragons
     }
 }
