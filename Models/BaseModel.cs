@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Maze_Knight.Models
 {
+    //Base Model with INotifyPropertyChanged implementation to be used by all Models needing this - where binding is set
     public class BaseModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -14,8 +15,6 @@ namespace Maze_Knight.Models
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-           
         }
-
     }
 }

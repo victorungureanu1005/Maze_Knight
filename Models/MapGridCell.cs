@@ -1,108 +1,111 @@
-﻿using Maze_Knight.Models.Enums;
+﻿using Maze_Knight.Commands;
+using Maze_Knight.Models.Enums;
 using Maze_Knight.StaticClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Maze_Knight.Models
 {
     public class MapGridCell : BaseModel
     {
-
         #region Backing Fields
 
-        private string _cellTextDisplay;
+        private string _cellTextDisplay = "?";
         private int _cellColumnNumber;
         private int _cellRowNumber;
-        private bool _reveal;
-        private bool _wasExplored;
-        private bool _canMoveTo;
+        private bool _reveal = false;
+        private bool _wasExplored = false;
+        private bool _playerIsHere;
         private bool _exitIsHere;
         private bool _enemyIsHere;
         private EnemyTypes _enemyType;
-        
 
         #endregion
 
-
         #region Properties
+        //Text to display on the Grid Cells of the Explore View - Bounds are set in the View
         public string CellTextDisplay
         {
-            get { return _cellTextDisplay; }
-            set
+            get
             {
-                _cellTextDisplay = value;
-                OnPropertyChanged(nameof(CellTextDisplay));
+                if (PlayerIsHere) return "♟";
+                if (WasExplored) return "✔";
+                else return _cellTextDisplay;
             }
         }
+        //Cell Column Number
         public int CellColumnNumber
         {
             get { return _cellColumnNumber; }
             set { _cellColumnNumber = value; }
         }
-
+        //Cell Row Number
         public int CellRowNumber
         {
             get { return _cellRowNumber; }
             set { _cellRowNumber = value; }
         }
-
+        //Property set to false from the beginning - might be usefull if player uses a torch - if reveal set to true -> reeal enemy -> change CellTextDisplay
         public bool Reveal
         {
             get { return _reveal; }
             set { _reveal = value; }
         }
-              
-
+        //Indicator if Cell was already explored by player
         public bool WasExplored
         {
             get { return _wasExplored; }
-            set { _wasExplored = value; }
+            set
+            {
+                _wasExplored = value;
+                OnPropertyChanged(nameof(CellTextDisplay));
+            }
         }
-
-        //Gets Hero's current location - // needs to be optimized! Can't have this run over and over again on all cells - should be called!
-        public bool HeroIsHere
+        //Gets player's current location
+        public bool PlayerIsHere
         {
             get
             {
-                if (PlayerInstances.CurrentPlayerInstance.PlayerLocation[0] == CellColumnNumber && PlayerInstances.CurrentPlayerInstance.PlayerLocation[1] == CellRowNumber)
-                    return true;
-                else return false;
+                return _playerIsHere;
+            }
+            set
+            {
+                _playerIsHere = value;
+                OnPropertyChanged(nameof(CellTextDisplay));
             }
         }
-
+        //Specifies if Exit is on this cell
         public bool ExitIsHere
         {
             get { return _exitIsHere; }
             set { _exitIsHere = value; }
         }
-
-
+        //Specifies if enemy is on this cell
         public bool EnemyIsHere
         {
             get { return _enemyIsHere; }
             set { _enemyIsHere = value; }
         }
-
+        //Specifies type of enemy is on this cell
         public EnemyTypes EnemyType
         {
             get { return _enemyType; }
             set { _enemyType = value; }
         }
 
-
         #endregion
 
+        #region Commands bound in the ExploreView
+        public ICommand MapGridCellClickCommand { get; set; }
 
-        // HERE! - create cross and check
-        public bool CanMoveTo
+        public MapGridCell()
         {
-            get { return _canMoveTo; }
-            set { _canMoveTo = value; }
+            MapGridCellClickCommand = new MapGridCellClickCommand(this);
         }
-
-
+        #endregion
     }
 }

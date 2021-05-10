@@ -12,11 +12,8 @@ namespace Maze_Knight.ViewModels
 {
     public class AppWindowViewModel : BaseViewModel
     {
-
-
-        //sets the initial view model at the start of the app
+        //Sets the initial view model at the start of the app
         private static BaseViewModel initialAppViewModel = new MainMenuViewModel();
-
 
         #region SelectedViewModel
         //Fullprop SelectedViewModel Bound to the AppWindow xaml
@@ -35,10 +32,10 @@ namespace Maze_Knight.ViewModels
 
         public ICommand UpdateViewCommand { get; set; }
 
-       public AppWindowViewModel()
-       {
-           UpdateViewCommand = new UpdateViewCommand(this);
-       }
-      
+        public AppWindowViewModel()
+        {
+            UpdateViewCommand = new UpdateViewCommand(this);
+        }
+
     }
 }

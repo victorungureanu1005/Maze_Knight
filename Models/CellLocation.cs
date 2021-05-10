@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Maze_Knight.Models
 {
+    //Not Used Yet!!!
+    //!!!
+    //!!!
     public class CellLocation
     {
         private int _cellColumnNumber;

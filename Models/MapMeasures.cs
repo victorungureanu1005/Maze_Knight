@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Maze_Knight.Models
 {
+    //Class to be instantiated in case map measure methods are needed
     public class MapMeasures
     {
         private const int MIN_COLUMN = 4;

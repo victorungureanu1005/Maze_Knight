@@ -10,9 +10,25 @@ namespace Maze_Knight.Models
 {
     public class Player
     {
-        #region Generic Player Information
-        //Level of Player
+        #region Backing Fields
+        //Generic Player information
         private int _level;
+        private string _name;
+
+        //Player Stats
+        private double _health;
+        private double _archerySkillLevel;
+        private double _swordSkillLevel;
+        private double _halberdSkillLevel;
+
+        //Player Location
+        private int[] _playerLocation;
+        private MapGridCell _cellOfPlayerLocation;
+
+        #endregion
+
+        #region Generic Player Information Properties
+        //Level of Player
         public int Level
         {
             get { return _level; }
@@ -20,24 +36,22 @@ namespace Maze_Knight.Models
         }
 
         //Name of Player
-        private string _name;
         public string Name
         {
             get { return _name; }
             set { _name = value; }
         }
         #endregion
-        #region Player Stats
+
+        #region Player Stats Properties
 
         //Health of Player
-        private double _health;
         public double Health
         {
             get { return _health; }
         }
 
         //Archer Skill
-        private double _archerySkillLevel;
         public double ArcherySillLevel
         {
             get { return _archerySkillLevel; }
@@ -45,7 +59,6 @@ namespace Maze_Knight.Models
         }
 
         //Sword Skill
-        private double _swordSkillLevel;
         public double SwordSkillLevel
         {
             get { return _swordSkillLevel; }
@@ -53,29 +66,32 @@ namespace Maze_Knight.Models
         }
 
         //Halberd Skill
-        private double _halberdSkillLevel;
         public double HalberdSkillLevel
         {
             get { return _halberdSkillLevel; }
             set { _halberdSkillLevel = value; }
         }
+        #endregion
+
+        #region Player Location Propreties
 
         //Player Location on Map
-        private int[] _playerLocation;
-
         public int[] PlayerLocation
         {
             get { return _playerLocation; }
             set { _playerLocation = value; }
         }
 
+        public MapGridCell CellOfPlayerLocation
+        {
+            get { return _cellOfPlayerLocation; }
+            set { _cellOfPlayerLocation = value; }
+        }
+
         #endregion
 
+        #region Methods on Player Location
 
-        #region Methods on Player Stats
-
-        // De testat si poate bagat in ExploreviewModel?
-        //
         public HashSet<List<int>> GetMoveOptions()
         {
             var _comparer = new CoordinatesEqualityComparer();
@@ -119,15 +135,16 @@ namespace Maze_Knight.Models
                 }
             }
 
-            //!!!Daca mut asta in ExploreViewModel nu mai e nevoie sa instantiez MapMeasures!!!
+            //Instantiating MapMeasures class relative to level in order to use the methods
             MapMeasures _mapMeasures = new MapMeasures(this);
 
             //HashSet containing to be removed items;
             HashSet<List<int>> _toRemoveOptions = new HashSet<List<int>>();
+
             //Checking then from the existing options whether options go out of bounds, checking right and bottom bounds ([0] - column; [1] - row)
             foreach (var item in _moveOptions)
             {
-                
+
                 if (item[0] > _mapMeasures.GetMaxColumn()-1 || item[1] > _mapMeasures.GetMaxRow()-1)
                 {
                     _toRemoveOptions.Add(item);
@@ -142,8 +159,10 @@ namespace Maze_Knight.Models
             return _moveOptions;
         }
 
+        #endregion
 
-
+        #region Player Stats Methods
+        //Increase health of player
         public void IncreaseHealth(double _healthAmount)
         {
             if (_healthAmount <= 0)
@@ -153,6 +172,7 @@ namespace Maze_Knight.Models
             else _health = 100;
         }
 
+        //Decrease health of player
         public void DecreaseHealth(double _healthAmount)
         {
             if (_healthAmount >= 0)
@@ -164,6 +184,7 @@ namespace Maze_Knight.Models
             }
             else _health -= _healthAmount;
         }
+
         #endregion
 
         #region Game Changing Methods
@@ -174,7 +195,5 @@ namespace Maze_Knight.Models
         }
 
         #endregion
-
-
     }
 }

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Maze_Knight.Models.Comparers
 {
+    /// <summary>
+    /// EqualityComparer needed to check equality of Lists containing ints corresponding to column and row numbers (the list should always contains two ints). This was needed for the UnitTests on Player.GetMoveOptions();
+    /// </summary>
     public class CoordinatesEqualityComparer : IEqualityComparer<List<int>>
     {
-       
-
         public bool Equals(List<int> x, List<int> y)
         {
 

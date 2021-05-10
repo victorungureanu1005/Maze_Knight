@@ -8,6 +8,5 @@ namespace Maze_Knight.ViewModels
 {
     public class MainMenuViewModel : BaseViewModel
     {
-        
     }
 }

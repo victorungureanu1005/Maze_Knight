@@ -22,31 +22,76 @@ namespace Maze_Knight.Views
 {
     public partial class ExploreView : UserControl
     {
+        #region Private Fields
+        //Additional Collection needed for reference purposes
+        private ObservableCollection<TextBlock> _textBlockCollection = new ObservableCollection<TextBlock>();
+        #endregion
+
         #region ExploreViewConstructor
         public ExploreView()
         {
-
-            //Intrebare
-            // Ar trebui sa obtin deja masurile la initializare sau sa folosesc call de fiecare data? Stocare vs. Procesare?
-            //Intrebare
-
             //Standard initialization
             InitializeComponent();
 
+            //Instantiation of MapMeasures class to use map measure methods
             MapMeasures mapMeasures = new MapMeasures(PlayerInstances.CurrentPlayerInstance);
-            //Map Grid actual creation called
+            //Actual creating of the map grid is called
             InitializeMapGrid((int)PlayerInstances.CurrentPlayerInstance.Level, mapMeasures);
 
             //Setting the DataContext for this View - shall be set to the ExploreViewModel created by the static App class instantiated and stored in the Mediator static class
             //Also setting Binders between TextBoxes and relevant MapGridCell objects
             DataContext = Mediator.theApp.SelectedViewModel;
             SetBindersToCells((int)PlayerInstances.CurrentPlayerInstance.Level, mapMeasures);
-
         }
         #endregion
 
-        #region ExploreViewMethods
+        #region ExploreView Methods for Map Creation
 
+        /// <summary>
+        /// Create Columns and Rows in the specified Grid, set up Text Blocks and Borders on the Grid. Also fills in the private collection stored on this class exactly the same as the one in the ExploreViewModel is stored 
+        /// </summary>
+        /// <param name="_playerLevel">Player reference needed</param>
+        /// <param name="mapMeasures">MapMeasures instantiation needed (is instantiated in the constructor)</param>
+        public void InitializeMapGrid(int _playerLevel, MapMeasures mapMeasures)
+        {
+            //Add columns and rows to the grid
+            for (int i = 0; i < mapMeasures.GetMaxColumn(); i++)
+            {
+                MapGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
+            }
+            for (int i = 0; i < mapMeasures.GetMaxRow(); i++)
+            {
+                MapGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
+            }
+
+            //Add the actual Text Blocks and Borders
+            for (int i = 0; i < mapMeasures.GetMaxColumn(); i++)
+            {
+                for (int j = 0; j < mapMeasures.GetMaxRow(); j++)
+                {
+                    TextBlock textBlock = new TextBlock() { FontSize = 20 };
+                    Grid.SetColumn(textBlock, i);
+                    Grid.SetRow(textBlock, j);
+
+                    textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                    textBlock.VerticalAlignment = VerticalAlignment.Center;
+
+
+                    MapGrid.Children.Add(textBlock);
+                    _textBlockCollection.Add(textBlock);
+
+                    var myBorder = new Border { BorderBrush = new SolidColorBrush(Color.FromRgb(10, 20, 40)), BorderThickness = new Thickness { Bottom = 0.1, Top = 0.1, Left = 0.1, Right = 0.1 } };
+                    MapGrid.Children.Add(myBorder);
+                    myBorder.SetValue(Grid.ColumnProperty, i);
+                    myBorder.SetValue(Grid.RowProperty, j);
+                }
+            }
+        }
+        /// <summary>
+        /// Setting up bindings between the TextBlocks created and the Text to be displayed found in the collection stored and modified in the ExploreViewModel. Also sets up the MouseDown event for each TextBlock created.
+        /// </summary>
+        /// <param name="_playerLevel">Player reference needed</param>
+        /// <param name="mapMeasures">MapMeasures instantiation needed (is instantiated in the constructor)</param>
         private void SetBindersToCells(int currentPlayerLevel, MapMeasures mapMeasures)
         {
             //Get reference to property name
@@ -71,57 +116,34 @@ namespace Maze_Knight.Views
 
                     //Set the binding and increase the indexer
                     child.SetBinding(TextBlock.TextProperty, binding);
+
+                    //Set the MouseDown event on the TextBlock to also call the Event Handler (GridCellClick Method)
+                    child.MouseDown += new System.Windows.Input.MouseButtonEventHandler(GridCellClick);
                     i++;
                 }
             }
         }
-
-        public void InitializeMapGrid(int _playerLevel, MapMeasures mapMeasures)
-        {
-            //Add columns and rows to the grid
-            for (int i = 0; i < mapMeasures.GetMaxColumn(); i++)
-            {
-                MapGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
-            }
-            for (int i = 0; i < mapMeasures.GetMaxRow(); i++)
-            {
-                MapGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
-            }
-
-            //Add the actual Text Blocks and Borders
-            for (int i = 0; i < mapMeasures.GetMaxColumn(); i++)
-            {
-                for (int j = 0; j < mapMeasures.GetMaxRow(); j++)
-                {
-                    TextBlock textBlock = new TextBlock();
-                    Grid.SetColumn(textBlock, i);
-                    Grid.SetRow(textBlock, j);
-
-                    textBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                    textBlock.VerticalAlignment = VerticalAlignment.Center;
-
-                    MapGrid.Children.Add(textBlock);
-
-                    var myBorder = new Border { BorderBrush = new SolidColorBrush(Color.FromRgb(10, 20, 40)), BorderThickness = new Thickness { Bottom = 0.5, Top = 0.5, Left = 0.5, Right = 0.5 } };
-                    MapGrid.Children.Add(myBorder);
-                    myBorder.SetValue(Grid.ColumnProperty, i);
-                    myBorder.SetValue(Grid.RowProperty, j);
-                }
-            }
-        }
-
         #endregion
 
         #region MapGrid Functions
-
+        /// <summary>
+        /// Executes command stored on MapGridCell
+        /// </summary>
+        private void GridCellClick(object sender, System.EventArgs e)
+        {
+            int index = _textBlockCollection.IndexOf((TextBlock)sender);
+            ((ExploreViewModel)Mediator.theApp.SelectedViewModel).MapGridCellCollection[index].MapGridCellClickCommand.Execute(sender);
+        }
         #endregion
 
         #region Action Buttons
+        /// <summary>
+        /// Go back to Town!
+        /// </summary>
         private void Flight(object sender, RoutedEventArgs e)
         {
             Mediator.theApp.SelectedViewModel = new MainMenuViewModel();
         }
-
         #endregion
     }
 }
