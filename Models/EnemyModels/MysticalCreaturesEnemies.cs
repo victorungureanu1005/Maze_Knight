@@ -9,12 +9,24 @@ namespace Maze_Knight.Models.EnemyModels
 {
     public class MysticalCreaturesEnemies : Enemy
     {
+        //Need to work on this
+        MysticalCreaturesEnemies(int enemyCountValue) : base(enemyCountValue)
+        {
+            HalberdResistance = ((int)EnemyResistancesHalberd.MysticalCreatues)/100;
+        }
+
+        protected void InitMysticalCreaturesEnemy()
+        {
+            HalberdResistance = ((int)EnemyResistancesHalberd.MysticalCreatues)/100;
+        }
         public class Goblins : MysticalCreaturesEnemies
         {
             #region Constructor
-            public Goblins()
+            public Goblins(int enemyCountValue) : base(enemyCountValue)
             {
                 EnemyType = EnemyTypes.Goblins;
+                EnemyHealth = (int)EnemyTypesHealth.Goblins * EnemyCount;
+                InitMysticalCreaturesEnemy();
             }
             #endregion
         }
@@ -22,9 +34,11 @@ namespace Maze_Knight.Models.EnemyModels
         public class Orcs : MysticalCreaturesEnemies
         {
             #region Constructor
-            public Orcs()
+            public Orcs(int enemyCountValue) : base(enemyCountValue)
             {
                 EnemyType = EnemyTypes.Orcs;
+                EnemyHealth = (int)EnemyTypesHealth.Orcs * EnemyCount;
+                InitMysticalCreaturesEnemy();
             }
             #endregion
         }
@@ -32,9 +46,11 @@ namespace Maze_Knight.Models.EnemyModels
         public class Trolls : MysticalCreaturesEnemies
         {
             #region Constructor
-            public Trolls()
+            public Trolls(int enemyCountValue) : base(enemyCountValue)
             {
                 EnemyType = EnemyTypes.Trolls;
+                EnemyHealth = (int)EnemyTypesHealth.Trolls * EnemyCount;
+                InitMysticalCreaturesEnemy();
             }
             #endregion
         }
@@ -42,9 +58,11 @@ namespace Maze_Knight.Models.EnemyModels
         public class Dragons : MysticalCreaturesEnemies
         {
             #region Constructor
-            public Dragons()
+            public Dragons(int enemyCountValue) : base(enemyCountValue)
             {
                 EnemyType = EnemyTypes.Dragons;
+                EnemyHealth = (int)EnemyTypesHealth.Dragons * EnemyCount;
+                
             }
             #endregion
         }

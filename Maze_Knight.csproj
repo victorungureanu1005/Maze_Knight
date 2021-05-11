@@ -66,6 +66,8 @@
     <Compile Include="Models\EnemyModels\HumanoidEnemies.cs" />
     <Compile Include="Models\EnemyModels\MysticalCreaturesEnemies.cs" />
     <Compile Include="Models\Enemy.cs" />
+    <Compile Include="Models\Enums\EnemyResistances.cs" />
+    <Compile Include="Models\Enums\EnemyTypesHealth.cs" />
     <Compile Include="Models\Enums\EnemyTypes.cs" />
     <Compile Include="Models\MapMeasures.cs" />
     <Compile Include="Models\MapGridCell.cs" />

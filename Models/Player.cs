@@ -17,8 +17,8 @@ namespace Maze_Knight.Models
 
         //Player Stats
         private double _health;
-        private double _archerySkillLevel;
         private double _swordSkillLevel;
+        private double _archerySkillLevel;
         private double _halberdSkillLevel;
 
         //Player Location
@@ -51,18 +51,20 @@ namespace Maze_Knight.Models
             get { return _health; }
         }
 
-        //Archer Skill
-        public double ArcherySillLevel
-        {
-            get { return _archerySkillLevel; }
-            set { _archerySkillLevel = value; }
-        }
+
 
         //Sword Skill
         public double SwordSkillLevel
         {
             get { return _swordSkillLevel; }
             set { _swordSkillLevel = value; }
+        }
+
+        //Archer Skill
+        public double ArcherySillLevel
+        {
+            get { return _archerySkillLevel; }
+            set { _archerySkillLevel = value; }
         }
 
         //Halberd Skill
