@@ -17,10 +17,13 @@ namespace Maze_Knight.Models
         private int _enemyHealth;
 
         //Resistance Properties
-        private float _swordResistance;
-        private float _arrowResistance;
-        private float _halberdResistance;
-        private float _runeResistance;
+        private double _swordResistance;
+        private double _arrowResistance;
+        private double _halberdResistance;
+        private double _runeResistance;
+
+        //Fight Relevance Properties
+        private bool _attackFirst = false;
 
         #endregion
 
@@ -50,26 +53,37 @@ namespace Maze_Knight.Models
 
         #region Resistance Properties
 
-        public float SwordResistance
+        public double SwordResistance
         {
             get { return _swordResistance; }
             set { _swordResistance = value; }
         }
-        public float ArrowResistance
+        public double ArrowResistance
         {
             get { return _arrowResistance; }
             set { _arrowResistance = value; }
         }
-        public float HalberdResistance
+        public double HalberdResistance
         {
             get { return _halberdResistance; }
             set { _halberdResistance = value; }
         }
-        public float RuneResistance
+        public double RuneResistance
         {
             get { return _runeResistance; }
             set { _runeResistance = value; }
         }
+        #endregion
+
+        #region Fight Relevance Properties
+
+        //to be worked on
+        public bool AttackFirst
+        {
+            get { return _attackFirst; }
+            set { _attackFirst = value; }
+        }
+
         #endregion
 
         #region Base Class Constructor

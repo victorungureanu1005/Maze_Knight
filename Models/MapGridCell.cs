@@ -22,7 +22,7 @@ namespace Maze_Knight.Models
         private bool _playerIsHere;
         private bool _exitIsHere;
         private bool _enemyIsHere;
-        private EnemyTypes _enemyType;
+        private Enemy _enemy;
 
         #endregion
 
@@ -33,8 +33,24 @@ namespace Maze_Knight.Models
             get
             {
                 if (PlayerIsHere) return "♟";
-                if (WasExplored) return "✔";
-                else return _cellTextDisplay;
+                if (EnemyIsHere==true)
+                {
+                    switch (Enemy.EnemyType)
+                    {
+                        case EnemyTypes.Rogues: return "🔪";
+                        case EnemyTypes.ThievyArchers: return "🏹";
+                        case EnemyTypes.CorruptPaladins: return "🧛‍♂️";
+                        case EnemyTypes.CorruptMages: return "🦹‍♂️";
+
+                        case EnemyTypes.Goblins: return "🤢";
+                        case EnemyTypes.Orcs: return "🧟‍♂️";
+                        case EnemyTypes.Trolls: return "😈";
+                        case EnemyTypes.Dragons: return "🐉";
+                    }
+                }
+                if (ExitIsHere) return "🕳";
+                //if (WasExplored) return "✔";
+                return _cellTextDisplay;
             }
         }
         //Cell Column Number
@@ -88,13 +104,15 @@ namespace Maze_Knight.Models
         public bool EnemyIsHere
         {
             get { return _enemyIsHere; }
-            set { _enemyIsHere = value; }
+            set { _enemyIsHere = value;
+                OnPropertyChanged(nameof(CellTextDisplay));
+            }
         }
         //Specifies type of enemy is on this cell
-        public EnemyTypes EnemyType
+        public Enemy Enemy
         {
-            get { return _enemyType; }
-            set { _enemyType = value; }
+            get { return _enemy; }
+            set { _enemy = value; }
         }
 
         #endregion

@@ -12,12 +12,14 @@ namespace Maze_Knight.Models.Enums
     /// </summary>
     enum EnemyResistancesSword
     {
-
+        HumanoidEnemies = 60,
+        MysticalCreatues = 125
     }
 
     enum EnemyResistancesArrow
     {
-
+        HumanoidEnemies = 90,
+        MysticalCreatues = 100
     }
 
     enum EnemyResistancesHalberd
@@ -28,6 +30,7 @@ namespace Maze_Knight.Models.Enums
 
     enum EnemyResistancesRune
     {
-
+        HumanoidEnemies = 90,
+        MysticalCreatues = 80
     }
 }

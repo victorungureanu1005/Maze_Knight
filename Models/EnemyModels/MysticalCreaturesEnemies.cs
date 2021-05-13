@@ -9,16 +9,16 @@ namespace Maze_Knight.Models.EnemyModels
 {
     public class MysticalCreaturesEnemies : Enemy
     {
-        //Need to work on this
-        MysticalCreaturesEnemies(int enemyCountValue) : base(enemyCountValue)
+        private const double PERCENTAGE_CREATOR = 100D;
+
+        public MysticalCreaturesEnemies(int enemyCountValue) : base(enemyCountValue)
         {
-            HalberdResistance = ((int)EnemyResistancesHalberd.MysticalCreatues)/100;
+            SwordResistance = ((double)EnemyResistancesSword.MysticalCreatues)/PERCENTAGE_CREATOR;
+            ArrowResistance = ((double)EnemyResistancesArrow.MysticalCreatues)/PERCENTAGE_CREATOR;
+            HalberdResistance = ((double)EnemyResistancesHalberd.MysticalCreatues)/PERCENTAGE_CREATOR;
+            RuneResistance = ((double)EnemyResistancesRune.MysticalCreatues)/PERCENTAGE_CREATOR;
         }
 
-        protected void InitMysticalCreaturesEnemy()
-        {
-            HalberdResistance = ((int)EnemyResistancesHalberd.MysticalCreatues)/100;
-        }
         public class Goblins : MysticalCreaturesEnemies
         {
             #region Constructor
@@ -26,7 +26,7 @@ namespace Maze_Knight.Models.EnemyModels
             {
                 EnemyType = EnemyTypes.Goblins;
                 EnemyHealth = (int)EnemyTypesHealth.Goblins * EnemyCount;
-                InitMysticalCreaturesEnemy();
+
             }
             #endregion
         }
@@ -38,7 +38,7 @@ namespace Maze_Knight.Models.EnemyModels
             {
                 EnemyType = EnemyTypes.Orcs;
                 EnemyHealth = (int)EnemyTypesHealth.Orcs * EnemyCount;
-                InitMysticalCreaturesEnemy();
+
             }
             #endregion
         }
@@ -50,7 +50,7 @@ namespace Maze_Knight.Models.EnemyModels
             {
                 EnemyType = EnemyTypes.Trolls;
                 EnemyHealth = (int)EnemyTypesHealth.Trolls * EnemyCount;
-                InitMysticalCreaturesEnemy();
+
             }
             #endregion
         }
@@ -62,6 +62,7 @@ namespace Maze_Knight.Models.EnemyModels
             {
                 EnemyType = EnemyTypes.Dragons;
                 EnemyHealth = (int)EnemyTypesHealth.Dragons * EnemyCount;
+                
                 
             }
             #endregion

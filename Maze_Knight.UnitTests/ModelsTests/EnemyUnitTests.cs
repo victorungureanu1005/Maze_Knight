@@ -14,7 +14,7 @@ namespace Maze_Knight.UnitTests.ModelsTests
         {
             Rogues testRogue = new Rogues(3);
             MysticalCreaturesEnemies testDragon = new Dragons(2);
-
+            MysticalCreaturesEnemies testTroll = new Trolls(5);
             var result = new Rogues(0) { EnemyCount = 3, EnemyHealth = 225, EnemyType = Models.Enums.EnemyTypes.Rogues };
 
             Assert.AreEqual(testDragon.HalberdResistance, 0.75F);
