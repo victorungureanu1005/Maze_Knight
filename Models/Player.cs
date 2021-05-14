@@ -12,14 +12,18 @@ namespace Maze_Knight.Models
     {
         #region Backing Fields
         //Generic Player information
-        private int _level;
         private string _name;
+        private int _level;
+        private int _goldDust;
+        private int _currentExperience;
+        private int _statPoints;
+
 
         //Player Stats
-        private double _health;
-        private double _swordSkillLevel;
-        private double _archerySkillLevel;
-        private double _halberdSkillLevel;
+        private double _health = 100;
+        private double _swordSkillLevel = 1 ;
+        private double _archerySkillLevel = 2;
+        private double _halberdSkillLevel = 3;
 
         //Player Location
         private int[] _playerLocation;
@@ -28,12 +32,6 @@ namespace Maze_Knight.Models
         #endregion
 
         #region Generic Player Information Properties
-        //Level of Player
-        public int Level
-        {
-            get { return _level; }
-            set { _level = value; }
-        }
 
         //Name of Player
         public string Name
@@ -41,6 +39,36 @@ namespace Maze_Knight.Models
             get { return _name; }
             set { _name = value; }
         }
+
+        //Level of Player
+        public int Level
+        {
+            get { return _level; }
+            set { _level = value; }
+        }
+
+        //Gold Dust of Player
+        public int GoldDust
+        {
+            get { return _goldDust; }
+            set { _goldDust = value; }
+        }
+
+        //Current Experience of Player
+        public int CurrentExperience
+        {
+            get { return _currentExperience; }
+            set { _currentExperience = value; }
+        }
+
+        //Statpoints of Player
+        public int StatPoints
+        {
+            get { return _statPoints; }
+            set { _statPoints = value; }
+        }
+
+
         #endregion
 
         #region Player Stats Properties
@@ -49,9 +77,8 @@ namespace Maze_Knight.Models
         public double Health
         {
             get { return _health; }
+            set { _health = value; }
         }
-
-
 
         //Sword Skill
         public double SwordSkillLevel
@@ -164,38 +191,77 @@ namespace Maze_Knight.Models
         #endregion
 
         #region Player Stats Methods
-        //Increase health of player
-        public void IncreaseHealth(double _healthAmount)
+        //Receive experience method, experience should always be positive or exception is thrown
+        public void ReceiveExperience(int experience)
         {
-            if (_healthAmount <= 0)
+            if (experience>=0)
+            {
+                if (experience + CurrentExperience >= ExperienceForNextLevel())
+                {
+                    CurrentExperience = (CurrentExperience + experience)-ExperienceForNextLevel();
+                    LevelUp();
+                }
+                else CurrentExperience += experience;
+            }
+            else throw new Exception("Experience received cannot be negative");
+        }
+
+        //Increase health of player
+        public void IncreaseHealth(double healthAmount)
+        {
+            if (healthAmount <= 0)
                 return;
-            if (_healthAmount + _health <= 100)
-                _health += _healthAmount;
+            if (healthAmount + _health <= 100)
+                _health += healthAmount;
             else _health = 100;
         }
 
         //Decrease health of player
-        public void DecreaseHealth(double _healthAmount)
+        public void DecreaseHealth(double healthAmount)
         {
-            if (_healthAmount >= 0)
+            if (healthAmount >= 0)
                 return;
-            if (_health - _healthAmount <= 0)
+            if (_health - healthAmount <= 0)
             {
                 _health = 0;
                 Die();
             }
-            else _health -= _healthAmount;
+            else _health -= healthAmount;
         }
+
+
+        #endregion
+
+        #region Helper Functions
+
+        //Level up method
+        private void LevelUp()
+        {
+            Level++;
+            StatPoints += 3;
+        }
+
+        //Provides int for experience needed for next level;
+        private int ExperienceForNextLevel()
+        {
+            const float INCREASE_FACTOR = 25f;
+            const int INCREASE_MARGIN = 5;
+            return (int)Math.Round((Level*INCREASE_FACTOR) + INCREASE_MARGIN);
+        }
+
 
         #endregion
 
         #region Game Changing Methods
+
         //Player dies, receives a message and has to go back to the Main Menu
-        private void Die()
+        public void Die()
         {
-            throw new NotImplementedException();
+            throw new Exception("YOU DIED!");
         }
 
         #endregion
+
     }
 }
+

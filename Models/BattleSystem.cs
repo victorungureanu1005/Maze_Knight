@@ -8,17 +8,44 @@ namespace Maze_Knight.Models
 {
     public class BattleSystem
     {
-        private Player _currentPlayer;
-        private Enemy _enemyEngaged;
+        #region ClassFields
+        private Player currentPlayer;
+        private Enemy enemyEngaged;
+        #endregion
+
+        #region Constructor
+        //Constructor taking in player instance and enemy instance
         public BattleSystem(Player currentPlayer, Enemy enemyEngaged)
         {
-            _currentPlayer = currentPlayer;
-            _enemyEngaged = enemyEngaged;
+            this.currentPlayer = currentPlayer;
+            this.enemyEngaged = enemyEngaged;
+        }
+        #endregion
+
+        #region Main Methods
+        //Calculate Battle
+        public void Battle()
+        {
+
         }
 
+        //Battle actions if won
+        public void BattleResultIfWon()
+        {
 
+        }
 
+        //Battle actions if lost
+        public void BattleResultIfLost()
+        {
 
+        }
+
+        #endregion
+
+        #region Helper Functions
+
+        #endregion
 
 
 

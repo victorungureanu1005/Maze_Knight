@@ -87,12 +87,9 @@ namespace Maze_Knight.ViewModels
                     index = RandomGenerator.random.Next(1, mapGridCellCollection.Count);
                 }
 
-                //!!!
-                //BELLOW TO BE CHANGED POSSIBLY - needs testing
-                //!!!
-                //Enemy Instantiation and provide number of enemies to be relative to playerlevel
+                //Enemy Instantiation and provide number of enemies to be relative to playerlevel 
                 string enemyToInstantiateString = SetEnemyType(playerLevel);
-                //Find enemytype/ class to be instantiated considering helper method below and instantiate on given index
+                //Find enemytype/ class to be instantiated considering helper function below and instantiate on given index
                 Type enemyToInstantiateType = Type.GetType(enemyToInstantiateString);
                 mapGridCellCollection[index].Enemy = (Enemy)Activator.CreateInstance(enemyToInstantiateType, playerLevel);
                 mapGridCellCollection[index].EnemyIsHere = true;
@@ -101,7 +98,7 @@ namespace Maze_Knight.ViewModels
 
         }
 
-        #region Helper Methods
+        #region Helper Functions
         /// <summary>
         /// Setting Exit on a specific index of the Observablecollection related to MapGridCells
         /// </summary>
