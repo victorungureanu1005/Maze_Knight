@@ -15,6 +15,8 @@ namespace Maze_Knight.Models
         private EnemyTypes _enemyType;
         private int _enemyCount;
         private int _enemyHealth;
+        private int _goldDustDrop;
+        private int _enemyExperienceGiven;
 
         //Resistance Properties
         private double _swordResistance;
@@ -47,6 +49,18 @@ namespace Maze_Knight.Models
         {
             get { return _enemyHealth; }
             set { _enemyHealth = value; }
+        }
+
+        //Drop Amount
+        public int GoldDustDrop
+        {
+            get { return _goldDustDrop; }
+            set { _goldDustDrop = value; }
+        }
+        public int EnemyExperienceGiven
+        {
+            get { return _enemyExperienceGiven; }
+            set { _enemyExperienceGiven = value; }
         }
 
         #endregion
@@ -90,6 +104,30 @@ namespace Maze_Knight.Models
         public Enemy(int enemyCountValue)
         {
             EnemyCount = enemyCountValue;
+
+            //EnemyType
+            //Get the name of the instantiated class and relate it to its enum for the enemy type - set the property accordingly
+            EnemyTypes enemyTypesEnum;
+            Enum.TryParse(this.GetType().Name, out enemyTypesEnum);
+            EnemyType = enemyTypesEnum;
+
+            //GoldDustDrop
+            //Get the name of the instantiated class and relate it to its enum for gold dust drop - set the property accordingly
+            EnemyGoldDustDrop goldDustDropEnum;
+            Enum.TryParse(this.GetType().Name, out goldDustDropEnum);
+            GoldDustDrop = (int)goldDustDropEnum * EnemyCount;
+
+            //EnemyExperienceGiven
+            //Get the name of the instantiated class and relate it to its enum for experience given - set the property accordingly
+            EnemyExperienceGiven experienceGivenEnum;
+            Enum.TryParse(this.GetType().Name, out experienceGivenEnum);
+            EnemyExperienceGiven = (int)experienceGivenEnum * EnemyCount;
+
+            //EnemyHealth
+            //Get the name of the instantiated class and relate it to its enum for health - set the property accordingly
+            EnemyTypesHealth enemyTypesHealthEnum;
+            Enum.TryParse(this.GetType().Name, out enemyTypesHealthEnum);
+            EnemyHealth = (int)enemyTypesHealthEnum * EnemyCount;
         }
 
         #endregion

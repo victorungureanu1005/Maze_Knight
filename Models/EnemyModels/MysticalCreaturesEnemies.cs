@@ -11,6 +11,7 @@ namespace Maze_Knight.Models.EnemyModels
     {
         private const double PERCENTAGE_CREATOR = 100D;
 
+        //Constructor to provide Halberd Resistance - this is grouped as per Enemy Type mystical or humanoid
         public MysticalCreaturesEnemies(int enemyCountValue) : base(enemyCountValue)
         {
             SwordResistance = ((double)EnemyResistancesSword.MysticalCreatues)/PERCENTAGE_CREATOR;
@@ -24,9 +25,6 @@ namespace Maze_Knight.Models.EnemyModels
             #region Constructor
             public Goblins(int enemyCountValue) : base(enemyCountValue)
             {
-                EnemyType = EnemyTypes.Goblins;
-                EnemyHealth = (int)EnemyTypesHealth.Goblins * EnemyCount;
-
             }
             #endregion
         }
@@ -36,9 +34,6 @@ namespace Maze_Knight.Models.EnemyModels
             #region Constructor
             public Orcs(int enemyCountValue) : base(enemyCountValue)
             {
-                EnemyType = EnemyTypes.Orcs;
-                EnemyHealth = (int)EnemyTypesHealth.Orcs * EnemyCount;
-
             }
             #endregion
         }
@@ -48,9 +43,6 @@ namespace Maze_Knight.Models.EnemyModels
             #region Constructor
             public Trolls(int enemyCountValue) : base(enemyCountValue)
             {
-                EnemyType = EnemyTypes.Trolls;
-                EnemyHealth = (int)EnemyTypesHealth.Trolls * EnemyCount;
-
             }
             #endregion
         }
@@ -60,10 +52,6 @@ namespace Maze_Knight.Models.EnemyModels
             #region Constructor
             public Dragons(int enemyCountValue) : base(enemyCountValue)
             {
-                EnemyType = EnemyTypes.Dragons;
-                EnemyHealth = (int)EnemyTypesHealth.Dragons * EnemyCount;
-                
-                
             }
             #endregion
         }

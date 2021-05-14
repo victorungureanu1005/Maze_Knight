@@ -43,7 +43,7 @@ namespace Maze_Knight.Models
                         case EnemyTypes.CorruptMages: return "🦹‍♂️";
 
                         case EnemyTypes.Goblins: return "🤢";
-                        case EnemyTypes.Orcs: return "🧟‍♂️";
+                        case EnemyTypes.Orcs: return "👽";
                         case EnemyTypes.Trolls: return "😈";
                         case EnemyTypes.Dragons: return "🐉";
                     }

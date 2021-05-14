@@ -11,6 +11,7 @@ namespace Maze_Knight.Models.EnemyModels
     {
         private const double PERCENTAGE_CREATOR = 100D;
 
+        //Constructor to provide Halberd Resistance - this is grouped as per Enemy Type mystical or humanoid
         public HumanoidEnemies(int enemyCountValue) : base(enemyCountValue)
         {
             SwordResistance = (double)EnemyResistancesSword.HumanoidEnemies/PERCENTAGE_CREATOR;
@@ -25,8 +26,6 @@ namespace Maze_Knight.Models.EnemyModels
         #region Constructor
         public Rogues(int enemyCountValue) : base(enemyCountValue)
         {
-            EnemyType = EnemyTypes.Rogues;
-            EnemyHealth = (int)EnemyTypesHealth.Rogues * EnemyCount;
         }
         #endregion
     }
@@ -36,8 +35,6 @@ namespace Maze_Knight.Models.EnemyModels
         #region Constructor
         public ThievyArchers(int enemyCountValue) : base(enemyCountValue)
         {
-            EnemyType = EnemyTypes.ThievyArchers;
-            EnemyHealth = (int)EnemyTypesHealth.ThievyArchers * EnemyCount;
         }
         #endregion
     }
@@ -47,8 +44,6 @@ namespace Maze_Knight.Models.EnemyModels
         #region Constructor
         public CorruptPaladins(int enemyCountValue) : base(enemyCountValue)
         {
-            EnemyType = EnemyTypes.CorruptPaladins;
-            EnemyHealth = (int)EnemyTypesHealth.CorruptPaladins * EnemyCount;
         }
         #endregion
     }
@@ -58,8 +53,6 @@ namespace Maze_Knight.Models.EnemyModels
         #region Constructor
         public CorruptMages(int enemyCountValue) : base(enemyCountValue)
         {
-            EnemyType = EnemyTypes.CorruptMages;
-            EnemyHealth = (int)EnemyTypesHealth.CorruptMages * EnemyCount;
         }
         #endregion
     }

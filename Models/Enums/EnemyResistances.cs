@@ -10,25 +10,25 @@ namespace Maze_Knight.Models.Enums
     /// This has been used like this to avoid manual adjustment of values in the Enemy classes. Values need to be unique though, 
     /// or specific values to be manually specified in the constructors of the Enemy classes. 
     /// </summary>
-    enum EnemyResistancesSword
+    public enum EnemyResistancesSword
     {
         HumanoidEnemies = 60,
         MysticalCreatues = 125
     }
 
-    enum EnemyResistancesArrow
+    public enum EnemyResistancesArrow
     {
         HumanoidEnemies = 90,
         MysticalCreatues = 100
     }
 
-    enum EnemyResistancesHalberd
+    public enum EnemyResistancesHalberd
     {
         HumanoidEnemies = 100,
         MysticalCreatues = 75
     }
 
-    enum EnemyResistancesRune
+    public enum EnemyResistancesRune
     {
         HumanoidEnemies = 90,
         MysticalCreatues = 80
