@@ -51,6 +51,13 @@ namespace Maze_Knight.Commands
                 _clickedMapGridCell.PlayerIsHere = true;
                 PlayerInstances.CurrentPlayerInstance.CellOfPlayerLocation = _clickedMapGridCell;
                 PlayerInstances.CurrentPlayerInstance.PlayerLocation = new int[] { _clickedMapGridCell.CellColumnNumber, _clickedMapGridCell.CellRowNumber };
+
+                if (_clickedMapGridCell.EnemyIsHere)
+                {
+                    BattleSystem battle = new BattleSystem(PlayerInstances.CurrentPlayerInstance, _clickedMapGridCell.Enemy);
+                    battle.Battle();
+                    //Must change mapgridcell collection data. 
+                }
             }
         }
 

@@ -113,14 +113,14 @@ namespace Maze_Knight.ViewModels
         /// <summary>
         /// Obtain string needed for Activator.CreateInstance for random enemy creation invoked in the SetEnemy in Map method above
         /// </summary>
-        /// <param name="playerLevel">playerlevel as it is relevant to establish enemy types - need to increase difficulty gradually</param>
+        /// <param name="playerLevel">playerlevel as it is relevant to establish enemy subtypes - need to increase difficulty gradually</param>
         /// <returns>a string related to enemy class depending on type</returns>
         private string SetEnemyType(int playerLevel)
         {
             //random generated random number
             double random = RandomGenerator.random.NextDouble();
 
-            //If player level <=5 enemy types can only be Rogues and ThievyArchers
+            //If player level <=5 enemy subtypes can only be Rogues and ThievyArchers
             if (random<0.3D)
             {
                 return typeof(Rogues).AssemblyQualifiedName;
@@ -134,7 +134,7 @@ namespace Maze_Knight.ViewModels
                 return typeof(Rogues).AssemblyQualifiedName;
             }
 
-            //If player level <=10 enemy types can only be Rogues, ThievyArchers, Goblins and Orcs
+            //If player level <=10 enemy subtypes can only be Rogues, ThievyArchers, Goblins and Orcs
             if (random<0.6D)
             {
                 return typeof(Goblins).AssemblyQualifiedName;
@@ -149,7 +149,7 @@ namespace Maze_Knight.ViewModels
                 if (random>=0.94) return typeof(Rogues).AssemblyQualifiedName;
             }
 
-            //If player level <=15 enemy types can only be Rogues, ThievyArchers, Goblins, Orcs, CorruptPaladins and Trolls
+            //If player level <=15 enemy subtypes can only be Rogues, ThievyArchers, Goblins, Orcs, CorruptPaladins and Trolls
             if (random<0.83D)
             {
                 return typeof(CorruptPaladins).AssemblyQualifiedName;
@@ -165,7 +165,7 @@ namespace Maze_Knight.ViewModels
                 if (random>=0.94) return typeof(Trolls).AssemblyQualifiedName;
             }
 
-            //If player level above 15, all enemy types can be selected
+            //If player level above 15, all enemy subtypes can be selected
             if (random<0.97D)
             {
                 return typeof(CorruptMages).AssemblyQualifiedName;

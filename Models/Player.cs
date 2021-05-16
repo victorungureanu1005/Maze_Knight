@@ -1,4 +1,5 @@
 ﻿using Maze_Knight.Models.Comparers;
+using Maze_Knight.Models.Enums;
 using Maze_Knight.StaticClasses;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,18 @@ namespace Maze_Knight.Models
 
 
         //Player Stats
-        private double _health = 100;
-        private double _swordSkillLevel = 1 ;
+        private int _health = 100;
+        private bool _isAlive = true;
+        private int _minDamage = 25;
+        private int _maxDamage = 40;
+        private PlayerSelectedWeapon _playerSelectedWeapon = PlayerSelectedWeapon.Sword;
+        private bool _runeActive = false;
+        private int _runeNumberOfTurnsActive;
+        private double _swordSkillLevel = 1;
         private double _archerySkillLevel = 2;
         private double _halberdSkillLevel = 3;
+        private int _humanoidResistance = 1;
+        private int _mysticalResistance = 1;
 
         //Player Location
         private int[] _playerLocation;
@@ -74,10 +83,52 @@ namespace Maze_Knight.Models
         #region Player Stats Properties
 
         //Health of Player
-        public double Health
+        public int Health
         {
             get { return _health; }
             set { _health = value; }
+        }
+
+        //Is Alive boolean
+        public bool IsAlive
+        {
+            get { return _isAlive; }
+            set { _isAlive = value; }
+        }
+
+        //Min Damage dealth with all weapons
+        public int MinDamage
+        {
+            get { return _minDamage; }
+            set { _minDamage = value; }
+        }
+
+        //Max Damage dealth with all weapons
+        public int MaxDamage
+        {
+            get { return _maxDamage; }
+            set { _maxDamage = value; }
+        }
+
+        //Player Selected Weapon
+        public PlayerSelectedWeapon PlayerSelectedWeapon
+        {
+            get { return _playerSelectedWeapon; }
+            set { _playerSelectedWeapon = value; }
+        }
+
+        //Is player rune active or not
+        public bool RuneActive
+        {
+            get { return _runeActive; }
+            set { _runeActive = value; }
+        }
+
+        //Number of turns left for rune activity
+        public int RuneNumberOfTurnsActive
+        {
+            get { return _runeNumberOfTurnsActive; }
+            set { _runeNumberOfTurnsActive = value; }
         }
 
         //Sword Skill
@@ -100,6 +151,22 @@ namespace Maze_Knight.Models
             get { return _halberdSkillLevel; }
             set { _halberdSkillLevel = value; }
         }
+
+        //Resistance to eumanoid enemies
+        public int HumanoidResistance
+        {
+            get { return _humanoidResistance; }
+            set { _humanoidResistance = value; }
+        } 
+        
+        //Resistance to mystical enemies
+        public int MysticalResistance
+        {
+            get { return _mysticalResistance; }
+            set { _mysticalResistance = value; }
+        }
+
+
         #endregion
 
         #region Player Location Propreties
@@ -206,32 +273,49 @@ namespace Maze_Knight.Models
             else throw new Exception("Experience received cannot be negative");
         }
 
-        //Increase health of player
-        public void IncreaseHealth(double healthAmount)
+        //Increase health
+        public void IncreaseHealth(int healthAmount)
         {
             if (healthAmount <= 0)
                 return;
-            if (healthAmount + _health <= 100)
-                _health += healthAmount;
-            else _health = 100;
+            if (healthAmount + Health <= 100)
+                Health += healthAmount;
+            else Health = 100;
         }
 
-        //Decrease health of player
-        public void DecreaseHealth(double healthAmount)
+        //Decrease health
+        public void DecreaseHealth(int healthAmount)
         {
             if (healthAmount >= 0)
                 return;
-            if (_health - healthAmount <= 0)
+            if (Health - healthAmount <= 0)
             {
-                _health = 0;
+                Health = 0;
+                //Some implementation to be done here
                 Die();
             }
-            else _health -= healthAmount;
+            else Health -= healthAmount;
         }
-
 
         #endregion
 
+        #region Player Weapon and Rune Methods
+
+        //Change weapon currently had by player
+        public void ChangeWeapon(PlayerSelectedWeapon selectedWeapon)
+        {
+            PlayerSelectedWeapon = selectedWeapon;
+        }
+
+        //Activate rune of the player
+        public void ActivateRune()
+        {
+            RuneActive = true;
+            RuneNumberOfTurnsActive = 3;
+        }
+
+        #endregion
+        
         #region Helper Functions
 
         //Level up method
@@ -249,7 +333,6 @@ namespace Maze_Knight.Models
             return (int)Math.Round((Level*INCREASE_FACTOR) + INCREASE_MARGIN);
         }
 
-
         #endregion
 
         #region Game Changing Methods
@@ -257,6 +340,7 @@ namespace Maze_Knight.Models
         //Player dies, receives a message and has to go back to the Main Menu
         public void Die()
         {
+            IsAlive = false;
             throw new Exception("YOU DIED!");
         }
 

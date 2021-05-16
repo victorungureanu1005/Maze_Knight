@@ -11,6 +11,6 @@ namespace Maze_Knight.StaticClasses
     //Static class to keep track of the player isntance
     public static class PlayerInstances
     {
-        public static Player CurrentPlayerInstance = new Player() { Level = 22  };
+        public static Player CurrentPlayerInstance = new Player() { Level = 1 };
     }
 }

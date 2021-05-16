@@ -35,17 +35,17 @@ namespace Maze_Knight.Models
                 if (PlayerIsHere) return "♟";
                 if (EnemyIsHere==true)
                 {
-                    switch (Enemy.EnemyType)
+                    switch (Enemy.EnemySubType)
                     {
-                        case EnemyTypes.Rogues: return "🔪";
-                        case EnemyTypes.ThievyArchers: return "🏹";
-                        case EnemyTypes.CorruptPaladins: return "🧛‍♂️";
-                        case EnemyTypes.CorruptMages: return "🦹‍♂️";
+                        case EnemySubTypes.Rogues: return "🔪";
+                        case EnemySubTypes.ThievyArchers: return "🏹";
+                        case EnemySubTypes.CorruptPaladins: return "🧛‍♂️";
+                        case EnemySubTypes.CorruptMages: return "🦹‍♂️";
 
-                        case EnemyTypes.Goblins: return "🤢";
-                        case EnemyTypes.Orcs: return "👽";
-                        case EnemyTypes.Trolls: return "😈";
-                        case EnemyTypes.Dragons: return "🐉";
+                        case EnemySubTypes.Goblins: return "🤢";
+                        case EnemySubTypes.Orcs: return "👽";
+                        case EnemySubTypes.Trolls: return "😈";
+                        case EnemySubTypes.Dragons: return "🐉";
                     }
                 }
                 if (ExitIsHere) return "🕳";

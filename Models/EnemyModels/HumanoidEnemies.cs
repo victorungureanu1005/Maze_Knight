@@ -11,9 +11,11 @@ namespace Maze_Knight.Models.EnemyModels
     {
         private const double PERCENTAGE_CREATOR = 100D;
 
-        //Constructor to provide Halberd Resistance - this is grouped as per Enemy Type mystical or humanoid
+        //Constructor to provide Halberd Resistance - this is grouped as per Enemy Subtype mystical or humanoid
         public HumanoidEnemies(int enemyCountValue) : base(enemyCountValue)
         {
+            EnemyType = EnemyTypes.HumanoidEnemies;
+            
             SwordResistance = (double)EnemyResistancesSword.HumanoidEnemies/PERCENTAGE_CREATOR;
             ArrowResistance = (double)EnemyResistancesArrow.HumanoidEnemies/PERCENTAGE_CREATOR;
             HalberdResistance = (double)EnemyResistancesHalberd.HumanoidEnemies/PERCENTAGE_CREATOR;

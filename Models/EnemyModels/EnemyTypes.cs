@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Maze_Knight.Models.Enums
+namespace Maze_Knight.Models.EnemyModels
 {
     public enum EnemyTypes
     {
-        Rogues, ThievyArchers, CorruptPaladins, CorruptMages, Goblins, Orcs, Trolls, Dragons
+        HumanoidEnemies, MysticalCreaturesEnemies
     }
 }
