@@ -25,9 +25,40 @@
         <Grid x:Name="MapGrid" HorizontalAlignment="Center" VerticalAlignment="Center" 
               Grid.Row="0" Grid.Column="0" Background="#FFECE4D5"/>
 
-        
-        <!-- Events Block -->
-        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="Text"  Width="auto" Height="auto" Foreground="NavajoWhite" TextWrapping="Wrap">sadasd</TextBlock>
+
+        <!-- Battle Event Block -->
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <!-- Here we have the Textblock which is bound to the battle report property found in the explore view model -->
+            <TextBlock x:Name="BattleReport" Height="100" Text="{Binding Path=BattleReport}" FontSize="15px"  Width="auto" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10"  />
+            <!-- Textblock bound to enemy describing enemySubType -->
+            <TextBlock x:Name="SubTypeEnemiesFound" Text="{Binding Path=EnemyEngagedMessage}" FontSize="18px" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10" HorizontalAlignment="Center"></TextBlock>
+            <!-- This button should start the fight -->
+            <Button x:Name="BattleButton" Content="Battle!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="150" Height="40" Grid.Column="0" Grid.Row="1"  Background="#FFECE4D5"/>
+
+            <!-- Choose Weapon -->
+            <TextBlock FontSize="18px" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10" HorizontalAlignment="Center">Choose Weapon</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Button Content="Sword" HorizontalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="120" Height="40" Grid.Column="0" Grid.Row="0" Background="#FFECE4D5" Click="SelectSword"/>
+                <Button Content="Bow" HorizontalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="120" Height="40" Grid.Column="1" Grid.Row="0" Background="#FFECE4D5" Click="SelectBow"/>
+                <Button Content="Halberd" HorizontalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="120" Height="40" Grid.Column="2" Grid.Row="0"  Background="#FFECE4D5" Click="SelectHalberd"/>
+            </Grid>
+            <!-- Textblock stating currently selected weapon -->
+            <TextBlock x:Name="SelectedWeapon" Text="{Binding Path=SelectedWeaponMessage}" FontSize="18px" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10" HorizontalAlignment="Center"></TextBlock>
+        </StackPanel>
 
         <!-- Actions Block -->
         <!-- Actions Block Grid Definitions -->
@@ -36,21 +67,20 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+
             </Grid.ColumnDefinitions>
 
             <!-- Actions Block Actions -->
             <Button Content="Drink Potion" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
                 FontSize="20px" Width="150" Height="40" Grid.Column="0" Background="#FFECE4D5"/>
-            <Button Content="Use Shield" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="150" Height="40" Grid.Column="1" Background="#FFECE4D5"/>
             <Button Content="Use Rune" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="150" Height="40" Grid.Column="2" Background="#FFECE4D5"/>
+                FontSize="20px" Width="150" Height="40" Grid.Column="1" Background="#FFECE4D5"/>
             <Button  Content="Flight!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="150" Height="40" Grid.Column="3" Background="#FFECE4D5" Click="Flight"/>
+                FontSize="20px" Width="150" Height="40" Grid.Column="2" Background="#FFECE4D5" Click="Flight"/>
         </Grid>
 
         <!-- Stats Block -->
         <TextBlock Grid.Row="1" Grid.Column="1" x:Name ="Stats" Width="auto" Height="auto" Foreground="NavajoWhite"  TextWrapping="Wrap">asdasd</TextBlock>
+
     </Grid>
 </UserControl>

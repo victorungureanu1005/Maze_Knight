@@ -1,5 +1,7 @@
 ﻿using Maze_Knight.Models;
 using Maze_Knight.StaticClasses;
+using Maze_Knight.ViewModels;
+using Maze_Knight.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +17,17 @@ namespace Maze_Knight.Commands
         //Constructor
         public MapGridCellClickCommand(MapGridCell mapGridCell)
         {
-            _clickedMapGridCell = mapGridCell;            
+            _clickedMapGridCell = mapGridCell;
         }
 
-        private MapGridCell _clickedMapGridCell;
-        private MapGridCell _previousMapGridCell;
-        
+        public MapGridCell _clickedMapGridCell;
+        public MapGridCell _previousMapGridCell;
+
+
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
-        {   
+        {
             //Find out the move options of the player
             var moveOptions = PlayerInstances.CurrentPlayerInstance.GetMoveOptions();
             List<int> clickedPosition = new List<int>();
@@ -54,9 +57,10 @@ namespace Maze_Knight.Commands
 
                 if (_clickedMapGridCell.EnemyIsHere)
                 {
-                    BattleSystem battle = new BattleSystem(PlayerInstances.CurrentPlayerInstance, _clickedMapGridCell.Enemy);
+                    ((ExploreViewModel)Mediator.theApp.SelectedViewModel).EnemyEngagedMessage = _clickedMapGridCell.Enemy.EnemySubType.ToString();
+                    BattleSystem battle = new BattleSystem(PlayerInstances.CurrentPlayerInstance, _clickedMapGridCell.Enemy, _clickedMapGridCell);
                     battle.Battle();
-                    //Must change mapgridcell collection data. 
+
                 }
             }
         }

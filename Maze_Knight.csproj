@@ -58,6 +58,7 @@
     <Compile Include="AppWindow.xaml.cs">
       <DependentUpon>AppWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\BattleCommand.cs" />
     <Compile Include="Commands\MapGridCellClickCommand.cs" />
     <Compile Include="Commands\UpdateViewCommand.cs" />
     <Compile Include="Models\BaseModel.cs" />

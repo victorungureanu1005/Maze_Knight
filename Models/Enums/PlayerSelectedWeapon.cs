@@ -8,6 +8,6 @@ namespace Maze_Knight.Models.Enums
 {
     public enum PlayerSelectedWeapon
     {
-        Sword, BowAndArrow, Halberd
+        Sword, Bow, Halberd
     }
 }

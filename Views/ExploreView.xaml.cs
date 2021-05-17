@@ -69,7 +69,8 @@ namespace Maze_Knight.Views
             {
                 for (int j = 0; j < mapMeasures.GetMaxRow(); j++)
                 {
-                    TextBlock textBlock = new TextBlock() { FontSize = 20 };
+                    //Set font size and font weight of text in the map grid cell/ text block
+                    TextBlock textBlock = new TextBlock() { FontSize = 20, FontWeight= FontWeights.Bold };
                     Grid.SetColumn(textBlock, i);
                     Grid.SetRow(textBlock, j);
 
@@ -137,12 +138,29 @@ namespace Maze_Knight.Views
         #endregion
 
         #region Action Buttons
-        /// <summary>
-        /// Go back to Town!
-        /// </summary>
+        //Go back to Town
         private void Flight(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new MainMenuViewModel();
+            Mediator.theApp.SelectedViewModel = new TownViewModel();
+        }
+
+        //Change player's current weapon to sword
+        private void SelectSword(object sender, RoutedEventArgs e)
+        {
+            PlayerInstances.CurrentPlayerInstance.PlayerSelectedWeapon = Models.Enums.PlayerSelectedWeapon.Sword;
+            SelectedWeapon.Text = $"You will fight with your {PlayerInstances.CurrentPlayerInstance.PlayerSelectedWeapon}";
+        }
+        //Change player's current weapon to bow
+        private void SelectBow(object sender, RoutedEventArgs e)
+        {
+            PlayerInstances.CurrentPlayerInstance.PlayerSelectedWeapon = Models.Enums.PlayerSelectedWeapon.Bow;
+            SelectedWeapon.Text = $"You will fight with your {PlayerInstances.CurrentPlayerInstance.PlayerSelectedWeapon}";
+        }
+        //Change player's current weapon to halberd
+        private void SelectHalberd(object sender, RoutedEventArgs e)
+        {
+            PlayerInstances.CurrentPlayerInstance.PlayerSelectedWeapon = Models.Enums.PlayerSelectedWeapon.Halberd;
+            SelectedWeapon.Text = $"You will fight with your {PlayerInstances.CurrentPlayerInstance.PlayerSelectedWeapon}";
         }
         #endregion
     }

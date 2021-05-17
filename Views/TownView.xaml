@@ -26,10 +26,11 @@
         </Grid.RowDefinitions>
 
         <!-- Town description and story -->
-        <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0">
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFECE4D5" >After a long road, you finally arrive in the town! The streets are calm, there is nothing out of the ordinary going on...</Label>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFECE4D5" >With nothing else left to do, you go to the inn, take a table in the darkest corner and start to carefully prepare your next steps.</Label>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFECE4D5" >You decide to:</Label>
+        <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" Margin="0,30,0,0">
+            <Label FontSize="15px" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFECE4D5" >After a long road, you finally arrive in the town! The streets are calm, there is nothing out of the ordinary going on...</Label>
+            <Label FontSize="15px" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFECE4D5" >With nothing else left to do, you go to the inn, take a table in the darkest corner and start to carefully prepare your next steps.</Label>
+            <Label></Label>
+            <Label FontSize="15px" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFECE4D5" >You decide to:</Label>
         </StackPanel>
 
         <!-- Actions to take as a player -->

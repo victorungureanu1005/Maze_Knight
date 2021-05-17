@@ -21,7 +21,7 @@ namespace Maze_Knight.Models
 
 
         //Player Stats
-        private int _health = 100;
+        private int _health = 5000000;
         private bool _isAlive = true;
         private int _minDamage = 25;
         private int _maxDamage = 40;
@@ -271,6 +271,16 @@ namespace Maze_Knight.Models
                 else CurrentExperience += experience;
             }
             else throw new Exception("Experience received cannot be negative");
+        }    
+        
+        //Receive gold dust method, gold dust should always be positive or exception is thrown
+        public void ReceiveGoldDust(int goldDust)
+        {
+            if (goldDust>=0)
+            {
+                GoldDust += goldDust;
+            }
+            else throw new Exception("Gold dust received cannot be negative");
         }
 
         //Increase health
@@ -286,7 +296,7 @@ namespace Maze_Knight.Models
         //Decrease health
         public void DecreaseHealth(int healthAmount)
         {
-            if (healthAmount >= 0)
+            if (healthAmount <= 0)
                 return;
             if (Health - healthAmount <= 0)
             {

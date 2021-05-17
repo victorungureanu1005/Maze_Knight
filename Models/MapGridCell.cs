@@ -33,7 +33,7 @@ namespace Maze_Knight.Models
             get
             {
                 if (PlayerIsHere) return "♟";
-                if (EnemyIsHere==true)
+                if (EnemyIsHere==true && Enemy.IsAlive==true)
                 {
                     switch (Enemy.EnemySubType)
                     {
@@ -49,7 +49,7 @@ namespace Maze_Knight.Models
                     }
                 }
                 if (ExitIsHere) return "🕳";
-                //if (WasExplored) return "✔";
+                if (WasExplored) return "✔";
                 return _cellTextDisplay;
             }
         }

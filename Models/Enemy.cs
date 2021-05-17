@@ -195,7 +195,7 @@ namespace Maze_Knight.Models
         //Decrease health
         public void DecreaseHealth(int healthAmount)
         {
-            if (healthAmount >= 0)
+            if (healthAmount <= 0)
                 return;
             if (EnemyHealth - healthAmount <= 0)
             {
