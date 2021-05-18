@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Maze_Knight.Models
 {
-    public class Player
+    public class Player : BaseModel
     {
         #region Backing Fields
         //Generic Player information
@@ -18,7 +18,7 @@ namespace Maze_Knight.Models
         private int _goldDust;
         private int _currentExperience;
         private int _statPoints;
-
+        private Inventory _playerInventory;
 
         //Player Stats
         private int _health = 5000000;
@@ -29,7 +29,7 @@ namespace Maze_Knight.Models
         private bool _runeActive = false;
         private int _runeNumberOfTurnsActive;
         private double _swordSkillLevel = 1;
-        private double _archerySkillLevel = 2;
+        private double _bowSkillLevel = 2;
         private double _halberdSkillLevel = 3;
         private int _humanoidResistance = 1;
         private int _mysticalResistance = 1;
@@ -37,6 +37,7 @@ namespace Maze_Knight.Models
         //Player Location
         private int[] _playerLocation;
         private MapGridCell _cellOfPlayerLocation;
+        private bool _playerIsNotLocked = true;
 
         #endregion
 
@@ -53,28 +54,35 @@ namespace Maze_Knight.Models
         public int Level
         {
             get { return _level; }
-            set { _level = value; }
+            set { _level = value; OnPropertyChanged(nameof(Level)); }
         }
 
         //Gold Dust of Player
         public int GoldDust
         {
             get { return _goldDust; }
-            set { _goldDust = value; }
+            set { _goldDust = value; OnPropertyChanged(nameof(GoldDust)); }
         }
 
         //Current Experience of Player
         public int CurrentExperience
         {
             get { return _currentExperience; }
-            set { _currentExperience = value; }
+            set { _currentExperience = value; OnPropertyChanged(nameof(CurrentExperience)); }
         }
 
         //Statpoints of Player
         public int StatPoints
         {
             get { return _statPoints; }
-            set { _statPoints = value; }
+            set { _statPoints = value; OnPropertyChanged(nameof(StatPoints)); }
+        }
+
+        //Inventory of Player
+        public Inventory PlayerInventory
+        {
+            get { return _playerInventory; }
+            set { _playerInventory = value; OnPropertyChanged(nameof(PlayerInventory)); }
         }
 
 
@@ -86,84 +94,84 @@ namespace Maze_Knight.Models
         public int Health
         {
             get { return _health; }
-            set { _health = value; }
+            set { _health = value; OnPropertyChanged(nameof(Health)); }
         }
 
         //Is Alive boolean
         public bool IsAlive
         {
             get { return _isAlive; }
-            set { _isAlive = value; }
+            set { _isAlive = value; OnPropertyChanged(nameof(IsAlive)); }
         }
 
         //Min Damage dealth with all weapons
         public int MinDamage
         {
             get { return _minDamage; }
-            set { _minDamage = value; }
+            set { _minDamage = value; OnPropertyChanged(nameof(MinDamage)); }
         }
 
         //Max Damage dealth with all weapons
         public int MaxDamage
         {
             get { return _maxDamage; }
-            set { _maxDamage = value; }
+            set { _maxDamage = value; OnPropertyChanged(nameof(MaxDamage)); }
         }
 
         //Player Selected Weapon
         public PlayerSelectedWeapon PlayerSelectedWeapon
         {
             get { return _playerSelectedWeapon; }
-            set { _playerSelectedWeapon = value; }
+            set { _playerSelectedWeapon = value; OnPropertyChanged(nameof(PlayerSelectedWeapon)); }
         }
 
         //Is player rune active or not
         public bool RuneActive
         {
             get { return _runeActive; }
-            set { _runeActive = value; }
+            set { _runeActive = value; OnPropertyChanged(nameof(RuneActive)); }
         }
 
         //Number of turns left for rune activity
         public int RuneNumberOfTurnsActive
         {
             get { return _runeNumberOfTurnsActive; }
-            set { _runeNumberOfTurnsActive = value; }
+            set { _runeNumberOfTurnsActive = value; OnPropertyChanged(nameof(RuneNumberOfTurnsActive)); }
         }
 
         //Sword Skill
         public double SwordSkillLevel
         {
             get { return _swordSkillLevel; }
-            set { _swordSkillLevel = value; }
+            set { _swordSkillLevel = value; OnPropertyChanged(nameof(SwordSkillLevel)); }
         }
 
         //Archer Skill
-        public double ArcherySillLevel
+        public double BowSkillLevel
         {
-            get { return _archerySkillLevel; }
-            set { _archerySkillLevel = value; }
+            get { return _bowSkillLevel; }
+            set { _bowSkillLevel = value; OnPropertyChanged(nameof(BowSkillLevel)); }
         }
 
         //Halberd Skill
         public double HalberdSkillLevel
         {
             get { return _halberdSkillLevel; }
-            set { _halberdSkillLevel = value; }
+            set { _halberdSkillLevel = value; OnPropertyChanged(nameof(HalberdSkillLevel)); }
         }
 
         //Resistance to eumanoid enemies
         public int HumanoidResistance
         {
             get { return _humanoidResistance; }
-            set { _humanoidResistance = value; }
-        } 
-        
+            set { _humanoidResistance = value; OnPropertyChanged(nameof(HumanoidResistance)); }
+        }
+
         //Resistance to mystical enemies
         public int MysticalResistance
         {
             get { return _mysticalResistance; }
-            set { _mysticalResistance = value; }
+            set { _mysticalResistance = value; OnPropertyChanged(nameof(MysticalResistance)); }
         }
 
 
@@ -175,13 +183,19 @@ namespace Maze_Knight.Models
         public int[] PlayerLocation
         {
             get { return _playerLocation; }
-            set { _playerLocation = value; }
+            set { _playerLocation = value; OnPropertyChanged(nameof(PlayerLocation)); }
         }
 
         public MapGridCell CellOfPlayerLocation
         {
             get { return _cellOfPlayerLocation; }
-            set { _cellOfPlayerLocation = value; }
+            set { _cellOfPlayerLocation = value; OnPropertyChanged(nameof(CellOfPlayerLocation)); }
+        }
+        //Is player locked or can he move on the map grid? Needed for the MapGridCellClickCommand and BattleCommand interaction
+        public bool PlayerIsNotLocked
+        {
+            get { return _playerIsNotLocked; }
+            set { _playerIsNotLocked = value; OnPropertyChanged(nameof(PlayerIsNotLocked)); }
         }
 
         #endregion
@@ -271,8 +285,8 @@ namespace Maze_Knight.Models
                 else CurrentExperience += experience;
             }
             else throw new Exception("Experience received cannot be negative");
-        }    
-        
+        }
+
         //Receive gold dust method, gold dust should always be positive or exception is thrown
         public void ReceiveGoldDust(int goldDust)
         {
@@ -325,7 +339,7 @@ namespace Maze_Knight.Models
         }
 
         #endregion
-        
+
         #region Helper Functions
 
         //Level up method

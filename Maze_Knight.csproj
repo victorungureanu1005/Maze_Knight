@@ -58,12 +58,12 @@
     <Compile Include="AppWindow.xaml.cs">
       <DependentUpon>AppWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Commands\BattleCommand.cs" />
     <Compile Include="Commands\MapGridCellClickCommand.cs" />
     <Compile Include="Commands\UpdateViewCommand.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\BattleSystem.cs" />
     <Compile Include="Models\CellLocation.cs" />
+    <Compile Include="Models\Inventory.cs" />
     <Compile Include="Models\Comparers\CoordinatesEqualityComparer.cs" />
     <Compile Include="Models\EnemyModels\EnemyTypes.cs" />
     <Compile Include="Models\EnemyModels\HumanoidEnemies.cs" />

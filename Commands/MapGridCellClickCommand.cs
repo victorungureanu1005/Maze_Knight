@@ -34,8 +34,8 @@ namespace Maze_Knight.Commands
             clickedPosition.Add(Grid.GetColumn((TextBlock)parameter));
             clickedPosition.Add(Grid.GetRow((TextBlock)parameter));
 
-            //Check if clicked cell corresponds to the move options of the player
-            if (moveOptions.Contains(clickedPosition))
+            //Check if clicked cell corresponds to the move options of the player and player is not locked
+            if (moveOptions.Contains(clickedPosition) && PlayerInstances.CurrentPlayerInstance.PlayerIsNotLocked)
             {
                 return true;
             }
@@ -57,9 +57,14 @@ namespace Maze_Knight.Commands
 
                 if (_clickedMapGridCell.EnemyIsHere)
                 {
-                    ((ExploreViewModel)Mediator.theApp.SelectedViewModel).EnemyEngagedMessage = _clickedMapGridCell.Enemy.EnemySubType.ToString();
-                    BattleSystem battle = new BattleSystem(PlayerInstances.CurrentPlayerInstance, _clickedMapGridCell.Enemy, _clickedMapGridCell);
-                    battle.Battle();
+                    //Lock player to not move. It will get unstuck if the Battle Command is ran
+                    PlayerInstances.CurrentPlayerInstance.PlayerIsNotLocked = false;
+                    //Update the TextBlock on the ExploreView indicating what EnemySubType has been engaged
+                    ((ExploreViewModel)Mediator.theApp.SelectedViewModel).EnemyEngagedMessage = _clickedMapGridCell.Enemy.EnemySubType.ToString()+"Attack!";
+                    
+                    
+                    //BattleSystem battle = new BattleSystem(PlayerInstances.CurrentPlayerInstance, _clickedMapGridCell.Enemy, _clickedMapGridCell);
+                    //battle.Battle();
 
                 }
             }

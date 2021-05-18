@@ -130,7 +130,7 @@ namespace Maze_Knight.Views
         /// <summary>
         /// Executes command stored on MapGridCell
         /// </summary>
-        private void GridCellClick(object sender, System.EventArgs e)
+        private void GridCellClick(object sender, System.EventArgs e) 
         {
             int index = _textBlockCollection.IndexOf((TextBlock)sender);
             ((ExploreViewModel)Mediator.theApp.SelectedViewModel).MapGridCellCollection[index].MapGridCellClickCommand.Execute(sender);
@@ -163,5 +163,16 @@ namespace Maze_Knight.Views
             SelectedWeapon.Text = $"You will fight with your {PlayerInstances.CurrentPlayerInstance.PlayerSelectedWeapon}";
         }
         #endregion
+
+        private void FightButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Check if player is currently locked meaning he must do battle to get unlocked
+            if (PlayerInstances.CurrentPlayerInstance.PlayerIsNotLocked==false)
+            {
+                BattleSystem battle = new BattleSystem();
+                battle.Battle();
+            }
+            else return;
+        }
     }
 }
