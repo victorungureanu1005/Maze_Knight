@@ -63,22 +63,36 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\BattleSystem.cs" />
     <Compile Include="Models\CellLocation.cs" />
+    <Compile Include="Models\Enums\Items\ItemNamesRandomizer.cs" />
+    <Compile Include="Models\Enums\Items\Armour\ArmourTypes.cs" />
+    <Compile Include="Models\Enums\Items\PotionTypes.cs" />
+    <Compile Include="Models\Enums\Items\Weapon\WeaponSubTypes.cs" />
+    <Compile Include="Models\Enums\Items\Weapon\WeaponTypes.cs" />
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Models\Comparers\CoordinatesEqualityComparer.cs" />
     <Compile Include="Models\EnemyModels\EnemyTypes.cs" />
     <Compile Include="Models\EnemyModels\HumanoidEnemies.cs" />
     <Compile Include="Models\EnemyModels\MysticalCreaturesEnemies.cs" />
     <Compile Include="Models\Enemy.cs" />
-    <Compile Include="Models\Enums\EnemyExperienceGiven.cs" />
-    <Compile Include="Models\Enums\EnemyGoldDrop.cs" />
-    <Compile Include="Models\Enums\EnemyMinMaxDamage.cs" />
-    <Compile Include="Models\Enums\EnemyResistances.cs" />
-    <Compile Include="Models\Enums\EnemyTypesHealth.cs" />
-    <Compile Include="Models\Enums\EnemySubTypes.cs" />
+    <Compile Include="Models\Enums\Enemy\EnemyExperienceGiven.cs" />
+    <Compile Include="Models\Enums\Enemy\EnemyGoldDrop.cs" />
+    <Compile Include="Models\Enums\Enemy\EnemyMinMaxDamage.cs" />
+    <Compile Include="Models\Enums\Enemy\EnemyResistances.cs" />
+    <Compile Include="Models\Enums\Enemy\EnemyTypesHealth.cs" />
+    <Compile Include="Models\Enums\Enemy\EnemySubTypes.cs" />
     <Compile Include="Models\Enums\PlayerSelectedWeapon.cs" />
+    <Compile Include="Models\Items\Armour.cs" />
+    <Compile Include="Models\Items\Weapons\Bow.cs" />
+    <Compile Include="Models\Items\Weapons\Halberd.cs" />
+    <Compile Include="Models\Items\Item.cs" />
+    <Compile Include="Models\Items\Potion.cs" />
+    <Compile Include="Models\Items\Rune.cs" />
+    <Compile Include="Models\Items\Weapons\Sword.cs" />
+    <Compile Include="Models\Items\Weapons\Weapon.cs" />
     <Compile Include="Models\MapMeasures.cs" />
     <Compile Include="Models\MapGridCell.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\ShadyDealerInventoryModel.cs" />
     <Compile Include="StaticClasses\PlayerInstances.cs" />
     <Compile Include="StaticClasses\Mediator.cs" />
     <Compile Include="StaticClasses\RandomGenerator.cs" />
@@ -88,6 +102,7 @@
     <Compile Include="ViewModels\ExploreViewModel.cs" />
     <Compile Include="ViewModels\LoadGameViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
+    <Compile Include="ViewModels\ShadyDealerViewModel.cs" />
     <Compile Include="ViewModels\TownViewModel.cs" />
     <Compile Include="Views\CreditsView.xaml.cs">
       <DependentUpon>CreditsView.xaml</DependentUpon>
@@ -172,5 +187,6 @@
   <ItemGroup>
     <Resource Include="Content\Images\OldTown_TownView.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

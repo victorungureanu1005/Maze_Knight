@@ -20,6 +20,11 @@ namespace Maze_Knight.Models
         private int _statPoints;
         private Inventory _playerInventory;
 
+        //Player selected items
+        private bool _isWeaponEquiped;
+        private bool _isArmourEquiped;
+        private bool _isAccesoryEquiped;
+
         //Player Stats
         private int _health = 5000000;
         private bool _isAlive = true;
@@ -28,9 +33,9 @@ namespace Maze_Knight.Models
         private PlayerSelectedWeapon _playerSelectedWeapon = PlayerSelectedWeapon.Sword;
         private bool _runeActive = false;
         private int _runeNumberOfTurnsActive;
-        private double _swordSkillLevel = 1;
-        private double _bowSkillLevel = 2;
-        private double _halberdSkillLevel = 3;
+        private int _swordSkillLevel = 1;
+        private int _bowSkillLevel = 2;
+        private int _halberdSkillLevel = 3;
         private int _humanoidResistance = 1;
         private int _mysticalResistance = 1;
 
@@ -88,6 +93,31 @@ namespace Maze_Knight.Models
 
         #endregion
 
+        #region Player Selected Items
+
+        //Weapon is equiped or no
+        public bool IsWeaponEquiped
+        {
+            get { return _isWeaponEquiped; }
+            set { _isWeaponEquiped = value; }
+        }
+
+        //Armour is equiped or no
+        public bool IsArmourEquiped
+        {
+            get { return _isArmourEquiped; }
+            set { _isArmourEquiped = value; }
+        }
+
+        //Accesory is equiped or no
+        public bool IsAccesoryEquiped
+        {
+            get { return _isAccesoryEquiped; }
+            set { _isAccesoryEquiped = value; }
+        }
+
+        #endregion
+
         #region Player Stats Properties
 
         //Health of Player
@@ -140,21 +170,21 @@ namespace Maze_Knight.Models
         }
 
         //Sword Skill
-        public double SwordSkillLevel
+        public int SwordSkillLevel
         {
             get { return _swordSkillLevel; }
             set { _swordSkillLevel = value; OnPropertyChanged(nameof(SwordSkillLevel)); }
         }
 
         //Archer Skill
-        public double BowSkillLevel
+        public int BowSkillLevel
         {
             get { return _bowSkillLevel; }
             set { _bowSkillLevel = value; OnPropertyChanged(nameof(BowSkillLevel)); }
         }
 
         //Halberd Skill
-        public double HalberdSkillLevel
+        public int HalberdSkillLevel
         {
             get { return _halberdSkillLevel; }
             set { _halberdSkillLevel = value; OnPropertyChanged(nameof(HalberdSkillLevel)); }

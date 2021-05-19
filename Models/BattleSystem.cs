@@ -67,7 +67,7 @@ namespace Maze_Knight.Models
             _battleReport += "\x0A You won this battle!";
             if (_roundNumber>4) _battleReport += $"\x0A After a long battle you finally won, time to move on!";
             else _battleReport += $"\x0A This was easy, you won!";
-            _battleReport += $"\x0A You dealt {_totalDamageDealt} damage with you nice {_player.PlayerSelectedWeapon} and you took {_totalDamageTaken} damage from the {_enemy.EnemySubType}";
+            _battleReport += $"\x0A You dealt {_totalDamageDealt} damage with your nice {_player.PlayerSelectedWeapon} and you took {_totalDamageTaken} damage from the {_enemy.EnemySubType}";
 
             //Modify player stats and map grid cell property
             _player.ReceiveExperience(_enemy.EnemyExperienceGiven);
