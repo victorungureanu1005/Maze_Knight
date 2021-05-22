@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Reflection;
 using static Maze_Knight.Models.EnemyModels.MysticalCreaturesEnemies;
+using Maze_Knight.Models.Items;
 
 namespace Maze_Knight.ViewModels
 {
@@ -86,7 +87,7 @@ namespace Maze_Knight.ViewModels
             //The MapGridCells must be added to the collection! - logic to be implemented
             for (int i = 0; i < mapMeasures.GetMaxColumn(); i++)
             {
-                for (int j = 0; j<mapMeasures.GetMaxRow(); j++)
+                for (int j = 0; j < mapMeasures.GetMaxRow(); j++)
                 {
                     MapGridCellCollection.Add(new MapGridCell() { CellColumnNumber = i, CellRowNumber = j });
                 }
@@ -99,6 +100,16 @@ namespace Maze_Knight.ViewModels
 
             //Setting Enemies and Exit Propreties on the MapGridCells found on the MapGridCellCollection
             SetEnemiesAndExitOnMap(MapGridCellCollection);
+
+            Inventory x = new Inventory();
+
+            for (int i = 0; i < 6; i++)
+            {
+                x.InventoryCollection.Add(new Sword(PlayerInstances.CurrentPlayerInstance));
+                x.InventoryCollection.Add(new Bow(PlayerInstances.CurrentPlayerInstance));
+                x.InventoryCollection.Add(new Halberd(PlayerInstances.CurrentPlayerInstance));
+            }
+
         }
         #endregion
 
@@ -121,7 +132,7 @@ namespace Maze_Knight.ViewModels
                 //Minimum set to 1 as to avoid enemy to be on the first cell (0,0)
                 int index = RandomGenerator.random.Next(1, mapGridCellCollection.Count);
                 //If index is already in use, find a new one
-                while (usedIndexes.Contains(index)==true)
+                while (usedIndexes.Contains(index) == true)
                 {
                     index = RandomGenerator.random.Next(1, mapGridCellCollection.Count);
                 }
@@ -159,56 +170,56 @@ namespace Maze_Knight.ViewModels
             double random = RandomGenerator.random.NextDouble();
 
             //If player level <=5 enemy subtypes can only be Rogues and ThievyArchers
-            if (random<0.3D)
+            if (random < 0.3D)
             {
                 return typeof(Rogues).AssemblyQualifiedName;
             }
-            if (random<0.5D)
+            if (random < 0.5D)
             {
                 return typeof(ThievyArchers).AssemblyQualifiedName;
             }
-            else if (playerLevel<=5)
+            else if (playerLevel <= 5)
             {
                 return typeof(Rogues).AssemblyQualifiedName;
             }
 
             //If player level <=10 enemy subtypes can only be Rogues, ThievyArchers, Goblins and Orcs
-            if (random<0.6D)
+            if (random < 0.6D)
             {
                 return typeof(Goblins).AssemblyQualifiedName;
             }
-            if (random<0.75D)
+            if (random < 0.75D)
             {
                 return typeof(Orcs).AssemblyQualifiedName;
             }
-            else if (playerLevel<=10)
+            else if (playerLevel <= 10)
             {
-                if (random<0.94) return typeof(Goblins).AssemblyQualifiedName;
-                if (random>=0.94) return typeof(Rogues).AssemblyQualifiedName;
+                if (random < 0.94) return typeof(Goblins).AssemblyQualifiedName;
+                if (random >= 0.94) return typeof(Rogues).AssemblyQualifiedName;
             }
 
             //If player level <=15 enemy subtypes can only be Rogues, ThievyArchers, Goblins, Orcs, CorruptPaladins and Trolls
-            if (random<0.83D)
+            if (random < 0.83D)
             {
                 return typeof(CorruptPaladins).AssemblyQualifiedName;
             }
-            if (random<0.90D)
+            if (random < 0.90D)
             {
                 return typeof(Trolls).AssemblyQualifiedName;
             }
-            else if (playerLevel<=15)
+            else if (playerLevel <= 15)
             {
-                if (random<0.935) return typeof(ThievyArchers).AssemblyQualifiedName;
-                if (random>=0.978) return typeof(Orcs).AssemblyQualifiedName;
-                if (random>=0.94) return typeof(Trolls).AssemblyQualifiedName;
+                if (random < 0.935) return typeof(ThievyArchers).AssemblyQualifiedName;
+                if (random >= 0.978) return typeof(Orcs).AssemblyQualifiedName;
+                if (random >= 0.94) return typeof(Trolls).AssemblyQualifiedName;
             }
 
             //If player level above 15, all enemy subtypes can be selected
-            if (random<0.97D)
+            if (random < 0.97D)
             {
                 return typeof(CorruptMages).AssemblyQualifiedName;
             }
-            if (random>=0.97D)
+            if (random >= 0.97D)
             {
                 return typeof(Dragons).AssemblyQualifiedName;
             }
