@@ -32,7 +32,7 @@ namespace Maze_Knight.Models
             GenerateWeaponOffer();
             GenerateArmourOffer();
             GeneratePotionOffer();
-            CurrentOffer.Add(new Rune());
+            GenerateRuneOffer();
         }
         #endregion
 
@@ -46,6 +46,11 @@ namespace Maze_Knight.Models
 
         }
         private void GeneratePotionOffer()
+        {
+
+        }
+
+        private void GenerateRuneOffer()
         {
 
         }

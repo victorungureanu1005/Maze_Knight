@@ -11,21 +11,17 @@ using Maze_Knight.Models.Enums;
 
 namespace Maze_Knight.Models.Items
 {
-    public class Weapon : Item
+    public abstract class Weapon : Item
     {
         #region Constants
+        //Buy price increase factor for price, further down to be adjusted as well
         private int STAT_POINT_BUY_PRICE_INCREASE_FACTOR = 4;
-        private int SELL_BUY_PRICE_RATIO = 4;
+        //Max number of stats to bestow per number. Random value will be used, but a max should be establishedfor this item type
         private int MAX_NUMBER_OF_STATS_TO_BESTOW = 4;
         #endregion
 
         #region Backing Fields
         //General information
-        private int _playerLevelWhenGenerated;
-        private string _swordNameSuffix;
-        private string _nameOfWeapon;
-        private int _weaponBuyPrice;
-        private int _weaponSellPrice;
         private WeaponTypes _weaponType;
         private WeaponSubTypes _weaponSubType;
 
@@ -37,33 +33,29 @@ namespace Maze_Knight.Models.Items
         private int _swordSkillBonus;
         private int _bowSkillBonus;
         private int _halberdSkillBonus;
-
         #endregion
 
         #region Constructor
-        public Weapon(Player player)
+        public Weapon()
         {
-            //Sets player leven when generated to current player instance level. 
-            _playerLevelWhenGenerated = PlayerInstances.CurrentPlayerInstance.Level;
+            //Sets player level when generated to current player instance level. 
+            SetPlayerLevelWhenGenerated();
+            //Set weapon type depending on class generated
+            SetWeaponType();
             //Identifies and sets stats for the weapon
             GiveStatsToWeapon();
-            //Set suffix for the name of the weapon;
-            SwordNameSuffix = ((ItemNamesRandomizer)RandomGenerator.random.Next(0, Enum.GetNames(typeof(ItemNamesRandomizer)).Length + 1)).ToString();
+            //Set suffix for the name of the weapon; The full name is set when using the constructor in the derivate as the subtype generated is relevant!
+            SetItemNameSuffix();
             //Buy price is determined by adding all the bonus points and multiplying with the const indicating price/point. Some stats have bigger value therefore multiplied with 2 or 4. 
-            WeaponBuyPrice = (MinDamageBonus * 2 + MaxDamageBonus + SwordSkillBonus + BowSkillBonus + HalberdSkillBonus) * STAT_POINT_BUY_PRICE_INCREASE_FACTOR;
-            WeaponSellPrice = (int)Math.Round((double)WeaponBuyPrice / SELL_BUY_PRICE_RATIO);
+            SetWeaponBuyPrice(); 
+            SetSellPrice();
         }
         #endregion
 
         #region Properties
         //General information
-        public string SwordNameSuffix { get => _swordNameSuffix; set => _swordNameSuffix = value; }
-        public string NameOfWeapon { get => _nameOfWeapon; set => _nameOfWeapon = value; }
-        public int WeaponBuyPrice { get => _weaponBuyPrice; set => _weaponBuyPrice = value; }
-        public int WeaponSellPrice { get => _weaponSellPrice; set => _weaponSellPrice = value; }
         public WeaponTypes WeaponType { get => _weaponType; set => _weaponType = value; }
         public WeaponSubTypes WeaponSubType { get => _weaponSubType; set => _weaponSubType = value; }
-
 
         //MinMax damage bonuses
         public int MinDamageBonus { get => _minDamageBonus; set => _minDamageBonus = value; }
@@ -76,7 +68,16 @@ namespace Maze_Knight.Models.Items
         #endregion
 
         #region Functions
-
+        /// <summary>
+        /// Setting Weapon Type needs to be done here rather than in the derivate class, as we need to identify the type already at this base classe's level in order to run some methods
+        /// </summary>
+        private void SetWeaponType()
+        {
+            WeaponTypes weaponTypes;
+            //this here is the class being instantiated (sword, bow, hallberd)all derivates of the weapon class
+            Enum.TryParse(this.GetType().Name, out weaponTypes);
+            WeaponType = weaponTypes;
+        }
         private void GiveStatsToWeapon()
         {
             //Gets the number of times additional stats need to be added to the weapon
@@ -100,10 +101,18 @@ namespace Maze_Knight.Models.Items
                 }
             }
         }
-
+        private void SetWeaponBuyPrice()
+        {
+            ItemBuyPrice = (MinDamageBonus * 2 + MaxDamageBonus + SwordSkillBonus * 4 + BowSkillBonus * 4 + HalberdSkillBonus * 4) * STAT_POINT_BUY_PRICE_INCREASE_FACTOR;
+        }
+        private protected void SetWeaponName()
+        {
+            ItemName = WeaponSubType.ToString() + " of " + ItemNameSuffix;
+        }
         #endregion
 
         #region Bestow Weapon Stat Methods
+        //Depending on player level, the weapon type being instantiated will have different values of bestowed stats
         private void BestowMinDamageBonus()
         {
             if (_playerLevelWhenGenerated <= 6)
@@ -114,10 +123,12 @@ namespace Maze_Knight.Models.Items
             if (_playerLevelWhenGenerated <= 12)
             {
                 MinDamageBonus += RandomGenerator.random.Next(5, 12);
+                return;
             }
             if (_playerLevelWhenGenerated > 12)
             {
                 MinDamageBonus += RandomGenerator.random.Next(13, 25);
+                return;
             }
         }
         private void BestowMaxDamageBonus()
@@ -130,10 +141,12 @@ namespace Maze_Knight.Models.Items
             if (_playerLevelWhenGenerated <= 12)
             {
                 MaxDamageBonus += RandomGenerator.random.Next(12, 30);
+                return;
             }
             if (_playerLevelWhenGenerated > 12)
             {
                 MaxDamageBonus += RandomGenerator.random.Next(30, 80);
+                return;
             }
         }
         private void BestowSwordSkillBonus()
@@ -146,10 +159,12 @@ namespace Maze_Knight.Models.Items
             if (_playerLevelWhenGenerated <= 12)
             {
                 SwordSkillBonus += RandomGenerator.random.Next(7, 13);
+                return;
             }
             if (_playerLevelWhenGenerated > 12)
             {
                 SwordSkillBonus += RandomGenerator.random.Next(13, 20);
+                return;
             }
         }
         private void BestowBowSkillBonus()
@@ -162,10 +177,12 @@ namespace Maze_Knight.Models.Items
             if (_playerLevelWhenGenerated <= 12)
             {
                 BowSkillBonus += RandomGenerator.random.Next(7, 13);
+                return;
             }
             if (_playerLevelWhenGenerated > 12)
             {
                 BowSkillBonus += RandomGenerator.random.Next(13, 20);
+                return;
             }
         }
         private void BestowHalberdSkillBonus()
@@ -178,10 +195,12 @@ namespace Maze_Knight.Models.Items
             if (_playerLevelWhenGenerated <= 12)
             {
                 HalberdSkillBonus += RandomGenerator.random.Next(7, 13);
+                return;
             }
             if (_playerLevelWhenGenerated > 12)
             {
                 HalberdSkillBonus += RandomGenerator.random.Next(13, 20);
+                return;
             }
         }
         #endregion
