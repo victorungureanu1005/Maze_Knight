@@ -86,6 +86,9 @@ namespace Maze_Knight.Models
                              $"\x0A Anyways, just for the sake of you knowing what happened and maybe improving! You dealt {_totalDamageDealt} " +
                              $"damage and you took {_totalDamageTaken} damage from the {_enemy.EnemySubType}";
             Console.WriteLine("YOU LOST!");
+
+            //New Shady Dealer must be instantiated
+            PlayerInstances.CurrentPlayerInstance.NewShadyDealerAvailable = true;
         }
 
         #endregion

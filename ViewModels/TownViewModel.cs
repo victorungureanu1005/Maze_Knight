@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maze_Knight.StaticClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,48 @@ namespace Maze_Knight.ViewModels
 {
     public class TownViewModel : BaseViewModel
     {
+        #region Backing Fields
+        //Backing Field for the shady dealer
+        private ShadyDealerViewModel _shadyDealerViewModel;
+        #endregion
+
+        #region Constructor
+        public TownViewModel()
+        {
+            //Check whether new shady dealer inventory can be generated and depending on that it does that
+            ShadyDealerMethod();
+        }
+        #endregion
+
+        #region Properties
+        //Shady dealer view model property
+        public ShadyDealerViewModel ShadyDealerViewModel
+        {
+            get { return _shadyDealerViewModel; }
+            set
+            {
+                _shadyDealerViewModel = value;
+                OnPropertyChanged(nameof(ShadyDealerViewModel));
+            }
+        }
+        #endregion
+
+        #region Methods
+        //Shady Dealer method checks whether a new inventory can be generated or not. Links to be observed are
+        //The bool stored in the current player static class and the stored static instantiation of the ShadyDealerInstance
+        private void ShadyDealerMethod()
+        {
+            if (PlayerInstances.CurrentPlayerInstance.NewShadyDealerAvailable == true)
+            {
+                ShadyDealerViewModel = new ShadyDealerViewModel(PlayerInstances.CurrentPlayerInstance);
+                ShadyDealerStoredInstances.AvailableShadyDealerViewModel = ShadyDealerViewModel;
+                PlayerInstances.CurrentPlayerInstance.NewShadyDealerAvailable = false;
+            }
+            else
+            {
+                ShadyDealerViewModel = ShadyDealerStoredInstances.AvailableShadyDealerViewModel;
+            }
+        }
+        #endregion
     }
 }

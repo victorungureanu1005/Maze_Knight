@@ -41,7 +41,7 @@
         <Button Width="170" Height="40" FontSize="14px" Content="Get back on your quest" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="4" Grid.Column="0"/>
         <Button Width="170" Height="40" FontSize="14px" Content="Go to the shady dealer" 
-                Background="#FFECE4D5" Margin="10" Grid.Row="2" Grid.Column="1"/>
+                Background="#FFECE4D5" Margin="10" Grid.Row="2" Grid.Column="1" Click="GoToShadyDealer"/>
         <Button Width="170" Height="40" FontSize="14px" Content="Open your inventory" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="3" Grid.Column="1"/>
         <Button Width="170" Height="40" FontSize="14px" Content="Upgrade your stats" 

@@ -94,12 +94,14 @@
     <Compile Include="Models\MapMeasures.cs" />
     <Compile Include="Models\MapGridCell.cs" />
     <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\ShadyDealerInventoryModel.cs" />
+    <Compile Include="Models\ShadyDealerModel.cs" />
     <Compile Include="StaticClasses\PlayerInstances.cs" />
     <Compile Include="StaticClasses\Mediator.cs" />
     <Compile Include="StaticClasses\RandomGenerator.cs" />
+    <Compile Include="StaticClasses\ShadyDealerStoredInstances.cs" />
     <Compile Include="ViewModels\AppWindowViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BoundDataContexts\Class1.cs" />
     <Compile Include="ViewModels\CreditsViewModel.cs" />
     <Compile Include="ViewModels\ExploreViewModel.cs" />
     <Compile Include="ViewModels\LoadGameViewModel.cs" />
@@ -121,6 +123,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ShadyDealerView.xaml.cs">
+      <DependentUpon>ShadyDealerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
@@ -145,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShadyDealerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -189,6 +198,8 @@
   <ItemGroup>
     <Resource Include="Content\Images\OldTown_TownView.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Content\Images\ShadyDealerViewImage.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

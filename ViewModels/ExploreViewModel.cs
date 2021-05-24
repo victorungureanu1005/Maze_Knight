@@ -19,7 +19,7 @@ namespace Maze_Knight.ViewModels
 {
     public class ExploreViewModel : BaseViewModel
     {
-        #region Properties
+        #region Backing Fields        
         //Backing Field for the MapGridCellCollection
         private ObservableCollection<MapGridCell> _mapGridCellCollection = new ObservableCollection<MapGridCell>();
         private Player _currentPlayer;

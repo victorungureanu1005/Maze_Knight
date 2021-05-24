@@ -47,5 +47,11 @@ namespace Maze_Knight.Views
         {
             Mediator.theApp.SelectedViewModel = new ExploreViewModel();
         }
+
+        private void GoToShadyDealer(object sender, RoutedEventArgs e)
+        {
+            var currentTownViewModel = (TownViewModel)Mediator.theApp.SelectedViewModel;
+            Mediator.theApp.SelectedViewModel = currentTownViewModel.ShadyDealerViewModel;
+        }
     }
 }

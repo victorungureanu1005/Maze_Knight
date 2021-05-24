@@ -19,6 +19,7 @@ namespace Maze_Knight.Models
         private int _currentExperience;
         private int _statPoints;
         private Inventory _playerInventory;
+        private bool _newShadyDealerAvailable = true;
 
         //Player selected items
         private bool _isWeaponEquiped;
@@ -89,6 +90,8 @@ namespace Maze_Knight.Models
             get { return _playerInventory; }
             set { _playerInventory = value; OnPropertyChanged(nameof(PlayerInventory)); }
         }
+        //specify whether new shadydealer can be created
+        public bool NewShadyDealerAvailable { get => _newShadyDealerAvailable; set => _newShadyDealerAvailable = value; }
 
 
         #endregion
@@ -227,6 +230,8 @@ namespace Maze_Knight.Models
             get { return _playerIsNotLocked; }
             set { _playerIsNotLocked = value; OnPropertyChanged(nameof(PlayerIsNotLocked)); }
         }
+
+        
 
         #endregion
 

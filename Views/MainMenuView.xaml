@@ -25,7 +25,7 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         
-        <!-- Labels Buttons and Image-->
+        <!-- Labels and Buttons-->
         
         <Label x:Name="Menu_Title" Content="Maze Knight" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20px"  Grid.ColumnSpan="2" Foreground="#FFECE4D5"  />
         <Button x:Name="Menu_ContinueGameButton" Content="Continue" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="10" 
