@@ -14,7 +14,7 @@ namespace Maze_Knight.Models
 
         #region Backing Fields
         //Generic inventory information
-        private int _inventoryCapacity = 20;
+        private int _inventoryCapacity = 16;
         private ObservableCollection<Item> _inventoryCollection = new ObservableCollection<Item>();
 
         //Equiped items

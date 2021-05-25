@@ -98,7 +98,6 @@
     <Compile Include="StaticClasses\PlayerInstances.cs" />
     <Compile Include="StaticClasses\Mediator.cs" />
     <Compile Include="StaticClasses\RandomGenerator.cs" />
-    <Compile Include="StaticClasses\ShadyDealerStoredInstances.cs" />
     <Compile Include="ViewModels\AppWindowViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BoundDataContexts\Class1.cs" />
@@ -200,6 +199,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Images\ShadyDealerViewImage.jpg" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Views\RuneIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Icons\BowIcon_WBackground.png" />
+    <Resource Include="Content\Icons\HalberdIcon_WBackground.png" />
+    <Resource Include="Content\Icons\PotionIcon_WBackground.png" />
+    <Resource Include="Content\Icons\RuneIcon_WBackground.png" />
+    <Resource Include="Content\Icons\SwordIcon_WBackground.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

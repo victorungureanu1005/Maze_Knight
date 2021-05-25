@@ -43,12 +43,12 @@ namespace Maze_Knight.ViewModels
             if (PlayerInstances.CurrentPlayerInstance.NewShadyDealerAvailable == true)
             {
                 ShadyDealerViewModel = new ShadyDealerViewModel(PlayerInstances.CurrentPlayerInstance);
-                ShadyDealerStoredInstances.AvailableShadyDealerViewModel = ShadyDealerViewModel;
+                PlayerInstances.AvailableShadyDealerViewModel = ShadyDealerViewModel;
                 PlayerInstances.CurrentPlayerInstance.NewShadyDealerAvailable = false;
             }
             else
             {
-                ShadyDealerViewModel = ShadyDealerStoredInstances.AvailableShadyDealerViewModel;
+                ShadyDealerViewModel = PlayerInstances.AvailableShadyDealerViewModel;
             }
         }
         #endregion

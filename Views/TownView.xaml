@@ -13,7 +13,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
-                      
+
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -39,23 +39,23 @@
         <Button Width="170" Height="40" FontSize="14px" Content="Explore outside the town" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="3" Grid.Column="0" Click="ExploreOutsideTown"/>
         <Button Width="170" Height="40" FontSize="14px" Content="Get back on your quest" 
-                Background="#FFECE4D5" Margin="10" Grid.Row="4" Grid.Column="0"/>
+                Background="#FFECE4D5" Margin="10" Grid.Row="4" Grid.Column="0" />
         <Button Width="170" Height="40" FontSize="14px" Content="Go to the shady dealer" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="2" Grid.Column="1" Click="GoToShadyDealer"/>
-        <Button Width="170" Height="40" FontSize="14px" Content="Open your inventory" 
+        <Button Width="170" Height="40" FontSize="14px" Content="Open your inventory"  
                 Background="#FFECE4D5" Margin="10" Grid.Row="3" Grid.Column="1"/>
         <Button Width="170" Height="40" FontSize="14px" Content="Upgrade your stats" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="4" Grid.Column="1"/>
-        
+
         <!-- Buttons on the bottom bar -->
 
-        <Button BorderThickness="3" Width="120" Height="40" FontSize="17px" FontWeight="Bold" Content="Save Game" Click="SaveGame" 
-                BorderBrush="#FF29447C" Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="0"/>
-        <Button BorderThickness="3" Width="120" Height="40" FontSize="17px" FontWeight="Bold" Content="Main Menu" Click="GoToMainMenu" 
-                BorderBrush="#FF29447C" Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="1"/>
-        <Button BorderThickness="3" Width="120" Height="40" FontSize="17px" FontWeight="Bold" Content="Load Game" Click="LoadGame" 
-                BorderBrush="#FF29447C" Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="2"/>
-        
+        <Button  Width="200" Height="40" FontSize="17px" Content="Save Game" Click="SaveGame" 
+                 Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="0"/>
+        <Button  Width="200" Height="40" FontSize="17px"  Content="Main Menu" Click="GoToMainMenu" 
+                 Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="1"/>
+        <Button  Width="200" Height="40" FontSize="17px"  Content="Load Game" Click="LoadGame" 
+                 Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="2"/>
+
 
         <Image Grid.Column="3" Grid.RowSpan="3" Source="pack://application:,,,/Content/Images/OldTown_TownView.jpg" Stretch="Fill" Opacity="0.7"/>
 

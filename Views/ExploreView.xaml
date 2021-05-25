@@ -72,11 +72,11 @@
 
             <!-- Actions Block Actions -->
             <Button Content="Drink Potion" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="150" Height="40" Grid.Column="0" Background="#FFECE4D5"/>
+                FontSize="20px" Width="150" Height="40" Grid.Column="0" Background="#FFECE4D5" />
             <Button Content="Use Rune" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="150" Height="40" Grid.Column="1" Background="#FFECE4D5"/>
+                FontSize="20px" Width="150" Height="40" Grid.Column="1" Background="#FFECE4D5" />
             <Button  Content="Flight!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="150" Height="40" Grid.Column="2" Background="#FFECE4D5" Click="Flight"/>
+                FontSize="20px" Width="150" Height="40" Grid.Column="2" Background="#FFECE4D5" Click="Flight" />
         </Grid>
 
         <!-- Stats Block -->
