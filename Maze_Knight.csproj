@@ -60,11 +60,13 @@
     </Compile>
     <Compile Include="Commands\MapGridCellClickCommand.cs" />
     <Compile Include="Commands\UpdateViewCommand.cs" />
+    <Compile Include="Converters\ItemTypeToBitmapConverter.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\BattleSystem.cs" />
     <Compile Include="Models\CellLocation.cs" />
     <Compile Include="Models\Enums\Items\ItemNamesRandomizer.cs" />
     <Compile Include="Models\Enums\Items\Armour\ArmourTypes.cs" />
+    <Compile Include="Models\Enums\Items\ItemTypes.cs" />
     <Compile Include="Models\Enums\Items\Potion\PotionHealthBonus.cs" />
     <Compile Include="Models\Enums\Items\Potion\PotionBuyPrice.cs" />
     <Compile Include="Models\Enums\Items\Potion\PotionTypes.cs" />
@@ -200,7 +202,9 @@
   <ItemGroup>
     <Resource Include="Content\Images\ShadyDealerViewImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Content\Icons\ArmourIcon_WBackground.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\RuneIcon.png" />
   </ItemGroup>

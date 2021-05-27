@@ -40,7 +40,7 @@ namespace Maze_Knight.Views
 
             //Setting the DataContext for this View - shall be set to the ExploreViewModel created by the static App class instantiated and stored in the Mediator static class
             //Also setting Binders between TextBoxes and relevant MapGridCell objects
-            DataContext = Mediator.theApp.SelectedViewModel;
+            DataContext = (ExploreViewModel)Mediator.theApp.SelectedViewModel;
             SetBindersToCells((int)PlayerInstances.CurrentPlayerInstance.Level, mapMeasures);
         }
         #endregion

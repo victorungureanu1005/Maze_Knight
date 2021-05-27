@@ -1,4 +1,6 @@
-﻿using Maze_Knight.ViewModels;
+﻿using Maze_Knight.Converters;
+using Maze_Knight.StaticClasses;
+using Maze_Knight.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,8 @@ namespace Maze_Knight.Views
         public ShadyDealerView()
         {
             InitializeComponent();
+            //Setting data context to the shady dealer view model directly and not by creating a new view model
+            DataContext = (ShadyDealerViewModel)Mediator.theApp.SelectedViewModel;
 
             InitializeShadyDealerInventoryGrid();
 
@@ -49,14 +53,24 @@ namespace Maze_Knight.Views
                 ShadyDealerInventory.RowDefinitions.Add(new RowDefinition { Height = new GridLength(ITEM_IMAGE_SQUARE_SIDE_LENGTH) });
             }
 
+            //Set itemIndex to go through the items in the Inventory Collection of the shady dealer and set bindings
+            int itemIndex = 0;
             //Add the actual Images
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    //Create Image with specific properties and set it in the right column and grid
-                    BitmapImage imageBitmap = new BitmapImage(new Uri("/Content/Icons/BowIcon_WBackground.png", UriKind.Relative));
-                    Image image = new Image() { Source = imageBitmap };
+                    //Create the binding needed for the image display and set its properties linking it to the items in the respective inventory
+                    Binding binding = new Binding();
+                    var itemTypeObject = ((ShadyDealerViewModel)Mediator.theApp.SelectedViewModel).ShadyDealer.ShadyDealerInventory.InventoryCollection[itemIndex].ItemType;
+                    itemIndex++;
+                    binding.Source = itemTypeObject;
+                    ItemTypeToBitmapConverter converter = new ItemTypeToBitmapConverter();
+                    binding.Converter = converter;
+                    Image image = new Image();
+                    image.SetBinding(Image.SourceProperty, binding);
+
+                    //Set column and row of the image created above
                     Grid.SetColumn(image, i);
                     Grid.SetRow(image, j);
                     //Add image to Grid Children so that it actually appears
@@ -68,6 +82,7 @@ namespace Maze_Knight.Views
                     myBorder.SetValue(Grid.RowProperty, j);
                     //Add Border to the Children of the Grid so that it actually appears
                     ShadyDealerInventory.Children.Add(myBorder);
+
                 }
             }
         }
@@ -84,32 +99,40 @@ namespace Maze_Knight.Views
                 PlayerInventory.RowDefinitions.Add(new RowDefinition { Height = new GridLength(ITEM_IMAGE_SQUARE_SIDE_LENGTH) });
             }
 
+            //Set itemIndex to go through the items in the Inventory Collection of the player in order to set the bindings
+            int itemIndex = 0;
             //Add the actual Images
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    //Create Image with specific properties and set it in the right column and grid
+                    //Create the binding needed for the image display and set its properties linking it to the items in the respective inventory
+                    Binding binding = new Binding();
+
+                    //Check if inventory is null or empty and checks if index went beyond item collection count
+                    if (PlayerInstances.CurrentPlayerInstance.PlayerInventory != null && itemIndex< PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection.Count)
+                    {
+                        var itemTypeObject = PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection[itemIndex].ItemType;
+                        itemIndex++;
+                        binding.Source = itemTypeObject;
+                        ItemTypeToBitmapConverter converter = new ItemTypeToBitmapConverter();
+                        binding.Converter = converter;
+                        Image image = new Image();
+                        image.SetBinding(Image.SourceProperty, binding);
 
 
+                        Grid.SetColumn(image, i);
+                        Grid.SetRow(image, j);
+                        //Add image to Grid Children so that it actually appears
+                        PlayerInventory.Children.Add(image);
 
-                    ////BINDING HERE actually! IValueConverter - Same Above
-
-                    ///string bitmapUriString = IValueConverter!!!!!!
-
-                    BitmapImage imageBitmap = new BitmapImage(new Uri("/Content/Icons/BowIcon_WBackground.png", UriKind.Relative));
-                    Image image = new Image() { Source = imageBitmap };
-                    Grid.SetColumn(image, i);
-                    Grid.SetRow(image, j);
-                    //Add image to Grid Children so that it actually appears
-                    PlayerInventory.Children.Add(image);
-
-                    //Create Border and set properties
-                    var myBorder = new Border { BorderBrush = new SolidColorBrush(Color.FromRgb(10, 20, 40)), BorderThickness = new Thickness { Bottom = ITEM_BORDER_WIDTH, Top = ITEM_BORDER_WIDTH, Left = ITEM_BORDER_WIDTH, Right = ITEM_BORDER_WIDTH } };
-                    myBorder.SetValue(Grid.ColumnProperty, i);
-                    myBorder.SetValue(Grid.RowProperty, j);
-                    //Add Border to the Children of the Grid so that it actually appears
-                    PlayerInventory.Children.Add(myBorder);
+                        //Create Border and set properties
+                        var myBorder = new Border { BorderBrush = new SolidColorBrush(Color.FromRgb(10, 20, 40)), BorderThickness = new Thickness { Bottom = ITEM_BORDER_WIDTH, Top = ITEM_BORDER_WIDTH, Left = ITEM_BORDER_WIDTH, Right = ITEM_BORDER_WIDTH } };
+                        myBorder.SetValue(Grid.ColumnProperty, i);
+                        myBorder.SetValue(Grid.RowProperty, j);
+                        //Add Border to the Children of the Grid so that it actually appears
+                        PlayerInventory.Children.Add(myBorder);
+                    }
                 }
             }
         }

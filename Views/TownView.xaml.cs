@@ -24,7 +24,7 @@ namespace Maze_Knight.Views
         public TownView()
         {
             InitializeComponent();
-            DataContext = new TownViewModel();
+            DataContext = (TownViewModel)Mediator.theApp.SelectedViewModel;
         }
 
         private void GoToMainMenu(object sender, RoutedEventArgs e)

@@ -101,17 +101,7 @@ namespace Maze_Knight.ViewModels
             //Setting Enemies and Exit Propreties on the MapGridCells found on the MapGridCellCollection
             SetEnemiesAndExitOnMap(MapGridCellCollection);
 
-            //TESTS!!!
-            Inventory x = new Inventory();
-
-            for (int i = 0; i < 4; i++)
-            {
-                x.InventoryCollection.Add(new Bow());
-                x.InventoryCollection.Add(new Sword());
-                x.InventoryCollection.Add(new Halberd());
-                x.InventoryCollection.Add(new Potion());
-                x.InventoryCollection.Add(new Rune());
-            }
+            
         }
         #endregion
 

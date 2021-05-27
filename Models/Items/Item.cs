@@ -1,4 +1,5 @@
 ﻿using Maze_Knight.Models.Enums;
+using Maze_Knight.Models.Enums.Items;
 using Maze_Knight.StaticClasses;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,12 @@ namespace Maze_Knight.Models.Items
         #endregion
         #region Backing Fields
         private protected int _playerLevelWhenGenerated;
-        //IMPLEMENT!!!
+        //ItemTypes needed for binding to image in the ShadyDealer View or Inventory View
+        private ItemTypes itemType;
+       
         private string _itemNameSuffix;
         private string _itemName;
-        //IMPLEMENT!!!
+       
         private int _itemBuyPrice;
         private int _itemSellPrice;
 
@@ -26,10 +29,12 @@ namespace Maze_Knight.Models.Items
 
         #region Properties
         public int PlayerLevelWhenGenerated { get => _playerLevelWhenGenerated; set => _playerLevelWhenGenerated = value; }
+        public ItemTypes ItemType { get => itemType; set => itemType = value; }
         public string ItemNameSuffix { get => _itemNameSuffix; set => _itemNameSuffix = value; }
         public string ItemName { get => _itemName; set => _itemName = value; }
         public int ItemBuyPrice { get => _itemBuyPrice; set => _itemBuyPrice = value; }
         public int ItemSellPrice { get => _itemSellPrice; set => _itemSellPrice = value; }
+
 
         #endregion
 

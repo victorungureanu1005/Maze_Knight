@@ -13,6 +13,8 @@ namespace Maze_Knight.Models.Items
     {
         public Sword() : base()
         {
+            //Setting item types necessary for image binding on inventories and shady dealer
+            ItemType = ItemTypes.Sword;
             SetSwordSubType();
             //Set name of weapon after subtype has been given
             SetWeaponName();

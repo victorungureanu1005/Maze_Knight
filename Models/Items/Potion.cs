@@ -21,6 +21,8 @@ namespace Maze_Knight.Models.Items
         #region Constructor
         public Potion()
         {
+            //Setting item types necessary for image binding on inventories and shady dealer
+            ItemType = ItemTypes.Potion;
             SetPlayerLevelWhenGenerated();
             //Set potion type
             SetPotionType();

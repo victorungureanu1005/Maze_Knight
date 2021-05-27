@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Maze_Knight.ViewModels
 {
-    //This class get's instantiated within the explore view model
+    //This class get's instantiated within the Town view model
     public class ShadyDealerViewModel : BaseViewModel
     {
        private ShadyDealerModel _shadyDealer;

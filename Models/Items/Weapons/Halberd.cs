@@ -13,6 +13,8 @@ namespace Maze_Knight.Models.Items
     {
         public Halberd() : base()
         {
+            //Setting item types necessary for image binding on inventories and shady dealer
+            ItemType = ItemTypes.Halberd;
             SetHalberdSubType();
             //Set name of weapon after subtype has been given
             SetWeaponName();

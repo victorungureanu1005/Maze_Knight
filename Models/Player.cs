@@ -1,5 +1,6 @@
 ﻿using Maze_Knight.Models.Comparers;
 using Maze_Knight.Models.Enums;
+using Maze_Knight.Models.Items;
 using Maze_Knight.StaticClasses;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Maze_Knight.Models
         private int _goldDust;
         private int _currentExperience;
         private int _statPoints;
-        private Inventory _playerInventory;
+        private Inventory _playerInventory = new Inventory();
         private bool _newShadyDealerAvailable = true;
 
         //Player selected items

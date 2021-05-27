@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maze_Knight.Models.Enums.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,8 @@ namespace Maze_Knight.Models.Items
             ItemName = RUNE_NAME;
             RuneNumberOfTurnsActive = RUNE_NUMBER_OF_TURNS_ACTIVE;
             ItemBuyPrice = RUNE_BUY_PRICE;
+            //Setting item types necessary for image binding on inventories and shady dealer
+            ItemType = ItemTypes.Rune;
             SetSellPrice();
         }
         #endregion

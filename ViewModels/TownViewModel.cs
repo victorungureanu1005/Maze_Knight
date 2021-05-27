@@ -1,4 +1,5 @@
-﻿using Maze_Knight.StaticClasses;
+﻿using Maze_Knight.Models.Items;
+using Maze_Knight.StaticClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;

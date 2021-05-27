@@ -33,6 +33,8 @@ namespace Maze_Knight.Models.Items
         #region Constructor
         public Armour()
         {
+            //Setting item types necessary for image binding on inventories and shady dealer
+            ItemType = ItemTypes.Armour;
             //Sets player level when generated to current player instance level. 
             SetPlayerLevelWhenGenerated();
             //Set ArmourType

@@ -12,8 +12,8 @@ namespace Maze_Knight.Models
     public class ShadyDealerModel
     {
         #region Constants
-        private const int MAX_WEAPON_OFFERS = 2;
-        private const int MAX_ARMOUR_OFFERS = 3;
+        private const int MAX_WEAPON_OFFERS = 3;
+        private const int MAX_ARMOUR_OFFERS = 2;
         private const int MAX_POTION_OFFERS = 2;
         private const int MAX_RUNE_OFFERS = 1;
         #endregion
