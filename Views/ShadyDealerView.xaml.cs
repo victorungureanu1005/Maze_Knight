@@ -25,11 +25,16 @@ namespace Maze_Knight.Views
     {
         private const double ITEM_BORDER_WIDTH = 1D;
         private const int ITEM_IMAGE_SQUARE_SIDE_LENGTH = 85;
+        private ShadyDealerViewModel currentShadyDealerViewModel;
+
+        public ShadyDealerViewModel CurrentShadyDealerViewModel { get => currentShadyDealerViewModel; set => currentShadyDealerViewModel = value; }
+
         public ShadyDealerView()
         {
             InitializeComponent();
             //Setting data context to the shady dealer view model directly and not by creating a new view model
-            DataContext = (ShadyDealerViewModel)Mediator.theApp.SelectedViewModel;
+            CurrentShadyDealerViewModel = (ShadyDealerViewModel)Mediator.theApp.SelectedViewModel;
+            DataContext = CurrentShadyDealerViewModel;
 
             InitializeShadyDealerInventoryGrid();
 
@@ -85,6 +90,12 @@ namespace Maze_Knight.Views
 
                 }
             }
+
+            //Add Selector and set Event Handlers
+            foreach (Image image in ShadyDealerInventory.Children.OfType<Image>())
+            {
+                image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(ItemInShadyDealerInventoryClicked);
+            }
         }
 
         private void InitializePlayerInventory()
@@ -109,8 +120,8 @@ namespace Maze_Knight.Views
                     //Create the binding needed for the image display and set its properties linking it to the items in the respective inventory
                     Binding binding = new Binding();
 
-                    //Check if inventory is null or empty and checks if index went beyond item collection count
-                    if (PlayerInstances.CurrentPlayerInstance.PlayerInventory != null && itemIndex< PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection.Count)
+                    //Check if inventory is null or empty and checks if index went beyond item collection count in order to prevent exceptions
+                    if (PlayerInstances.CurrentPlayerInstance.PlayerInventory != null && itemIndex < PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection.Count)
                     {
                         var itemTypeObject = PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection[itemIndex].ItemType;
                         itemIndex++;
@@ -135,6 +146,49 @@ namespace Maze_Knight.Views
                     }
                 }
             }
+
+            //Add Selector and set Event Handlers
+            foreach (Image image in ShadyDealerInventory.Children.OfType<Image>())
+            {
+                image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(ItemInPlayerInventoryClicked);
+            }
         }
+
+        #region Functions for both Inventories
+        private void ItemInShadyDealerInventoryClicked(object sender, MouseButtonEventArgs e)
+        {
+            //Gets the index of the selected item by dividing the index of the image with 2 as we also have borders as children of the grid
+            int index = ShadyDealerInventory.Children.IndexOf((Image)sender) / 2;
+            //Sets the selected item in the shady dealer inventory to the corresponding item in the inventory (ShadyDealerViewModel)
+            CurrentShadyDealerViewModel.ShadyDealerInventorySelectedItem = CurrentShadyDealerViewModel.ShadyDealer.ShadyDealerInventory.InventoryCollection[index];
+            //Sets the PlayerInventorySelectedItem in the ShadyDealerViewModel to null and disables the Sell button
+            CurrentShadyDealerViewModel.PlayerInventorySelectedItem = null;
+            SellButton.IsEnabled = false;
+            //Enables buy Button
+            BuyButton.IsEnabled = true;
+        }
+        private void ItemInPlayerInventoryClicked(object sender, MouseButtonEventArgs e)
+        {
+            //Gets the index of the selected item by dividing the index of the image with 2 as we also have borders as children of the grid
+            int index = PlayerInventory.Children.IndexOf((Image)sender) / 2;
+            //Sets the selected item in the player inventory to the corresponding item in the inventory (ShadyDealerViewModel)
+            CurrentShadyDealerViewModel.PlayerInventorySelectedItem = PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection[index];
+            //Sets the ShadyDealerInventorySelectedItem in the ShadyDealerViewModel to null and disables the Buy button
+            CurrentShadyDealerViewModel.ShadyDealerInventorySelectedItem = null;
+            BuyButton.IsEnabled = false;
+            //Enables sell Button
+            SellButton.IsEnabled = true;
+        }
+
+        private void BuyButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SellButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

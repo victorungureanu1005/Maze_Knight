@@ -130,7 +130,7 @@ namespace Maze_Knight.Views
         /// <summary>
         /// Executes command stored on MapGridCell
         /// </summary>
-        private void GridCellClick(object sender, System.EventArgs e) 
+        private void GridCellClick(object sender, MouseButtonEventArgs e) 
         {
             int index = _textBlockCollection.IndexOf((TextBlock)sender);
             ((ExploreViewModel)Mediator.theApp.SelectedViewModel).MapGridCellCollection[index].MapGridCellClickCommand.Execute(sender);
