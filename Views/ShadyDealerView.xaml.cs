@@ -36,7 +36,7 @@ namespace Maze_Knight.Views
             CurrentShadyDealerViewModel = (ShadyDealerViewModel)Mediator.theApp.SelectedViewModel;
             DataContext = CurrentShadyDealerViewModel;
 
-            InitializeShadyDealerInventoryGrid();
+            InitializeShadyDealerInventory();
 
             InitializePlayerInventory();
         }
@@ -46,7 +46,7 @@ namespace Maze_Knight.Views
             Mediator.theApp.SelectedViewModel = new TownViewModel();
         }
 
-        private void InitializeShadyDealerInventoryGrid()
+        private void InitializeShadyDealerInventory()
         {
             //Add columns and rows to the grid
             for (int i = 0; i < 4; i++)
@@ -65,29 +65,31 @@ namespace Maze_Knight.Views
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    //Create the binding needed for the image display and set its properties linking it to the items in the respective inventory
-                    Binding binding = new Binding();
-                    var itemTypeObject = ((ShadyDealerViewModel)Mediator.theApp.SelectedViewModel).ShadyDealer.ShadyDealerInventory.InventoryCollection[itemIndex].ItemType;
-                    itemIndex++;
-                    binding.Source = itemTypeObject;
-                    ItemTypeToBitmapConverter converter = new ItemTypeToBitmapConverter();
-                    binding.Converter = converter;
-                    Image image = new Image();
-                    image.SetBinding(Image.SourceProperty, binding);
+                    if (itemIndex < CurrentShadyDealerViewModel.ShadyDealer.ShadyDealerInventory.InventoryCollection.Count())
+                    {
+                        //Create the binding needed for the image display and set its properties linking it to the items in the respective inventory
+                        Binding binding = new Binding();
+                        var itemTypeObject = ((ShadyDealerViewModel)Mediator.theApp.SelectedViewModel).ShadyDealer.ShadyDealerInventory.InventoryCollection[itemIndex].ItemType;
+                        itemIndex++;
+                        binding.Source = itemTypeObject;
+                        ItemTypeToBitmapConverter converter = new ItemTypeToBitmapConverter();
+                        binding.Converter = converter;
+                        Image image = new Image();
+                        image.SetBinding(Image.SourceProperty, binding);
 
-                    //Set column and row of the image created above
-                    Grid.SetColumn(image, i);
-                    Grid.SetRow(image, j);
-                    //Add image to Grid Children so that it actually appears
-                    ShadyDealerInventory.Children.Add(image);
+                        //Set column and row of the image created above
+                        Grid.SetColumn(image, i);
+                        Grid.SetRow(image, j);
+                        //Add image to Grid Children so that it actually appears
+                        ShadyDealerInventory.Children.Add(image);
 
-                    //Create Border and set properties
-                    var myBorder = new Border { BorderBrush = new SolidColorBrush(Color.FromRgb(10, 20, 40)), BorderThickness = new Thickness { Bottom = ITEM_BORDER_WIDTH, Top = ITEM_BORDER_WIDTH, Left = ITEM_BORDER_WIDTH, Right = ITEM_BORDER_WIDTH } };
-                    myBorder.SetValue(Grid.ColumnProperty, i);
-                    myBorder.SetValue(Grid.RowProperty, j);
-                    //Add Border to the Children of the Grid so that it actually appears
-                    ShadyDealerInventory.Children.Add(myBorder);
-
+                        //Create Border and set properties
+                        var myBorder = new Border { BorderBrush = new SolidColorBrush(Color.FromRgb(10, 20, 40)), BorderThickness = new Thickness { Bottom = ITEM_BORDER_WIDTH, Top = ITEM_BORDER_WIDTH, Left = ITEM_BORDER_WIDTH, Right = ITEM_BORDER_WIDTH } };
+                        myBorder.SetValue(Grid.ColumnProperty, i);
+                        myBorder.SetValue(Grid.RowProperty, j);
+                        //Add Border to the Children of the Grid so that it actually appears
+                        ShadyDealerInventory.Children.Add(myBorder);
+                    }
                 }
             }
 
@@ -148,7 +150,7 @@ namespace Maze_Knight.Views
             }
 
             //Add Selector and set Event Handlers
-            foreach (Image image in ShadyDealerInventory.Children.OfType<Image>())
+            foreach (Image image in PlayerInventory.Children.OfType<Image>())
             {
                 image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(ItemInPlayerInventoryClicked);
             }
@@ -161,8 +163,7 @@ namespace Maze_Knight.Views
             int index = ShadyDealerInventory.Children.IndexOf((Image)sender) / 2;
             //Sets the selected item in the shady dealer inventory to the corresponding item in the inventory (ShadyDealerViewModel)
             CurrentShadyDealerViewModel.ShadyDealerInventorySelectedItem = CurrentShadyDealerViewModel.ShadyDealer.ShadyDealerInventory.InventoryCollection[index];
-            //Sets the PlayerInventorySelectedItem in the ShadyDealerViewModel to null and disables the Sell button
-            CurrentShadyDealerViewModel.PlayerInventorySelectedItem = null;
+            //Disable the Sell button
             SellButton.IsEnabled = false;
             //Enables buy Button
             BuyButton.IsEnabled = true;
@@ -173,8 +174,7 @@ namespace Maze_Knight.Views
             int index = PlayerInventory.Children.IndexOf((Image)sender) / 2;
             //Sets the selected item in the player inventory to the corresponding item in the inventory (ShadyDealerViewModel)
             CurrentShadyDealerViewModel.PlayerInventorySelectedItem = PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection[index];
-            //Sets the ShadyDealerInventorySelectedItem in the ShadyDealerViewModel to null and disables the Buy button
-            CurrentShadyDealerViewModel.ShadyDealerInventorySelectedItem = null;
+            //Disable the Buy button
             BuyButton.IsEnabled = false;
             //Enables sell Button
             SellButton.IsEnabled = true;
@@ -182,12 +182,32 @@ namespace Maze_Knight.Views
 
         private void BuyButtonClick(object sender, RoutedEventArgs e)
         {
-
+            CurrentShadyDealerViewModel.BuyCommand.Execute(sender);
+            ReinitializeInventoriesInTheView();
         }
 
         private void SellButtonClick(object sender, RoutedEventArgs e)
         {
+            CurrentShadyDealerViewModel.SellCommand.Execute(sender);
+            ReinitializeInventoriesInTheView();
 
+        }
+        #endregion
+
+        #region Helper Functions
+        private void ReinitializeInventoriesInTheView()
+        {
+            //Remove the columns and rows of the two grids
+            PlayerInventory.ColumnDefinitions.Clear();
+            PlayerInventory.RowDefinitions.Clear();
+            ShadyDealerInventory.ColumnDefinitions.Clear();
+            ShadyDealerInventory.RowDefinitions.Clear();
+            //Remove the children of the two grids (images and borders)
+            PlayerInventory.Children.Clear();
+            ShadyDealerInventory.Children.Clear();
+            //Reinitialize the two inventories
+            InitializePlayerInventory();
+            InitializeShadyDealerInventory();
         }
         #endregion
     }
