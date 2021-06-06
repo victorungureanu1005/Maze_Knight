@@ -44,7 +44,7 @@ namespace Maze_Knight.Models
         //Player Location
         private int[] _playerLocation;
         private MapGridCell _cellOfPlayerLocation;
-        private bool _playerIsNotLocked = true;
+        private bool _playerIsLocked = false;
 
         #endregion
 
@@ -226,10 +226,10 @@ namespace Maze_Knight.Models
             set { _cellOfPlayerLocation = value; OnPropertyChanged(nameof(CellOfPlayerLocation)); }
         }
         //Is player locked or can he move on the map grid? Needed for the MapGridCellClickCommand and BattleCommand interaction
-        public bool PlayerIsNotLocked
+        public bool PlayerIsLocked
         {
-            get { return _playerIsNotLocked; }
-            set { _playerIsNotLocked = value; OnPropertyChanged(nameof(PlayerIsNotLocked)); }
+            get { return _playerIsLocked; }
+            set { _playerIsLocked = value; OnPropertyChanged(nameof(PlayerIsLocked)); }
         }
 
         

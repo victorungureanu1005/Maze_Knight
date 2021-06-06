@@ -75,7 +75,7 @@ namespace Maze_Knight.Models
             _currentMapGridCell.EnemyIsHere= false;
 
             //Player get's unlocked
-            _player.PlayerIsNotLocked=true;
+            _player.PlayerIsLocked=false;
         }
 
         //Method to handle what happened if battle was lost

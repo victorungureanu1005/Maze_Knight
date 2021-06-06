@@ -50,7 +50,13 @@
 
         <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
 
-
+        <!-- PopUP Inventories -->
+        <Popup x:Name="PopUp">
+            <StackPanel Background="#FFECE4D5">
+                <TextBlock x:Name="PopUpItemName" FontSize="15px"/>
+                <TextBlock x:Name="PopUpItemPrice" FontSize="15px"/>
+            </StackPanel>
+        </Popup>
 
     </Grid>
 </UserControl>

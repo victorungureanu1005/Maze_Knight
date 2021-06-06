@@ -42,6 +42,7 @@ namespace Maze_Knight.Views
             //Also setting Binders between TextBoxes and relevant MapGridCell objects
             DataContext = (ExploreViewModel)Mediator.theApp.SelectedViewModel;
             SetBindersToCells((int)PlayerInstances.CurrentPlayerInstance.Level, mapMeasures);
+
         }
         #endregion
 
@@ -70,7 +71,7 @@ namespace Maze_Knight.Views
                 for (int j = 0; j < mapMeasures.GetMaxRow(); j++)
                 {
                     //Set font size and font weight of text in the map grid cell/ text block
-                    TextBlock textBlock = new TextBlock() { FontSize = 20, FontWeight= FontWeights.Bold };
+                    TextBlock textBlock = new TextBlock() { FontSize = 20, FontWeight = FontWeights.Bold };
                     Grid.SetColumn(textBlock, i);
                     Grid.SetRow(textBlock, j);
 
@@ -130,7 +131,7 @@ namespace Maze_Knight.Views
         /// <summary>
         /// Executes command stored on MapGridCell
         /// </summary>
-        private void GridCellClick(object sender, MouseButtonEventArgs e) 
+        private void GridCellClick(object sender, MouseButtonEventArgs e)
         {
             int index = _textBlockCollection.IndexOf((TextBlock)sender);
             ((ExploreViewModel)Mediator.theApp.SelectedViewModel).MapGridCellCollection[index].MapGridCellClickCommand.Execute(sender);
@@ -167,12 +168,17 @@ namespace Maze_Knight.Views
         private void FightButton_Click(object sender, RoutedEventArgs e)
         {
             //Check if player is currently locked meaning he must do battle to get unlocked
-            if (PlayerInstances.CurrentPlayerInstance.PlayerIsNotLocked==false)
+            if (PlayerInstances.CurrentPlayerInstance.PlayerIsLocked == true)
             {
                 BattleSystem battle = new BattleSystem();
                 battle.Battle();
             }
             else return;
+        }
+
+        private void UseRuneButton(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

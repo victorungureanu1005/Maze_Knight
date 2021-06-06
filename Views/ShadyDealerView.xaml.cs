@@ -1,4 +1,5 @@
 ﻿using Maze_Knight.Converters;
+using Maze_Knight.Models.Items;
 using Maze_Knight.StaticClasses;
 using Maze_Knight.ViewModels;
 using System;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -69,13 +71,20 @@ namespace Maze_Knight.Views
                     {
                         //Create the binding needed for the image display and set its properties linking it to the items in the respective inventory
                         Binding binding = new Binding();
-                        var itemTypeObject = ((ShadyDealerViewModel)Mediator.theApp.SelectedViewModel).ShadyDealer.ShadyDealerInventory.InventoryCollection[itemIndex].ItemType;
+                        var currentItem = ((ShadyDealerViewModel)Mediator.theApp.SelectedViewModel).ShadyDealer.ShadyDealerInventory.InventoryCollection[itemIndex];
+                        var itemTypeObject = currentItem.ItemType;
                         itemIndex++;
                         binding.Source = itemTypeObject;
                         ItemTypeToBitmapConverter converter = new ItemTypeToBitmapConverter();
                         binding.Converter = converter;
                         Image image = new Image();
                         image.SetBinding(Image.SourceProperty, binding);
+
+                        //Add Selector and respective Event Handler
+                        image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(ItemInShadyDealerInventoryClicked);
+                        //Add PopUp Event Handler
+                        image.MouseEnter += new MouseEventHandler((sender, e) => PopUpInitializationOnShadyDealerInventory(sender, e, currentItem));
+                        image.MouseLeave += new MouseEventHandler((sender, e) => PopUpDeInitialization(sender, e, currentItem));
 
                         //Set column and row of the image created above
                         Grid.SetColumn(image, i);
@@ -94,10 +103,10 @@ namespace Maze_Knight.Views
             }
 
             //Add Selector and set Event Handlers
-            foreach (Image image in ShadyDealerInventory.Children.OfType<Image>())
-            {
-                image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(ItemInShadyDealerInventoryClicked);
-            }
+            //foreach (Image image in ShadyDealerInventory.Children.OfType<Image>())
+            //{
+            //    image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(ItemInShadyDealerInventoryClicked);
+            //}
         }
 
         private void InitializePlayerInventory()
@@ -119,19 +128,27 @@ namespace Maze_Knight.Views
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    //Create the binding needed for the image display and set its properties linking it to the items in the respective inventory
-                    Binding binding = new Binding();
+
 
                     //Check if inventory is null or empty and checks if index went beyond item collection count in order to prevent exceptions
                     if (PlayerInstances.CurrentPlayerInstance.PlayerInventory != null && itemIndex < PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection.Count)
                     {
-                        var itemTypeObject = PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection[itemIndex].ItemType;
+                        //Create the binding needed for the image display and set its properties linking it to the items in the respective inventory
+                        Binding binding = new Binding();
+                        var currentItem = PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection[itemIndex];
+                        var itemTypeObject = currentItem.ItemType;
                         itemIndex++;
                         binding.Source = itemTypeObject;
                         ItemTypeToBitmapConverter converter = new ItemTypeToBitmapConverter();
                         binding.Converter = converter;
                         Image image = new Image();
                         image.SetBinding(Image.SourceProperty, binding);
+
+                        //Add Selector and respective Event Handler
+                        image.MouseDown += new MouseButtonEventHandler(ItemInPlayerInventoryClicked);
+                        //Add PopUp Event Handler
+                        image.MouseEnter += new MouseEventHandler((sender, e) => PopUpInitializationOnPlayerInventory(sender, e, currentItem));
+                        image.MouseLeave += new MouseEventHandler((sender, e) => PopUpDeInitialization(sender, e, currentItem));
 
 
                         Grid.SetColumn(image, i);
@@ -150,10 +167,10 @@ namespace Maze_Knight.Views
             }
 
             //Add Selector and set Event Handlers
-            foreach (Image image in PlayerInventory.Children.OfType<Image>())
-            {
-                image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(ItemInPlayerInventoryClicked);
-            }
+            //foreach (Image image in PlayerInventory.Children.OfType<Image>())
+            //{
+            //    image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(ItemInPlayerInventoryClicked);
+            //}
         }
 
         #region Functions for both Inventories
@@ -163,7 +180,7 @@ namespace Maze_Knight.Views
             int index = ShadyDealerInventory.Children.IndexOf((Image)sender) / 2;
             //Sets the selected item in the shady dealer inventory to the corresponding item in the inventory (ShadyDealerViewModel)
             CurrentShadyDealerViewModel.ShadyDealerInventorySelectedItem = CurrentShadyDealerViewModel.ShadyDealer.ShadyDealerInventory.InventoryCollection[index];
-            //Disable the Sell button
+            //Disable the Sell button 
             SellButton.IsEnabled = false;
             //Enables buy Button
             BuyButton.IsEnabled = true;
@@ -209,6 +226,33 @@ namespace Maze_Knight.Views
             InitializePlayerInventory();
             InitializeShadyDealerInventory();
         }
+        #endregion
+
+        #region PopUp Functions
+        private void PopUpInitializationOnPlayerInventory(object sender, MouseEventArgs e, Item item)
+        {
+            PopUp.IsOpen = true;
+            PopUp.PlacementTarget = (Image)sender;
+            PopUp.Placement = PlacementMode.Right;
+            PopUpItemName.Text = item.ItemName;
+            PopUpItemPrice.Text = $"Sell Price: {item.ItemSellPrice}";
+        }
+        private void PopUpInitializationOnShadyDealerInventory(object sender, MouseEventArgs e, Item item)
+        {
+            PopUp.IsOpen = true;
+            PopUp.PlacementTarget = (Image)sender;
+            PopUp.Placement = PlacementMode.Right;
+            PopUpItemName.Text = item.ItemName;
+            PopUpItemPrice.Text = $"Buy Price: {item.ItemBuyPrice}";
+        }
+        private void PopUpDeInitialization(object sender, MouseEventArgs e, Item item)
+        {
+            PopUp.IsOpen = false;
+            PopUpItemName.Text = "";
+            PopUpItemPrice.Text = "";
+        }
+
+
         #endregion
     }
 }

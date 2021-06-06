@@ -59,6 +59,7 @@
       <DependentUpon>AppWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\BuyCommand.cs" />
+    <Compile Include="Commands\UseRuneCommand.cs" />
     <Compile Include="Commands\MapGridCellClickCommand.cs" />
     <Compile Include="Commands\SellCommand.cs" />
     <Compile Include="Commands\UpdateViewCommand.cs" />

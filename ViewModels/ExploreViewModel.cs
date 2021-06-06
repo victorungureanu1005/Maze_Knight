@@ -14,15 +14,20 @@ using System.Windows.Threading;
 using System.Reflection;
 using static Maze_Knight.Models.EnemyModels.MysticalCreaturesEnemies;
 using Maze_Knight.Models.Items;
+using System.Windows.Input;
+using Maze_Knight.Commands;
 
 namespace Maze_Knight.ViewModels
 {
     public class ExploreViewModel : BaseViewModel
     {
-        #region Backing Fields        
+        #region Backing Fields and Properties      
         //Backing Field for the MapGridCellCollection
         private ObservableCollection<MapGridCell> _mapGridCellCollection = new ObservableCollection<MapGridCell>();
         private Player _currentPlayer;
+
+        //Commands
+        public ICommand UseRuneCommand { get; set; }
 
         //Backing fields
         private string _battleReport;
@@ -101,7 +106,9 @@ namespace Maze_Knight.ViewModels
             //Setting Enemies and Exit Propreties on the MapGridCells found on the MapGridCellCollection
             SetEnemiesAndExitOnMap(MapGridCellCollection);
 
-            
+            //Set Command
+            UseRuneCommand = new UseRuneCommand(CurrentPlayer);
+
         }
         #endregion
 
