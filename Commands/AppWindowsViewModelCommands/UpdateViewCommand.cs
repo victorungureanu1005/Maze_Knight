@@ -30,6 +30,7 @@ namespace Maze_Knight.Commands
                 case "MainMenuView": viewModel.SelectedViewModel = new MainMenuViewModel(); break;
                 case "CreditsView": viewModel.SelectedViewModel = new CreditsViewModel(); break;
                 case "ExploreView": viewModel.SelectedViewModel = new ExploreViewModel(); break;
+                case "StatsAndInventoryView": viewModel.SelectedViewModel = new StatsAndInventoryViewModel(); break;
                 default: viewModel.SelectedViewModel = new MainMenuViewModel(); break;
             }
         }

@@ -22,11 +22,18 @@
         <DataTemplate DataType="{x:Type viewmodels:CreditsViewModel}">
             <views:CreditsView/>
         </DataTemplate>
+        
         <DataTemplate DataType="{x:Type viewmodels:ExploreViewModel}">
             <views:ExploreView/>
-        </DataTemplate>      
+        </DataTemplate>     
+        
         <DataTemplate DataType="{x:Type viewmodels:ShadyDealerViewModel}">
             <views:ShadyDealerView/>
+        </DataTemplate>    
+        
+        <DataTemplate DataType="{x:Type viewmodels:StatsAndInventoryViewModel}">
+            <views:StatsAndInventoryView/>
         </DataTemplate>
+        
     </Application.Resources>
 </Application>

@@ -5,13 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Maze_Knight.Commands
 {
     public class UseRuneCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
         private Player currentPlayer;
         public UseRuneCommand(Player player)
         {
@@ -32,6 +37,7 @@ namespace Maze_Knight.Commands
             {
                 currentPlayer.PlayerInventory.InventoryCollection.Remove(currentPlayer.PlayerInventory.InventoryCollection.OfType<Rune>().First());
                 currentPlayer.ActivateRune();
+                CommandManager.InvalidateRequerySuggested();
             }
         }
     }

@@ -21,6 +21,8 @@ namespace Maze_Knight.Models
         private int _statPoints;
         private Inventory _playerInventory = new Inventory();
         private bool _newShadyDealerAvailable = true;
+        private Dictionary
+
 
         //Player selected items
         private bool _isWeaponEquiped;

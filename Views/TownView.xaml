@@ -38,22 +38,20 @@
                 Background="#FFECE4D5" Margin="10" Grid.Row="2" Grid.Column="0"/>
         <Button Width="170" Height="40" FontSize="14px" Content="Explore outside the town" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="3" Grid.Column="0" Click="ExploreOutsideTown"/>
-        <Button Width="170" Height="40" FontSize="14px" Content="Get back on your quest" 
-                Background="#FFECE4D5" Margin="10" Grid.Row="4" Grid.Column="0" />
         <Button Width="170" Height="40" FontSize="14px" Content="Go to the shady dealer" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="2" Grid.Column="1" Click="GoToShadyDealer"/>
-        <Button Width="170" Height="40" FontSize="14px" Content="Open your inventory"  
+        <Button Width="170" Height="40" FontSize="14px" Content="Get back on your quest"  
                 Background="#FFECE4D5" Margin="10" Grid.Row="3" Grid.Column="1"/>
-        <Button Width="170" Height="40" FontSize="14px" Content="Upgrade your stats" 
-                Background="#FFECE4D5" Margin="10" Grid.Row="4" Grid.Column="1"/>
+        <Button Width="300" Height="40" FontSize="14px" Content="Upgrade your stats and check your inventory" 
+                Background="#FFECE4D5" Margin="10" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Click="UpgradeYourStatsAndCheckYourInventory" />
 
         <!-- Buttons on the bottom bar -->
 
-        <Button  Width="200" Height="40" FontSize="17px" Content="Save Game" Click="SaveGame" 
+        <Button  Width="200" Height="40" FontSize="20px" Content="Save Game" Click="SaveGame" 
                  Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="0"/>
-        <Button  Width="200" Height="40" FontSize="17px"  Content="Main Menu" Click="GoToMainMenu" 
+        <Button  Width="200" Height="40" FontSize="20px"  Content="Main Menu" Click="GoToMainMenu" 
                  Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="1"/>
-        <Button  Width="200" Height="40" FontSize="17px"  Content="Load Game" Click="LoadGame" 
+        <Button  Width="200" Height="40" FontSize="20px"  Content="Load Game" Click="LoadGame" 
                  Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="2"/>
 
 

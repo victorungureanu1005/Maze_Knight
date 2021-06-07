@@ -58,11 +58,15 @@
     <Compile Include="AppWindow.xaml.cs">
       <DependentUpon>AppWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Commands\BuyCommand.cs" />
-    <Compile Include="Commands\UseRuneCommand.cs" />
+    <Compile Include="Commands\ShadyDealerViewModelCommands\BuyCommand.cs" />
+    <Compile Include="Commands\ExploreViewModelCommands\UseRuneCommand.cs" />
     <Compile Include="Commands\MapGridCellClickCommand.cs" />
-    <Compile Include="Commands\SellCommand.cs" />
-    <Compile Include="Commands\UpdateViewCommand.cs" />
+    <Compile Include="Commands\ShadyDealerViewModelCommands\SellCommand.cs" />
+    <Compile Include="Commands\AppWindowsViewModelCommands\UpdateViewCommand.cs" />
+    <Compile Include="Commands\StatsAndInventoryViewModelCommands\AddStatPointLevelCommand.cs" />
+    <Compile Include="Commands\StatsAndInventoryViewModelCommands\EquipCommand.cs" />
+    <Compile Include="Commands\StatsAndInventoryViewModelCommands\ResetStatPointsCommand.cs" />
+    <Compile Include="Commands\StatsAndInventoryViewModelCommands\UnequipCommand.cs" />
     <Compile Include="Converters\ItemTypeToBitmapConverter.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\BattleSystem.cs" />
@@ -105,12 +109,12 @@
     <Compile Include="StaticClasses\RandomGenerator.cs" />
     <Compile Include="ViewModels\AppWindowViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\BoundDataContexts\Class1.cs" />
     <Compile Include="ViewModels\CreditsViewModel.cs" />
     <Compile Include="ViewModels\ExploreViewModel.cs" />
     <Compile Include="ViewModels\LoadGameViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\ShadyDealerViewModel.cs" />
+    <Compile Include="ViewModels\StatsAndInventoryViewModel.cs" />
     <Compile Include="ViewModels\TownViewModel.cs" />
     <Compile Include="Views\CreditsView.xaml.cs">
       <DependentUpon>CreditsView.xaml</DependentUpon>
@@ -130,6 +134,9 @@
     </Compile>
     <Compile Include="Views\ShadyDealerView.xaml.cs">
       <DependentUpon>ShadyDealerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatsAndInventoryView.xaml.cs">
+      <DependentUpon>StatsAndInventoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
@@ -158,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ShadyDealerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatsAndInventoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

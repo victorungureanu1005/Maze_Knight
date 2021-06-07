@@ -1,4 +1,5 @@
-﻿using Maze_Knight.ViewModels;
+﻿using Maze_Knight.StaticClasses;
+using Maze_Knight.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,8 +51,14 @@ namespace Maze_Knight.Views
 
         private void GoToShadyDealer(object sender, RoutedEventArgs e)
         {
-            var currentTownViewModel = (TownViewModel)Mediator.theApp.SelectedViewModel;
-            Mediator.theApp.SelectedViewModel = currentTownViewModel.ShadyDealerViewModel;
+            //Access ShadyDealerViewModel stored on the TownViewModel
+            Mediator.theApp.SelectedViewModel = ((TownViewModel)Mediator.theApp.SelectedViewModel).ShadyDealerViewModel;
+
+        }
+
+        private void UpgradeYourStatsAndCheckYourInventory(object sender, RoutedEventArgs e)
+        {
+            Mediator.theApp.SelectedViewModel = new StatsAndInventoryViewModel();
         }
     }
 }

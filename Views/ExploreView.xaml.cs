@@ -176,9 +176,5 @@ namespace Maze_Knight.Views
             else return;
         }
 
-        private void UseRuneButton(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

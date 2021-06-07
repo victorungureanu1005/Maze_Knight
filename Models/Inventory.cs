@@ -26,7 +26,12 @@ namespace Maze_Knight.Models
         #region Generic Inventory Properties
 
         public int InventoryCapacity { get => _inventoryCapacity; set => _inventoryCapacity = value; }
-        public ObservableCollection<Item> InventoryCollection { get => _inventoryCollection; set => _inventoryCollection = value; }
+        public ObservableCollection<Item> InventoryCollection { get => _inventoryCollection; set
+            {
+                _inventoryCollection = value;
+                OnPropertyChanged(nameof(InventoryCollection));
+            }
+        }
 
         #endregion
 
