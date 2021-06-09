@@ -16,6 +16,7 @@ namespace Maze_Knight.Commands.StatsAndInventoryViewModelCommands
             throw new NotImplementedException();
         }
 
+
         public void Execute(object parameter)
         {
             throw new NotImplementedException();

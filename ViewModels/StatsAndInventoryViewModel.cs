@@ -1,5 +1,7 @@
 ﻿using Maze_Knight.Commands.StatsAndInventoryViewModelCommands;
+using Maze_Knight.Models;
 using Maze_Knight.Models.Items;
+using Maze_Knight.StaticClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,28 +11,39 @@ using System.Windows.Input;
 
 namespace Maze_Knight.ViewModels
 {
-    class StatsAndInventoryViewModel : BaseViewModel
+    public class StatsAndInventoryViewModel : BaseViewModel
     {
         #region Backingfields
-        private Item _selectedInventoryItem;
-        private Item _selectedEquippedItem;
-        private 
+        private Player _currentPlayer;
         #endregion
+
         #region Properties
+        public Player CurrentPlayer { get => _currentPlayer; set => _currentPlayer = value; }
         #endregion
+
         #region Commands
+
         public ICommand AddStatPointLevelCommand { get; set; }
         public ICommand EquipCommand { get; set; }
         public ICommand ResetStatPointsCommand { get; set; }
         public ICommand UnequipCommand { get; set; }
+
+
         #endregion
+
         #region Constructor
         public StatsAndInventoryViewModel()
         {
+            //Set Commands
             AddStatPointLevelCommand = new AddStatPointLevelCommand();
             EquipCommand = new EquipCommand();
             ResetStatPointsCommand = new ResetStatPointsCommand();
             UnequipCommand = new UnequipCommand();
+            //Set Player
+            CurrentPlayer = PlayerInstances.CurrentPlayerInstance;
+
+            CurrentPlayer.EquippedArmour = new Armour();
+            CurrentPlayer.EquippedWeapon = new Bow();
         }
         #endregion
     }

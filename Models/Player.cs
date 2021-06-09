@@ -12,7 +12,16 @@ namespace Maze_Knight.Models
 {
     public class Player : BaseModel
     {
-        #region Backing Fields
+        #region Constants
+        //To be used in order to check whether inventory is full or not
+        private const int MAX_INVENTORY_COLLECTION_COUNT = 16;
+        //Both used to provide and set the keys to the dictionary related to the equiped items
+        private const string NAME_OF_WEAPON_KEY_EQUIPPED = "EquippedWeapon";
+        private const string NAME_OF_ARMOUR_KEY_EQUIPPED = "EquippedWeapon";
+
+        #endregion
+
+        #region Backing Fields and Privates
         //Generic Player information
         private string _name;
         private int _level;
@@ -20,17 +29,13 @@ namespace Maze_Knight.Models
         private int _currentExperience;
         private int _statPoints;
         private Inventory _playerInventory = new Inventory();
+        private Weapon _equippedWeapon;
+        private Armour _equippedArmour;
         private bool _newShadyDealerAvailable = true;
-        private Dictionary
-
-
-        //Player selected items
-        private bool _isWeaponEquiped;
-        private bool _isArmourEquiped;
-        private bool _isAccesoryEquiped;
 
         //Player Stats
-        private int _health = 5000000;
+        private int _health;
+        private int _maxHealth = 100;
         private bool _isAlive = true;
         private int _minDamage = 25;
         private int _maxDamage = 40;
@@ -47,7 +52,6 @@ namespace Maze_Knight.Models
         private int[] _playerLocation;
         private MapGridCell _cellOfPlayerLocation;
         private bool _playerIsLocked = false;
-
         #endregion
 
         #region Generic Player Information Properties
@@ -93,34 +97,23 @@ namespace Maze_Knight.Models
             get { return _playerInventory; }
             set { _playerInventory = value; OnPropertyChanged(nameof(PlayerInventory)); }
         }
+
+        public Weapon EquippedWeapon
+        {
+            get { return _equippedWeapon; }
+            set { _equippedWeapon = value; OnPropertyChanged(nameof(EquippedWeapon)); }
+        }       
+        
+        public Armour EquippedArmour
+        {
+            get { return _equippedArmour; }
+            set { _equippedArmour = value; OnPropertyChanged(nameof(EquippedArmour)); }
+        }
+
+
         //specify whether new shadydealer can be created
         public bool NewShadyDealerAvailable { get => _newShadyDealerAvailable; set => _newShadyDealerAvailable = value; }
 
-
-        #endregion
-
-        #region Player Selected Items
-
-        //Weapon is equiped or no
-        public bool IsWeaponEquiped
-        {
-            get { return _isWeaponEquiped; }
-            set { _isWeaponEquiped = value; }
-        }
-
-        //Armour is equiped or no
-        public bool IsArmourEquiped
-        {
-            get { return _isArmourEquiped; }
-            set { _isArmourEquiped = value; }
-        }
-
-        //Accesory is equiped or no
-        public bool IsAccesoryEquiped
-        {
-            get { return _isAccesoryEquiped; }
-            set { _isAccesoryEquiped = value; }
-        }
 
         #endregion
 
@@ -234,8 +227,21 @@ namespace Maze_Knight.Models
             set { _playerIsLocked = value; OnPropertyChanged(nameof(PlayerIsLocked)); }
         }
 
-        
 
+
+
+
+        #endregion
+
+        #region Constructor
+        public Player()
+        {
+            //Set health to maxHealth
+            Health = _maxHealth;
+            //Set Equipped Weapon and Armour to null
+            EquippedWeapon = null;
+            EquippedArmour = null;
+    }
         #endregion
 
         #region Methods on Player Location
@@ -268,7 +274,7 @@ namespace Maze_Knight.Models
             }
             else
             {
-                if (row-1 < 0)
+                if (row - 1 < 0)
                 {
                     _moveOptions.Add(new List<int> { column + 1, row });
                     _moveOptions.Add(new List<int> { column, row + 1 });
@@ -293,7 +299,7 @@ namespace Maze_Knight.Models
             foreach (var item in _moveOptions)
             {
 
-                if (item[0] > _mapMeasures.GetMaxColumn()-1 || item[1] > _mapMeasures.GetMaxRow()-1)
+                if (item[0] > _mapMeasures.GetMaxColumn() - 1 || item[1] > _mapMeasures.GetMaxRow() - 1)
                 {
                     _toRemoveOptions.Add(item);
                 }
@@ -309,15 +315,15 @@ namespace Maze_Knight.Models
 
         #endregion
 
-        #region Player Stats Methods
+        #region Player Receive Exp, Health, GoldDust Methods
         //Receive experience method, experience should always be positive or exception is thrown
         public void ReceiveExperience(int experience)
         {
-            if (experience>=0)
+            if (experience >= 0)
             {
                 if (experience + CurrentExperience >= ExperienceForNextLevel())
                 {
-                    CurrentExperience = (CurrentExperience + experience)-ExperienceForNextLevel();
+                    CurrentExperience = (CurrentExperience + experience) - ExperienceForNextLevel();
                     LevelUp();
                 }
                 else CurrentExperience += experience;
@@ -328,7 +334,7 @@ namespace Maze_Knight.Models
         //Receive gold dust method, gold dust should always be positive or exception is thrown
         public void ReceiveGoldDust(int goldDust)
         {
-            if (goldDust>=0)
+            if (goldDust >= 0)
             {
                 GoldDust += goldDust;
             }
@@ -340,9 +346,9 @@ namespace Maze_Knight.Models
         {
             if (healthAmount <= 0)
                 return;
-            if (healthAmount + Health <= 100)
+            if (healthAmount + Health <= _maxHealth)
                 Health += healthAmount;
-            else Health = 100;
+            else Health = _maxHealth;
         }
 
         //Decrease health
@@ -361,6 +367,51 @@ namespace Maze_Knight.Models
 
         #endregion
 
+        #region Player Increase Stats Methods
+        public void IncreaseMaxHealth(int value)
+        {
+            //Increase the Stat value
+            _maxHealth += value;
+            //Also increase current health value
+            Health += value;
+        }
+
+        public void IncreaseMinDamage(int value)
+        {
+            MinDamage += value;
+        }
+
+        public void IncreaseMaxDamage(int value)
+        {
+            MaxDamage += value;
+        }
+
+        public void IncreaseSwordSkillLevel(int value)
+        {
+            SwordSkillLevel += value;
+        }
+
+        public void IncreaseBowSkillLevel(int value)
+        {
+            BowSkillLevel += value;
+        }
+
+        public void IncreaseHalberdSkillLevel(int value)
+        {
+            HalberdSkillLevel += value;
+        }
+
+        public void IncreaseHumanoidResistance(int value)
+        {
+            HumanoidResistance += value;
+        }
+
+        public void IncreaseMysticalResistance(int value)
+        {
+            MysticalResistance += value;
+        }
+        #endregion
+
         #region Player Weapon and Rune Methods
 
         //Change weapon currently had by player
@@ -375,6 +426,77 @@ namespace Maze_Knight.Models
             RuneActive = true;
             RuneNumberOfTurnsActive = 3;
         }
+
+        //Equip Weapon method used in the StatsAndInventory View
+        public void EquipWeapon(Item item)
+        {
+            if (item is Weapon)
+            {
+                //Store already equipped Weapon in Collection before equiping the new one
+                if (EquippedWeapon != null)
+                {
+                    PlayerInventory.InventoryCollection.Add(EquippedWeapon);
+                }
+                EquippedWeapon = (Weapon)item;
+                ChangePlayerStatsEquipUnequipWeapon(+1, (Weapon)item);
+                PlayerInventory.InventoryCollection.Remove(item);
+            }
+        }
+        //Equip Armour method used in the StatsAndInventory View
+        public void EquipArmour(Item item)
+        {
+            if (item is Armour)
+            {
+                //Store already equipped Armour in Collection before equiping the new one
+                if (EquippedArmour!= null)
+                {
+                    PlayerInventory.InventoryCollection.Add(EquippedArmour);
+                }
+                EquippedArmour = (Armour)item;
+                ChangePlayerStatsEquipUnequipArmour(+1, (Armour)item);
+                PlayerInventory.InventoryCollection.Remove(item);
+            }
+        }
+
+        public void UnequipWeapon(Item item)
+        {
+            //Cannot exceed count of player inventory collection as not more than 16 can be displayed
+            if (PlayerInventory.InventoryCollection.Count < MAX_INVENTORY_COLLECTION_COUNT)
+            {
+                ChangePlayerStatsEquipUnequipWeapon(-1, (Weapon)item);
+                PlayerInventory.InventoryCollection.Add(EquippedWeapon);
+                EquippedWeapon = null;
+            }
+            //Do nothing if inventory is full
+        }
+        public void UnequipArmour(Item item)
+        {
+            //Cannot exceed count of player inventory collection as not more than 16 can be displayed
+            if (PlayerInventory.InventoryCollection.Count < MAX_INVENTORY_COLLECTION_COUNT)
+            {
+                ChangePlayerStatsEquipUnequipArmour(-1, (Armour)item);
+                PlayerInventory.InventoryCollection.Add(EquippedArmour);
+                EquippedArmour = null;
+                //Do nothing if inventory is full
+            }
+        }
+        //To be used in equip, unequip weapon methods
+        public void ChangePlayerStatsEquipUnequipWeapon(int negativeOrPositiveOne, Weapon weapon)
+        {
+            SwordSkillLevel += negativeOrPositiveOne * weapon.SwordSkillBonus;
+            BowSkillLevel += negativeOrPositiveOne * weapon.BowSkillBonus;
+            HalberdSkillLevel += negativeOrPositiveOne * weapon.HalberdSkillBonus;
+            MinDamage += negativeOrPositiveOne * weapon.MinDamageBonus;
+            MaxDamage += negativeOrPositiveOne * weapon.MaxDamageBonus;
+        }
+        //To be used in equip, unequip armour methods
+        public void ChangePlayerStatsEquipUnequipArmour(int negativeOrPositiveOne, Armour armour)
+        {
+            _maxHealth += negativeOrPositiveOne * armour.HealthBonus;
+            HumanoidResistance += negativeOrPositiveOne * armour.HumanoidResistanceBonus;
+            MysticalResistance += negativeOrPositiveOne * armour.MysticalResistanceBonus;
+        }
+
 
         #endregion
 
@@ -392,7 +514,7 @@ namespace Maze_Knight.Models
         {
             const float INCREASE_FACTOR = 25f;
             const int INCREASE_MARGIN = 5;
-            return (int)Math.Round((Level*INCREASE_FACTOR) + INCREASE_MARGIN);
+            return (int)Math.Round((Level * INCREASE_FACTOR) + INCREASE_MARGIN);
         }
 
         #endregion
