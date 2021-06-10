@@ -15,19 +15,21 @@ namespace Maze_Knight.ViewModels
     {
         #region Backingfields
         private Player _currentPlayer;
+        private Weapon _selectedWeapon;
+        private Armour _selectedArmour;
         #endregion
 
         #region Properties
         public Player CurrentPlayer { get => _currentPlayer; set => _currentPlayer = value; }
+        public Weapon SelectedWeapon { get => _selectedWeapon; set => _selectedWeapon = value; }
+        public Armour SelectedArmour { get => _selectedArmour; set => _selectedArmour = value; }
         #endregion
 
         #region Commands
-
         public ICommand AddStatPointLevelCommand { get; set; }
         public ICommand EquipCommand { get; set; }
         public ICommand ResetStatPointsCommand { get; set; }
         public ICommand UnequipCommand { get; set; }
-
 
         #endregion
 

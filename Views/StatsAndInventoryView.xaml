@@ -34,22 +34,22 @@
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="0" Text="Weapon:" FontSize="15px" TextWrapping="Wrap" VerticalAlignment="Center"/>
                 <Border Background="#FF0A1428" BorderThickness="1"  >
-                    <Image Height="85" Width="85" Margin="10,0,0,0" Source="{Binding CurrentPlayer.EquippedWeapon.ItemType, Converter={StaticResource ItemTypeToBitmapConverter}}"  />
+                    <Image x:Name="EquippedWeapon" Height="85" Width="85" Margin="10,0,0,0" Source="{Binding CurrentPlayer.EquippedWeapon.ItemType, Converter={StaticResource ItemTypeToBitmapConverter}}" MouseEnter="EquippedWeapon_MouseEnter" MouseLeave="Item_MouseLeave"  />
                 </Border>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="0" Text="Armour:" FontSize="15px" TextWrapping="Wrap" VerticalAlignment="Center"/>
                 <Border Background="#FF0A1428" BorderThickness="1"  >
-                    <Image x:Name="mouse" Height="85" Width="85" Margin="10,0,0,0" Source="{Binding CurrentPlayer.EquippedArmour.ItemType, Converter={StaticResource ItemTypeToBitmapConverter}}" MouseEnter="mouse_MouseEnter" MouseLeave="mouse_MouseLeave"/>
+                    <Image x:Name="EquippedArmour" Height="85" Width="85" Margin="10,0,0,0" Source="{Binding CurrentPlayer.EquippedArmour.ItemType, Converter={StaticResource ItemTypeToBitmapConverter}}" MouseEnter="EquippedArmour_MouseEnter" MouseLeave="Item_MouseLeave"/>
                 </Border>
             </StackPanel>
         </Grid>
 
         <!-- Inventory Items -->
-        <Grid Grid.Row="2"/>
+        <Grid x:Name="PlayerInventory" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
 
         <!-- PopUP Inventories -->
-        <Popup x:Name="PopUp">
+        <Popup x:Name="PopUp" >
             <StackPanel Background="#FFECE4D5">
                 <TextBlock x:Name="PopUpItemName" FontSize="15px"/>
                 <TextBlock x:Name="PopUpItemStats" FontSize="15px"/>
@@ -69,7 +69,7 @@
             <Button Width="170" Height="40" FontSize="20px" Content="Unequip" 
                 Background="#FFECE4D5" Margin="10"  Grid.Column="1"/>
             <Button Width="170" Height="40" FontSize="20px" Content="Go Back" 
-                Background="#FFECE4D5" Margin="10" Grid.Column="2"/>
+                Background="#FFECE4D5" Margin="10" Grid.Column="2" Click="GoBack_Click"/>
         </Grid>
 
     </Grid>

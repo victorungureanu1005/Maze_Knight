@@ -86,7 +86,7 @@ namespace Maze_Knight.Views
                         image.MouseEnter += new MouseEventHandler((sender, e) => PopUpInitializationOnShadyDealerInventory(sender, e, currentItem));
                         image.MouseLeave += new MouseEventHandler((sender, e) => PopUpDeInitialization(sender, e, currentItem));
 
-                        //Set column and row of the image created above
+                        //Set the position of the image in the grid
                         Grid.SetColumn(image, i);
                         Grid.SetRow(image, j);
                         //Add image to Grid Children so that it actually appears
@@ -101,12 +101,6 @@ namespace Maze_Knight.Views
                     }
                 }
             }
-
-            //Add Selector and set Event Handlers
-            //foreach (Image image in ShadyDealerInventory.Children.OfType<Image>())
-            //{
-            //    image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(ItemInShadyDealerInventoryClicked);
-            //}
         }
 
         private void InitializePlayerInventory()
@@ -150,7 +144,7 @@ namespace Maze_Knight.Views
                         image.MouseEnter += new MouseEventHandler((sender, e) => PopUpInitializationOnPlayerInventory(sender, e, currentItem));
                         image.MouseLeave += new MouseEventHandler((sender, e) => PopUpDeInitialization(sender, e, currentItem));
 
-
+                        //Set the position of the image in the grid
                         Grid.SetColumn(image, i);
                         Grid.SetRow(image, j);
                         //Add image to Grid Children so that it actually appears
@@ -165,12 +159,6 @@ namespace Maze_Knight.Views
                     }
                 }
             }
-
-            //Add Selector and set Event Handlers
-            //foreach (Image image in PlayerInventory.Children.OfType<Image>())
-            //{
-            //    image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(ItemInPlayerInventoryClicked);
-            //}
         }
 
         #region Functions for both Inventories
@@ -207,11 +195,11 @@ namespace Maze_Knight.Views
         {
             CurrentShadyDealerViewModel.SellCommand.Execute(sender);
             ReinitializeInventoriesInTheView();
-
-        }
+                    }
         #endregion
 
         #region Helper Functions
+        //Need to reinitialize after each change in the inventories
         private void ReinitializeInventoriesInTheView()
         {
             //Remove the columns and rows of the two grids
