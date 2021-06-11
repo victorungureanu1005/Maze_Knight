@@ -37,13 +37,13 @@ namespace Maze_Knight.Views
         public StatsAndInventoryView()
         {
             InitializeComponent();
-            DataContext = new StatsAndInventoryViewModel();
-
+            CurrentStatsAndInventoryViewModel = new StatsAndInventoryViewModel();
+            DataContext = CurrentStatsAndInventoryViewModel;
             InitializePlayerInventory();
 
         }
 
-        #region
+        #region Inventory Initializations
         private void InitializePlayerInventory()
         {
             //Add columns and rows to the grid
@@ -63,8 +63,6 @@ namespace Maze_Knight.Views
             {
                 for (int j = 0; j < 4; j++)
                 {
-
-
                     //Check if inventory is null or empty and checks if index went beyond item collection count in order to prevent exceptions
                     if (PlayerInstances.CurrentPlayerInstance.PlayerInventory != null && itemIndex < PlayerInstances.CurrentPlayerInstance.PlayerInventory.InventoryCollection.Count)
                     {
@@ -82,8 +80,15 @@ namespace Maze_Knight.Views
                         //Add Selector and respective Event Handler
                         image.MouseDown += new MouseButtonEventHandler(ItemInPlayerInventoryClicked);
                         //Add PopUp Event Handler
-                        image.MouseEnter += new MouseEventHandler((sender, e) => PopUpInitializationOnPlayerInventory(sender, e, currentItem));
-                        image.MouseLeave += new MouseEventHandler((sender, e) => PopUpDeInitialization(sender, e, currentItem));
+                        if (currentItem is Weapon)
+                        {
+                            image.MouseEnter += new MouseEventHandler((sender, e) => WeaponPopUp(sender, e, (Weapon)currentItem));
+                        }
+                        if (currentItem is Armour)
+                        {
+                            image.MouseEnter += new MouseEventHandler((sender, e) => ArmourPopUp(sender, e, (Armour)currentItem));
+                        }
+                        image.MouseLeave += Item_MouseLeave;
 
                         //Set the position of the image in the grid
                         Grid.SetColumn(image, i);
@@ -110,12 +115,23 @@ namespace Maze_Knight.Views
             var item = CurrentStatsAndInventoryViewModel.CurrentPlayer.PlayerInventory.InventoryCollection[index];
             switch (item.ItemType)
             {
-                case ItemTypes.Armour: CurrentStatsAndInventoryViewModel.SelectedArmour = (Armour)item; CurrentStatsAndInventoryViewModel.SelectedWeapon = null; break;
-                case ItemTypes.Sword: CurrentStatsAndInventoryViewModel.SelectedWeapon = (Weapon)item; CurrentStatsAndInventoryViewModel.SelectedArmour = null; break;
-                case ItemTypes.Bow: CurrentStatsAndInventoryViewModel.SelectedWeapon = (Weapon)item; CurrentStatsAndInventoryViewModel.SelectedArmour = null; break;
-                case ItemTypes.Halberd: CurrentStatsAndInventoryViewModel.SelectedWeapon = (Weapon)item; CurrentStatsAndInventoryViewModel.SelectedArmour = null; break;
+                case ItemTypes.Armour: CurrentStatsAndInventoryViewModel.SelectedArmourFromInventory = (Armour)item; CurrentStatsAndInventoryViewModel.SelectedWeaponFromInventory = null; break;
+                case ItemTypes.Sword: CurrentStatsAndInventoryViewModel.SelectedWeaponFromInventory = (Weapon)item; CurrentStatsAndInventoryViewModel.SelectedArmourFromInventory = null; break;
+                case ItemTypes.Bow: CurrentStatsAndInventoryViewModel.SelectedWeaponFromInventory = (Weapon)item; CurrentStatsAndInventoryViewModel.SelectedArmourFromInventory = null; break;
+                case ItemTypes.Halberd: CurrentStatsAndInventoryViewModel.SelectedWeaponFromInventory = (Weapon)item; CurrentStatsAndInventoryViewModel.SelectedArmourFromInventory = null; break;
                 default: break;
             }
+        }
+
+        private void ReinitializePlayerInventory()
+        {
+            //Remove the columns and rows of the two grids
+            PlayerInventory.ColumnDefinitions.Clear();
+            PlayerInventory.RowDefinitions.Clear();
+            //Remove the children of the two grids (images and borders)
+            PlayerInventory.Children.Clear();
+            //Reinitialize the two inventories
+            InitializePlayerInventory();
         }
         #endregion
 
@@ -126,44 +142,89 @@ namespace Maze_Knight.Views
         }
         #endregion
 
+        #region Equip/Unequip Buttons
+        private void Equip_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentStatsAndInventoryViewModel.SelectedWeaponFromInventory != null)
+            {
+                CurrentStatsAndInventoryViewModel.CurrentPlayer.EquipWeapon(CurrentStatsAndInventoryViewModel.SelectedWeaponFromInventory);
+                CurrentStatsAndInventoryViewModel.SelectedWeaponFromInventory = null;
+                ReinitializePlayerInventory();
+            }
+            if (CurrentStatsAndInventoryViewModel.SelectedArmourFromInventory != null)
+            {
+                CurrentStatsAndInventoryViewModel.CurrentPlayer.EquipArmour(CurrentStatsAndInventoryViewModel.SelectedArmourFromInventory);
+                CurrentStatsAndInventoryViewModel.SelectedArmourFromInventory = null;
+                ReinitializePlayerInventory();
+            }
+        }
+        private void UnEquip_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentStatsAndInventoryViewModel.SelectedEquippedWeapon != null)
+            {
+                CurrentStatsAndInventoryViewModel.CurrentPlayer.UnequipWeapon(CurrentStatsAndInventoryViewModel.SelectedEquippedWeapon);
+                CurrentStatsAndInventoryViewModel.SelectedEquippedWeapon = null;
+                ReinitializePlayerInventory();
+            }
+            if (CurrentStatsAndInventoryViewModel.SelectedEquippedArmour != null)
+            {
+                CurrentStatsAndInventoryViewModel.CurrentPlayer.UnequipArmour(CurrentStatsAndInventoryViewModel.SelectedEquippedArmour);
+                CurrentStatsAndInventoryViewModel.SelectedEquippedArmour = null;
+                ReinitializePlayerInventory();
+            }
+        }
+        #endregion
+
         #region PopUp Events
         private void EquippedWeapon_MouseEnter(object sender, MouseEventArgs e)
         {
-            //Set reference
+            //Set weapon reference and call the pop-up method
             Weapon equippedWeapon = CurrentStatsAndInventoryViewModel.CurrentPlayer.EquippedWeapon;
-
-            if (equippedWeapon != null)
-            {
-                PopUp.IsOpen = true;
-                PopUp.PlacementTarget = (Image)sender;
-                PopUp.Placement = PlacementMode.Right;
-                PopUpItemName.Text = $"{equippedWeapon.ItemName}  ";
-                PopUpItemStats.Text =
-                    $"Min Damage Bonus: {equippedWeapon.MinDamageBonus} \x0A" +
-                    $"Max Damage Bonus: {equippedWeapon.MaxDamageBonus} \x0A" +
-                    $"Sword Skill Bonus: {equippedWeapon.SwordSkillBonus} \x0A" +
-                    $"Bow Skill Bonus: {equippedWeapon.BowSkillBonus} \x0A" +
-                    $"Halberd Skill Bonus: {equippedWeapon.HalberdSkillBonus} \x0A" +
-                    $"Sell Price: {equippedWeapon.ItemSellPrice} ";
-            }
+            //Call the Weapon PopUp with the appropiate parameter
+            WeaponPopUp(sender, e, equippedWeapon);
         }
 
         private void EquippedArmour_MouseEnter(object sender, MouseEventArgs e)
-        {            
+        {
             //Set reference
             Armour equippedArmour = CurrentStatsAndInventoryViewModel.CurrentPlayer.EquippedArmour;
+            ArmourPopUp(sender, e, equippedArmour);
+        }
 
-            if (equippedArmour != null)
+        //Helper function for the Weapon Pop-Up
+        private void WeaponPopUp(object sender, MouseEventArgs e, Weapon hoveredWeapon)
+        {
+            if (hoveredWeapon != null)
             {
                 PopUp.IsOpen = true;
                 PopUp.PlacementTarget = (Image)sender;
                 PopUp.Placement = PlacementMode.Right;
-                PopUpItemName.Text = $"{ equippedArmour.ItemName}  ";
+                PopUpItemName.Text = $"{hoveredWeapon.ItemName}  ";
                 PopUpItemStats.Text =
-                    $"Health Bonus: {equippedArmour.HealthBonus} \x0A" +
-                    $"Humanoid Resistance Bonus: {equippedArmour.HumanoidResistanceBonus} \x0A" +
-                    $"Mystical Resistance Bonus: {equippedArmour.MysticalResistanceBonus} \x0A" +
-                    $"Sell Price: {equippedArmour.ItemSellPrice} ";
+                    $"Min Damage Bonus: {hoveredWeapon.MinDamageBonus} \x0A" +
+                    $"Max Damage Bonus: {hoveredWeapon.MaxDamageBonus} \x0A" +
+                    $"Sword Skill Bonus: {hoveredWeapon.SwordSkillBonus} \x0A" +
+                    $"Bow Skill Bonus: {hoveredWeapon.BowSkillBonus} \x0A" +
+                    $"Halberd Skill Bonus: {hoveredWeapon.HalberdSkillBonus} \x0A" +
+                    $"Sell Price: {hoveredWeapon.ItemSellPrice} ";
+            }
+        }
+
+        //Helper function for the Armour Pop-Up
+        private void ArmourPopUp(object sender, MouseEventArgs e, Armour hoveredArmour)
+        {
+            if (hoveredArmour != null)
+            {
+                PopUp.IsOpen = true;
+                PopUp.PlacementTarget = (Image)sender;
+                PopUp.Placement = PlacementMode.Right;
+                //White spaces left intentionally
+                PopUpItemName.Text = $"{ hoveredArmour.ItemName}  ";
+                PopUpItemStats.Text =
+                    $"Health Bonus: {hoveredArmour.HealthBonus} \x0A" +
+                    $"Humanoid Resistance Bonus: {hoveredArmour.HumanoidResistanceBonus} \x0A" +
+                    $"Mystical Resistance Bonus: {hoveredArmour.MysticalResistanceBonus} \x0A" +
+                    $"Sell Price: {hoveredArmour.ItemSellPrice} ";
             }
         }
         private void Item_MouseLeave(object sender, MouseEventArgs e)
@@ -175,5 +236,17 @@ namespace Maze_Knight.Views
 
         #endregion
 
+
+        private void EquippedWeapon_Click(object sender, MouseEventArgs e)
+        {
+            CurrentStatsAndInventoryViewModel.SelectedEquippedWeapon = CurrentStatsAndInventoryViewModel.CurrentPlayer.EquippedWeapon;
+            CurrentStatsAndInventoryViewModel.SelectedEquippedArmour = null;
+        }
+
+        private void EquippedArmour_Click(object sender, MouseEventArgs e)
+        {
+            CurrentStatsAndInventoryViewModel.SelectedEquippedArmour = CurrentStatsAndInventoryViewModel.CurrentPlayer.EquippedArmour;
+            CurrentStatsAndInventoryViewModel.SelectedEquippedWeapon = null;
+        }
     }
 }

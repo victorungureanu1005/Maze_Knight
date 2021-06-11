@@ -22,6 +22,10 @@ namespace Maze_Knight.Commands
 
         public bool CanExecute(object parameter)
         {
+            if (ShadyDealerViewModel.PlayerInventorySelectedItem == null)
+            {
+                return false;
+            }
             return true;
         }
 

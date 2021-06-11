@@ -34,13 +34,13 @@
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="0" Text="Weapon:" FontSize="15px" TextWrapping="Wrap" VerticalAlignment="Center"/>
                 <Border Background="#FF0A1428" BorderThickness="1"  >
-                    <Image x:Name="EquippedWeapon" Height="85" Width="85" Margin="10,0,0,0" Source="{Binding CurrentPlayer.EquippedWeapon.ItemType, Converter={StaticResource ItemTypeToBitmapConverter}}" MouseEnter="EquippedWeapon_MouseEnter" MouseLeave="Item_MouseLeave"  />
+                    <Image x:Name="EquippedWeapon" Height="85" Width="85" Margin="10,0,0,0" Source="{Binding CurrentPlayer.EquippedWeapon.ItemType, Converter={StaticResource ItemTypeToBitmapConverter}}" MouseEnter="EquippedWeapon_MouseEnter" MouseLeave="Item_MouseLeave" MouseLeftButtonDown="EquippedWeapon_Click"  />
                 </Border>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="0" Text="Armour:" FontSize="15px" TextWrapping="Wrap" VerticalAlignment="Center"/>
                 <Border Background="#FF0A1428" BorderThickness="1"  >
-                    <Image x:Name="EquippedArmour" Height="85" Width="85" Margin="10,0,0,0" Source="{Binding CurrentPlayer.EquippedArmour.ItemType, Converter={StaticResource ItemTypeToBitmapConverter}}" MouseEnter="EquippedArmour_MouseEnter" MouseLeave="Item_MouseLeave"/>
+                    <Image x:Name="EquippedArmour" Height="85" Width="85" Margin="10,0,0,0" Source="{Binding CurrentPlayer.EquippedArmour.ItemType, Converter={StaticResource ItemTypeToBitmapConverter}}" MouseEnter="EquippedArmour_MouseEnter" MouseLeave="Item_MouseLeave" MouseLeftButtonDown="EquippedArmour_Click"/>
                 </Border>
             </StackPanel>
         </Grid>
@@ -65,12 +65,61 @@
             </Grid.ColumnDefinitions>
 
             <Button Width="170" Height="40" FontSize="20px" Content="Equip" 
-                Background="#FFECE4D5" Margin="10" Grid.Column="0"/>
+                Background="#FFECE4D5" Margin="10" Grid.Column="0" Click="Equip_Click"/>
             <Button Width="170" Height="40" FontSize="20px" Content="Unequip" 
-                Background="#FFECE4D5" Margin="10"  Grid.Column="1"/>
+                Background="#FFECE4D5" Margin="10"  Grid.Column="1" Click="UnEquip_Click"/>
             <Button Width="170" Height="40" FontSize="20px" Content="Go Back" 
                 Background="#FFECE4D5" Margin="10" Grid.Column="2" Click="GoBack_Click"/>
         </Grid>
-
+        
+        <!-- Current Stats and Upgrade Buttons -->
+        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <!-- Stats description -->
+                <TextBlock Foreground="NavajoWhite" Grid.Row="0" FontSize="15px" TextWrapping="Wrap">Health</TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="1" FontSize="15px" TextWrapping="Wrap">Min Damage</TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="2" FontSize="15px" TextWrapping="Wrap">Max Damage</TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="3" FontSize="15px" TextWrapping="Wrap">Sword Skill</TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="4" FontSize="15px" TextWrapping="Wrap">Bow Skill</TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="5" FontSize="15px" TextWrapping="Wrap">Halberd Skill</TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="6" FontSize="15px" TextWrapping="Wrap">Humanoid Res</TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="7" FontSize="15px" TextWrapping="Wrap">Mystical Res</TextBlock>
+                <!-- Stats values -->
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="0" Text="{Binding Path=CurrentPlayer.Health}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="1" Text="{Binding Path=CurrentPlayer.MinDamage}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="2" Text="{Binding Path=CurrentPlayer.MaxDamage}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="3" Text="{Binding Path=CurrentPlayer.SwordSkillLevel}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="4" Text="{Binding Path=CurrentPlayer.BowSkillLevel}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="5" Text="{Binding Path=CurrentPlayer.HalberdSkillLevel}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="6" Text="{Binding Path=CurrentPlayer.HumanoidResistance}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="7" Text="{Binding Path=CurrentPlayer.MysticalResistance}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
+                <!-- StatAddPointButton -->
+                <Image Grid.Column="2" Grid.Row="0" VerticalAlignment="Top" Width="30" Height="30" Source="pack://application:,,,/Content/Icons/AddStatPoint_Sign.png"/>
+                <Image Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Width="30" Height="30" Source="pack://application:,,,/Content/Icons/AddStatPoint_Sign.png"/>
+                <Image Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" Width="30" Height="30" Source="pack://application:,,,/Content/Icons/AddStatPoint_Sign.png"/>
+                <Image Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" Width="30" Height="30" Source="pack://application:,,,/Content/Icons/AddStatPoint_Sign.png"/>
+                <Image Grid.Column="2" Grid.Row="4" VerticalAlignment="Top" Width="30" Height="30" Source="pack://application:,,,/Content/Icons/AddStatPoint_Sign.png"/>
+                <Image Grid.Column="2" Grid.Row="5" VerticalAlignment="Top" Width="30" Height="30" Source="pack://application:,,,/Content/Icons/AddStatPoint_Sign.png"/>
+                <Image Grid.Column="2" Grid.Row="6" VerticalAlignment="Top" Width="30" Height="30" Source="pack://application:,,,/Content/Icons/AddStatPoint_Sign.png"/>
+                <Image Grid.Column="2" Grid.Row="7" VerticalAlignment="Top" Width="30" Height="30" Source="pack://application:,,,/Content/Icons/AddStatPoint_Sign.png"/>
+            </Grid>
+            
+        </Grid>
     </Grid>
 </UserControl>

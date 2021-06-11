@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Maze_Knight.Commands
 {
@@ -21,6 +22,11 @@ namespace Maze_Knight.Commands
         }
         public bool CanExecute(object parameter)
         {
+            //Check if Selected Item is null or not
+            if(ShadyDealerViewModel.ShadyDealerInventorySelectedItem == null)
+            {
+                return false;
+            }
             //Check if player has enough gold dust
             if (ShadyDealerViewModel.ShadyDealerInventorySelectedItem.ItemBuyPrice <= ShadyDealerViewModel.Player.GoldDust)
             {

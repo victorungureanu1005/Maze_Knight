@@ -430,6 +430,7 @@ namespace Maze_Knight.Models
         //Equip Weapon method used in the StatsAndInventory View
         public void EquipWeapon(Item item)
         {
+            Weapon oldEquippedWeapon = EquippedWeapon;
             if (item is Weapon)
             {
                 //Store already equipped Weapon in Collection before equiping the new one
@@ -438,13 +439,20 @@ namespace Maze_Knight.Models
                     PlayerInventory.InventoryCollection.Add(EquippedWeapon);
                 }
                 EquippedWeapon = (Weapon)item;
+                //Adds the stats of the newEquippedWeapon
                 ChangePlayerStatsEquipUnequipWeapon(+1, (Weapon)item);
+                //Removes the stats of the oldEquippedWeapon
+                if (oldEquippedWeapon != null)
+                {
+                    ChangePlayerStatsEquipUnequipWeapon(-1, oldEquippedWeapon);
+                }
                 PlayerInventory.InventoryCollection.Remove(item);
             }
         }
         //Equip Armour method used in the StatsAndInventory View
         public void EquipArmour(Item item)
         {
+            Armour oldEquippedArmour = EquippedArmour;
             if (item is Armour)
             {
                 //Store already equipped Armour in Collection before equiping the new one
@@ -453,7 +461,13 @@ namespace Maze_Knight.Models
                     PlayerInventory.InventoryCollection.Add(EquippedArmour);
                 }
                 EquippedArmour = (Armour)item;
+                //Adds the stats of the newEquippedArmour
                 ChangePlayerStatsEquipUnequipArmour(+1, (Armour)item);
+                //Removes the stats of the oldEquippedArmour
+                if (oldEquippedArmour != null)
+                {
+                    ChangePlayerStatsEquipUnequipArmour(-1, oldEquippedArmour);
+                }
                 PlayerInventory.InventoryCollection.Remove(item);
             }
         }

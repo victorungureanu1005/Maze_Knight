@@ -229,5 +229,8 @@
     <Resource Include="Content\Icons\RuneIcon_WBackground.png" />
     <Resource Include="Content\Icons\SwordIcon_WBackground.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Icons\AddStatPoint_Sign.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -164,14 +164,14 @@ namespace Maze_Knight.Views
         #region Functions for both Inventories
         private void ItemInShadyDealerInventoryClicked(object sender, MouseButtonEventArgs e)
         {
-            //Gets the index of the selected item by dividing the index of the image with 2 as we also have borders as children of the grid
-            int index = ShadyDealerInventory.Children.IndexOf((Image)sender) / 2;
-            //Sets the selected item in the shady dealer inventory to the corresponding item in the inventory (ShadyDealerViewModel)
-            CurrentShadyDealerViewModel.ShadyDealerInventorySelectedItem = CurrentShadyDealerViewModel.ShadyDealer.ShadyDealerInventory.InventoryCollection[index];
-            //Disable the Sell button 
-            SellButton.IsEnabled = false;
-            //Enables buy Button
-            BuyButton.IsEnabled = true;
+                //Gets the index of the selected item by dividing the index of the image with 2 as we also have borders as children of the grid
+                int index = ShadyDealerInventory.Children.IndexOf((Image)sender) / 2;
+                //Sets the selected item in the shady dealer inventory to the corresponding item in the inventory (ShadyDealerViewModel)
+                CurrentShadyDealerViewModel.ShadyDealerInventorySelectedItem = CurrentShadyDealerViewModel.ShadyDealer.ShadyDealerInventory.InventoryCollection[index];
+                //Disable the Sell button 
+                SellButton.IsEnabled = false;
+                //Enables buy Button
+                BuyButton.IsEnabled = true;
         }
         private void ItemInPlayerInventoryClicked(object sender, MouseButtonEventArgs e)
         {
