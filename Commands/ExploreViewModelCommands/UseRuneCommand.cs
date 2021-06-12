@@ -12,19 +12,21 @@ namespace Maze_Knight.Commands
 {
     public class UseRuneCommand : ICommand
     {
+        //Set EventHandler to update accordingly when Requery is triggered
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
-        private Player currentPlayer;
+        private Player _currentPlayer;
         public UseRuneCommand(Player player)
         {
-            currentPlayer = player;
+            _currentPlayer = player;
         }
         public bool CanExecute(object parameter)
         {
-            if (currentPlayer.PlayerInventory.InventoryCollection.OfType<Rune>().Any())
+            //This checks if there are any runes in the inventory of the player
+            if (_currentPlayer.PlayerInventory.InventoryCollection.OfType<Rune>().Any())
             {
                 return true;
             }
@@ -35,8 +37,10 @@ namespace Maze_Knight.Commands
         {
             if (CanExecute(parameter))
             {
-                currentPlayer.PlayerInventory.InventoryCollection.Remove(currentPlayer.PlayerInventory.InventoryCollection.OfType<Rune>().First());
-                currentPlayer.ActivateRune();
+                //Removes runes from the inventory and activates is
+                _currentPlayer.PlayerInventory.InventoryCollection.Remove(_currentPlayer.PlayerInventory.InventoryCollection.OfType<Rune>().First());
+                _currentPlayer.ActivateRune();
+                //Trigger requery. Check if condition is met to disable button in the view
                 CommandManager.InvalidateRequerySuggested();
             }
         }

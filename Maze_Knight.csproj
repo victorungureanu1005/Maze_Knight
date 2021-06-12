@@ -63,11 +63,10 @@
     <Compile Include="Commands\MapGridCellClickCommand.cs" />
     <Compile Include="Commands\ShadyDealerViewModelCommands\SellCommand.cs" />
     <Compile Include="Commands\AppWindowsViewModelCommands\UpdateViewCommand.cs" />
-    <Compile Include="Commands\StatsAndInventoryViewModelCommands\AddStatPointLevelCommand.cs" />
-    <Compile Include="Commands\StatsAndInventoryViewModelCommands\EquipCommand.cs" />
+    <Compile Include="Commands\StatsAndInventoryViewModelCommands\AddStatPointsCommand.cs" />
     <Compile Include="Commands\StatsAndInventoryViewModelCommands\ResetStatPointsCommand.cs" />
-    <Compile Include="Commands\StatsAndInventoryViewModelCommands\UnequipCommand.cs" />
     <Compile Include="Converters\ItemTypeToBitmapConverter.cs" />
+    <Compile Include="Converters\StatPointsAvailableToVisibilityConverter.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\BattleSystem.cs" />
     <Compile Include="Models\CellLocation.cs" />
@@ -79,6 +78,7 @@
     <Compile Include="Models\Enums\Items\Potion\PotionTypes.cs" />
     <Compile Include="Models\Enums\Items\Weapon\WeaponSubTypes.cs" />
     <Compile Include="Models\Enums\Items\Weapon\WeaponTypes.cs" />
+    <Compile Include="Models\Enums\PlayerStats\PlayerStatsPerPoint.cs" />
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Models\Comparers\CoordinatesEqualityComparer.cs" />
     <Compile Include="Models\EnemyModels\EnemyTypes.cs" />

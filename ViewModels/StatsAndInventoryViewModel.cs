@@ -19,6 +19,10 @@ namespace Maze_Knight.ViewModels
         private Armour _selectedArmourFromInventory;
         private Weapon _selectedEquippedWeapon;
         private Armour _selectedEquippedArmour;
+        private int _addedMaxHealthStats = 0;
+        private int _addedSwordSkillBonusStats = 0;
+        private int _addedBowSkillBonusStats = 0;
+        private int _addedHalberdSkillBonusStats = 0;
         #endregion
 
         #region Properties
@@ -27,30 +31,27 @@ namespace Maze_Knight.ViewModels
         public Armour SelectedArmourFromInventory { get => _selectedArmourFromInventory; set => _selectedArmourFromInventory = value; }
         public Weapon SelectedEquippedWeapon { get => _selectedEquippedWeapon; set => _selectedEquippedWeapon = value; }
         public Armour SelectedEquippedArmour { get => _selectedEquippedArmour; set => _selectedEquippedArmour = value; }
+        public int AddedMaxHealthStats { get => _addedMaxHealthStats; set => _addedMaxHealthStats = value; }
+        public int AddedSwordSkillBonusStats { get => _addedSwordSkillBonusStats; set => _addedSwordSkillBonusStats = value; }
+        public int AddedBowSkillBonusStats { get => _addedBowSkillBonusStats; set => _addedBowSkillBonusStats = value; }
+        public int AddedHalberdSkillBonusStats { get => _addedHalberdSkillBonusStats; set => _addedHalberdSkillBonusStats = value; }
+
         #endregion
 
         #region Commands
-        public ICommand AddStatPointLevelCommand { get; set; }
-        public ICommand EquipCommand { get; set; }
+        public ICommand AddStatPointsCommand { get; set; }
         public ICommand ResetStatPointsCommand { get; set; }
-        public ICommand UnequipCommand { get; set; }
-
 
         #endregion
 
         #region Constructor
         public StatsAndInventoryViewModel()
         {
-            //Set Commands
-            AddStatPointLevelCommand = new AddStatPointLevelCommand();
-            EquipCommand = new EquipCommand();
-            ResetStatPointsCommand = new ResetStatPointsCommand();
-            UnequipCommand = new UnequipCommand();
             //Set Player
             CurrentPlayer = PlayerInstances.CurrentPlayerInstance;
-
-            CurrentPlayer.EquippedArmour = new Armour();
-            CurrentPlayer.EquippedWeapon = new Bow();
+            //Set Commands
+            AddStatPointsCommand = new AddStatPointsCommand(this);
+            ResetStatPointsCommand = new ResetStatPointsCommand(this);
         }
         #endregion
     }

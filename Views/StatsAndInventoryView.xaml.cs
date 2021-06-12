@@ -136,6 +136,7 @@ namespace Maze_Knight.Views
         #endregion
 
         #region Navigator Buttons
+        //Go back to Town View
         private void GoBack_Click(object sender, RoutedEventArgs e)
         {
             Mediator.theApp.SelectedViewModel = new TownViewModel();
@@ -143,6 +144,7 @@ namespace Maze_Knight.Views
         #endregion
 
         #region Equip/Unequip Buttons
+        //Equip Item
         private void Equip_Click(object sender, RoutedEventArgs e)
         {
             if (CurrentStatsAndInventoryViewModel.SelectedWeaponFromInventory != null)
@@ -158,6 +160,7 @@ namespace Maze_Knight.Views
                 ReinitializePlayerInventory();
             }
         }
+        //UnEquip Item
         private void UnEquip_Click(object sender, RoutedEventArgs e)
         {
             if (CurrentStatsAndInventoryViewModel.SelectedEquippedWeapon != null)
@@ -227,6 +230,7 @@ namespace Maze_Knight.Views
                     $"Sell Price: {hoveredArmour.ItemSellPrice} ";
             }
         }
+        //Pop-up content is reset on every mouse leave
         private void Item_MouseLeave(object sender, MouseEventArgs e)
         {
             PopUp.IsOpen = false;
@@ -236,13 +240,14 @@ namespace Maze_Knight.Views
 
         #endregion
 
-
+        //Equipped Weapon is selected in the view model for unequip future action
         private void EquippedWeapon_Click(object sender, MouseEventArgs e)
         {
             CurrentStatsAndInventoryViewModel.SelectedEquippedWeapon = CurrentStatsAndInventoryViewModel.CurrentPlayer.EquippedWeapon;
             CurrentStatsAndInventoryViewModel.SelectedEquippedArmour = null;
         }
 
+        //Equipped Armour is selected in the view model for unequip future action
         private void EquippedArmour_Click(object sender, MouseEventArgs e)
         {
             CurrentStatsAndInventoryViewModel.SelectedEquippedArmour = CurrentStatsAndInventoryViewModel.CurrentPlayer.EquippedArmour;

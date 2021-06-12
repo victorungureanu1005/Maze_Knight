@@ -15,10 +15,13 @@ namespace Maze_Knight.Models
         #region Constants
         //To be used in order to check whether inventory is full or not
         private const int MAX_INVENTORY_COLLECTION_COUNT = 16;
-        //Both used to provide and set the keys to the dictionary related to the equiped items
-        private const string NAME_OF_WEAPON_KEY_EQUIPPED = "EquippedWeapon";
-        private const string NAME_OF_ARMOUR_KEY_EQUIPPED = "EquippedWeapon";
-
+        //Used in the level up calculations
+        const float EXPERIENCE_NEEDED_INCREASE_FACTOR = 25f;
+        const int EXPERIENCE_NEEDED_INCREASE_MARGIN = 5;
+        //Stat points received per level
+        const int STAT_POINTS_PER_LEVEL = 3;
+        //Number of turns available of rune bonus after rune activation
+        const int RUNE_NUMBER_OF_TURNS_AFTER_ACTIVATION = 3;
         #endregion
 
         #region Backing Fields and Privates
@@ -27,13 +30,14 @@ namespace Maze_Knight.Models
         private int _level;
         private int _goldDust;
         private int _currentExperience;
+        private int _experienceNeededForLevelUp;
         private int _statPoints;
         private Inventory _playerInventory = new Inventory();
-        private Weapon _equippedWeapon;
-        private Armour _equippedArmour;
+        private Weapon _equippedWeapon = null;
+        private Armour _equippedArmour = null;
         private bool _newShadyDealerAvailable = true;
 
-        //Player Stats
+        //Player Stats these are set to the initial settings
         private int _health;
         private int _maxHealth = 100;
         private bool _isAlive = true;
@@ -43,8 +47,8 @@ namespace Maze_Knight.Models
         private bool _runeActive = false;
         private int _runeNumberOfTurnsActive;
         private int _swordSkillLevel = 1;
-        private int _bowSkillLevel = 2;
-        private int _halberdSkillLevel = 3;
+        private int _bowSkillLevel = 1;
+        private int _halberdSkillLevel = 1;
         private int _humanoidResistance = 1;
         private int _mysticalResistance = 1;
 
@@ -83,7 +87,12 @@ namespace Maze_Knight.Models
             get { return _currentExperience; }
             set { _currentExperience = value; OnPropertyChanged(nameof(CurrentExperience)); }
         }
-
+        //Experience needed for Level up
+        public int ExperienceNeededForLevelUp
+        {
+            get { return _experienceNeededForLevelUp; }
+            set { _experienceNeededForLevelUp = value; }
+        }
         //Statpoints of Player
         public int StatPoints
         {
@@ -102,8 +111,8 @@ namespace Maze_Knight.Models
         {
             get { return _equippedWeapon; }
             set { _equippedWeapon = value; OnPropertyChanged(nameof(EquippedWeapon)); }
-        }       
-        
+        }
+
         public Armour EquippedArmour
         {
             get { return _equippedArmour; }
@@ -124,6 +133,13 @@ namespace Maze_Knight.Models
         {
             get { return _health; }
             set { _health = value; OnPropertyChanged(nameof(Health)); }
+        }
+
+        //Max Health of Player
+        public int MaxHealth
+        {
+            get { return _maxHealth; }
+            set { _maxHealth = value; OnPropertyChanged(nameof(MaxHealth)); }
         }
 
         //Is Alive boolean
@@ -227,21 +243,14 @@ namespace Maze_Knight.Models
             set { _playerIsLocked = value; OnPropertyChanged(nameof(PlayerIsLocked)); }
         }
 
-
-
-
-
         #endregion
 
         #region Constructor
         public Player()
         {
             //Set health to maxHealth
-            Health = _maxHealth;
-            //Set Equipped Weapon and Armour to null
-            EquippedWeapon = null;
-            EquippedArmour = null;
-    }
+            Health = MaxHealth;
+        }
         #endregion
 
         #region Methods on Player Location
@@ -321,9 +330,9 @@ namespace Maze_Knight.Models
         {
             if (experience >= 0)
             {
-                if (experience + CurrentExperience >= ExperienceForNextLevel())
+                if (experience + CurrentExperience >= ExperienceNeededForLevelUp)
                 {
-                    CurrentExperience = (CurrentExperience + experience) - ExperienceForNextLevel();
+                    CurrentExperience = CurrentExperience + experience - ExperienceNeededForLevelUp;
                     LevelUp();
                 }
                 else CurrentExperience += experience;
@@ -346,9 +355,9 @@ namespace Maze_Knight.Models
         {
             if (healthAmount <= 0)
                 return;
-            if (healthAmount + Health <= _maxHealth)
+            if (healthAmount + Health <= MaxHealth)
                 Health += healthAmount;
-            else Health = _maxHealth;
+            else Health = MaxHealth;
         }
 
         //Decrease health
@@ -371,19 +380,9 @@ namespace Maze_Knight.Models
         public void IncreaseMaxHealth(int value)
         {
             //Increase the Stat value
-            _maxHealth += value;
+            MaxHealth += value;
             //Also increase current health value
             Health += value;
-        }
-
-        public void IncreaseMinDamage(int value)
-        {
-            MinDamage += value;
-        }
-
-        public void IncreaseMaxDamage(int value)
-        {
-            MaxDamage += value;
         }
 
         public void IncreaseSwordSkillLevel(int value)
@@ -401,15 +400,6 @@ namespace Maze_Knight.Models
             HalberdSkillLevel += value;
         }
 
-        public void IncreaseHumanoidResistance(int value)
-        {
-            HumanoidResistance += value;
-        }
-
-        public void IncreaseMysticalResistance(int value)
-        {
-            MysticalResistance += value;
-        }
         #endregion
 
         #region Player Weapon and Rune Methods
@@ -424,7 +414,7 @@ namespace Maze_Knight.Models
         public void ActivateRune()
         {
             RuneActive = true;
-            RuneNumberOfTurnsActive = 3;
+            RuneNumberOfTurnsActive = RUNE_NUMBER_OF_TURNS_AFTER_ACTIVATION;
         }
 
         //Equip Weapon method used in the StatsAndInventory View
@@ -456,7 +446,7 @@ namespace Maze_Knight.Models
             if (item is Armour)
             {
                 //Store already equipped Armour in Collection before equiping the new one
-                if (EquippedArmour!= null)
+                if (EquippedArmour != null)
                 {
                     PlayerInventory.InventoryCollection.Add(EquippedArmour);
                 }
@@ -520,15 +510,14 @@ namespace Maze_Knight.Models
         private void LevelUp()
         {
             Level++;
-            StatPoints += 3;
+            StatPoints += STAT_POINTS_PER_LEVEL;
+            ExperienceNeededForLevelUp = CalculateExperienceNeededForNextLevel();
         }
 
         //Provides int for experience needed for next level;
-        private int ExperienceForNextLevel()
+        private int CalculateExperienceNeededForNextLevel()
         {
-            const float INCREASE_FACTOR = 25f;
-            const int INCREASE_MARGIN = 5;
-            return (int)Math.Round((Level * INCREASE_FACTOR) + INCREASE_MARGIN);
+            return (int)Math.Round((Level * EXPERIENCE_NEEDED_INCREASE_FACTOR) + EXPERIENCE_NEEDED_INCREASE_MARGIN);
         }
 
         #endregion
