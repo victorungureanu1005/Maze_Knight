@@ -65,6 +65,7 @@
     <Compile Include="Commands\AppWindowsViewModelCommands\UpdateViewCommand.cs" />
     <Compile Include="Commands\StatsAndInventoryViewModelCommands\AddStatPointsCommand.cs" />
     <Compile Include="Commands\StatsAndInventoryViewModelCommands\ResetStatPointsCommand.cs" />
+    <Compile Include="Converters\IsAliveToDeathUserControlVisibilityConverter.cs" />
     <Compile Include="Converters\ItemTypeToBitmapConverter.cs" />
     <Compile Include="Converters\StatPointsAvailableToVisibilityConverter.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -144,6 +145,12 @@
     <Compile Include="Views\TownView.xaml.cs">
       <DependentUpon>TownView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\DeathUserControl.xaml.cs">
+      <DependentUpon>DeathUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ExitExploreUserControl.xaml.cs">
+      <DependentUpon>ExitExploreUserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="AppWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,6 +184,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TownView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\DeathUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ExitExploreUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +246,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Icons\AddStatPoint_Sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\DeathImage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\ReachedExit.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

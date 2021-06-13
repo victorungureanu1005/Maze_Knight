@@ -8,14 +8,14 @@ namespace Maze_Knight.Models.Enums
 {
     public enum EnemyGoldDustDrop
     {
-        Rogues = 1,
-        ThievyArchers = 3,
-        CorruptPaladins = 6,
-        CorruptMages = 12,
-        Goblins = 2,
-        Orcs = 4,
-        Trolls = 7,
-        Dragons = 20
+        Rogues = 10,
+        ThievyArchers = 25,
+        CorruptPaladins = 50,
+        CorruptMages = 45,
+        Goblins = 12,
+        Orcs = 30,
+        Trolls =55,
+        Dragons = 80
     }
 }
 

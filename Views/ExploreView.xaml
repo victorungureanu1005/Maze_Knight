@@ -1,130 +1,147 @@
-﻿<UserControl x:Class="Maze_Knight.Views.ExploreView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maze_Knight.Views"
+    xmlns:Converters="clr-namespace:Maze_Knight.Converters"
+             xmlns:UserControls="clr-namespace:Maze_Knight.Views.UserControls" x:Class="Maze_Knight.Views.ExploreView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="#FF0A1428"
              Padding="20">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <Converters:IsAliveToDeathUserControlVisibilityConverter x:Key="IsAliveToDeathUserControlVisibilityConverter"/>
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid">
-        <!-- Main Grid Column and Row Definitions -->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
+    <Grid>
+        <!-- Main Grid excluding DeathUserControl -->
+        <Grid x:Name="MainGrid" IsEnabled="{Binding CurrentPlayer.IsAlive}">
+            <!-- Main Grid Column and Row Definitions -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
 
-        <!-- Map Grid Settings -->
+            <!-- Actions Block -->
+            <!-- Map Grid Settings -->
 
-        <Grid x:Name="MapGrid" HorizontalAlignment="Center" VerticalAlignment="Center" 
+            <Grid x:Name="MapGrid" HorizontalAlignment="Center" VerticalAlignment="Center" 
               Grid.Row="0" Grid.Column="0" Background="#FFECE4D5"/>
 
 
-        <!-- Battle Event Block -->
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <!-- Here we have the Textblock which is bound to the battle report property found in the explore view model -->
-            <TextBlock x:Name="BattleReport" Height="100" Text="{Binding Path=BattleReport}" FontSize="15px"  Width="auto" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10"  />
-            <!-- Textblock bound to enemy describing enemySubType -->
-            <TextBlock x:Name="SubTypeEnemiesFound" Text="{Binding Path=EnemyEngagedMessage}" FontSize="18px" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10" HorizontalAlignment="Center"></TextBlock>
-            <!-- This button should start the fight/battle - I know, the choice of words is not great here, there should be consistency..., but Battle didn't work and I don't want to change now all the code :) - I must do this one day!!! -->
-            <Button x:Name="FightButton" Content="Fight!" Visibility="{Binding CurrentPlayer.PlayerIsLocked, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
+            <!-- Battle Event Block -->
+            <StackPanel Grid.Row="0" Grid.Column="1">
+                <!-- Here we have the Textblock which is bound to the battle report property found in the explore view model -->
+                <TextBlock x:Name="BattleReport" Height="100" Text="{Binding BattleReport}" FontSize="15px"  Width="auto" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10"  />
+                <!-- Textblock bound to enemy describing enemySubType -->
+                <TextBlock x:Name="SubTypeEnemiesFound" Text="{Binding EnemyEngagedMessage}" FontSize="18px" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10" HorizontalAlignment="Center"/>
+                <!-- This button should start the fight/battle - I know, the choice of words is not great here, there should be consistency..., but Battle didn't work and I don't want to change now all the code :) - I must do this one day!!! -->
+                <Button x:Name="FightButton" Content="Fight!" Visibility="{Binding CurrentPlayer.PlayerIsLocked, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
                 FontSize="20px" Width="150" Height="40" Grid.Column="0" Grid.Row="1"  Background="#FFECE4D5" Click="FightButton_Click"/>
 
-            <!-- Choose Weapon -->
-            <TextBlock FontSize="18px" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10" HorizontalAlignment="Center">Choose Weapon</TextBlock>
-            <Grid>
+                <!-- Choose Weapon -->
+                <TextBlock FontSize="18px" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10" HorizontalAlignment="Center"><Run Text="Choose Weapon"/></TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Button Content="Sword" HorizontalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="120" Height="40" Grid.Column="0" Grid.Row="0" Background="#FFECE4D5" Click="SelectSword"/>
+                    <Button Content="Bow" HorizontalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="120" Height="40" Grid.Column="1" Grid.Row="0" Background="#FFECE4D5" Click="SelectBow"/>
+                    <Button Content="Halberd" HorizontalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="120" Height="40" Grid.Column="2" Grid.Row="0"  Background="#FFECE4D5" Click="SelectHalberd"/>
+                </Grid>
+                <!-- Textblock stating currently selected weapon -->
+                <TextBlock x:Name="SelectedWeapon" Text="{Binding SelectedWeaponMessage}" FontSize="18px" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Actions Block Grid Definitions -->
+            <Grid Grid.Row="1" Grid.Column="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <!-- Actions Block Actions -->
+                <Button Content="Drink Potion" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="150" Height="40" Grid.Column="0" Background="#FFECE4D5" />
+                <Button Content="Use Rune" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="150" Height="40" Grid.Column="1" Background="#FFECE4D5" Command="{Binding UseRuneCommand}" />
+                <Button  Content="Flight!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="150" Height="40" Grid.Column="2" Background="#FFECE4D5" Click="Flight" />
+            </Grid>
+
+            <!-- Stats Block -->
+            <Grid Grid.Row="1" Grid.Column="1" x:Name ="Stats" Width="auto" Height="auto" Margin="0,-100,0,0" >
+                <!-- Stats grid construction -->
+                <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Button Content="Sword" HorizontalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="120" Height="40" Grid.Column="0" Grid.Row="0" Background="#FFECE4D5" Click="SelectSword"/>
-                <Button Content="Bow" HorizontalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="120" Height="40" Grid.Column="1" Grid.Row="0" Background="#FFECE4D5" Click="SelectBow"/>
-                <Button Content="Halberd" HorizontalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="120" Height="40" Grid.Column="2" Grid.Row="0"  Background="#FFECE4D5" Click="SelectHalberd"/>
+                <!-- Stats description -->
+                <TextBlock Foreground="NavajoWhite" Grid.Row="0" FontSize="15px" TextWrapping="Wrap"><Run Text="Supplies Left"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="1" FontSize="15px" TextWrapping="Wrap"><Run Text="Health"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="2" FontSize="15px" TextWrapping="Wrap"><Run Text="Min Damage"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="3" FontSize="15px" TextWrapping="Wrap"><Run Text="Max Damage"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="4" FontSize="15px" TextWrapping="Wrap"><Run Text="Rune Active"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="5" FontSize="15px" TextWrapping="Wrap"><Run Text="Rune Turns Left"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="6" FontSize="15px" TextWrapping="Wrap"><Run Text="Sword Skill"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="7" FontSize="15px" TextWrapping="Wrap"><Run Text="Bow Skill"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="8" FontSize="15px" TextWrapping="Wrap"><Run Text="Halberd Skill"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="9" FontSize="15px" TextWrapping="Wrap"><Run Text="Humanoid Res"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="10" FontSize="15px" TextWrapping="Wrap"><Run Text="Mystical Res"/></TextBlock>
+                <!-- Stats values -->
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="0" Text="{Binding CurrentPlayer.SuppliesLeft}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="1" Text="{Binding CurrentPlayer.Health}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="2" Text="{Binding CurrentPlayer.MinDamage}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="3" Text="{Binding CurrentPlayer.MaxDamage}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="4" Text="{Binding CurrentPlayer.RuneActive}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="5" Text="{Binding CurrentPlayer.RuneNumberOfTurnsActive}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="6" Text="{Binding CurrentPlayer.SwordSkillLevel}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="7" Text="{Binding CurrentPlayer.BowSkillLevel}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="8" Text="{Binding CurrentPlayer.HalberdSkillLevel}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="9" Text="{Binding CurrentPlayer.HumanoidResistance}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="10" Text="{Binding CurrentPlayer.MysticalResistance}" FontSize="15px" TextWrapping="Wrap"/>
             </Grid>
-            <!-- Textblock stating currently selected weapon -->
-            <TextBlock x:Name="SelectedWeapon" Text="{Binding Path=SelectedWeaponMessage}" FontSize="18px" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10" HorizontalAlignment="Center"></TextBlock>
-        </StackPanel>
-
-        <!-- Actions Block -->
-        <!-- Actions Block Grid Definitions -->
-        <Grid Grid.Row="1" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-
-            </Grid.ColumnDefinitions>
-
-            <!-- Actions Block Actions -->
-            <Button Content="Drink Potion" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="150" Height="40" Grid.Column="0" Background="#FFECE4D5" />
-            <Button Content="Use Rune" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="150" Height="40" Grid.Column="1" Background="#FFECE4D5" Command="{Binding UseRuneCommand}" />
-            <Button  Content="Flight!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="150" Height="40" Grid.Column="2" Background="#FFECE4D5" Click="Flight" />
         </Grid>
 
-        <!-- Stats Block -->
-        <Grid Grid.Row="1" Grid.Column="1" x:Name ="Stats" Width="auto" Height="auto" Margin="0,-100,0,0" >
-            <!-- Stats grid construction -->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            
-            <!-- Stats description -->
-            <TextBlock Foreground="NavajoWhite" Grid.Row="0" FontSize="15px" TextWrapping="Wrap">Health</TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Row="1" FontSize="15px" TextWrapping="Wrap">Min Damage</TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Row="2" FontSize="15px" TextWrapping="Wrap">Max Damage</TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Row="3" FontSize="15px" TextWrapping="Wrap">Rune Active</TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Row="4" FontSize="15px" TextWrapping="Wrap">Rune Turns Left</TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Row="5" FontSize="15px" TextWrapping="Wrap">Sword Skill</TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Row="6" FontSize="15px" TextWrapping="Wrap">Bow Skill</TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Row="7" FontSize="15px" TextWrapping="Wrap">Halberd Skill</TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Row="8" FontSize="15px" TextWrapping="Wrap">Humanoid Res</TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Row="9" FontSize="15px" TextWrapping="Wrap">Mystical Res</TextBlock>
-            <!-- Stats values -->
-            <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="0" Text="{Binding Path=CurrentPlayer.Health}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="1" Text="{Binding Path=CurrentPlayer.MinDamage}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="2" Text="{Binding Path=CurrentPlayer.MaxDamage}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="3" Text="{Binding Path=CurrentPlayer.RuneActive}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="4" Text="{Binding Path=CurrentPlayer.RuneNumberOfTurnsActive}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="5" Text="{Binding Path=CurrentPlayer.SwordSkillLevel}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="6" Text="{Binding Path=CurrentPlayer.BowSkillLevel}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="7" Text="{Binding Path=CurrentPlayer.HalberdSkillLevel}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="8" Text="{Binding Path=CurrentPlayer.HumanoidResistance}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
-            <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="9" Text="{Binding Path=CurrentPlayer.MysticalResistance}" FontSize="15px" TextWrapping="Wrap"></TextBlock>
-        </Grid>
+        <!-- Death User Control -->
+        <UserControls:DeathUserControl x:Name="DeathUserControl"
+                                       HorizontalAlignment="Center" Grid.ColumnSpan="100" Grid.RowSpan="100" VerticalAlignment="Center"
+                                       Visibility="{Binding CurrentPlayer.IsAlive, Converter={StaticResource IsAliveToDeathUserControlVisibilityConverter}}"/>
 
+        <UserControls:ExitExploreUserControl x:Name="ExitExploreUserControl"
+                                             HorizontalAlignment="Center" Grid.ColumnSpan="100" Grid.RowSpan="100" VerticalAlignment="Center"
+                                              Visibility="{Binding CurrentPlayer.ExploreSuccess, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </UserControl>

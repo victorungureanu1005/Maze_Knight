@@ -1,0 +1,51 @@
+﻿
+    <UserControl x:Class="Maze_Knight.Views.UserControls.DeathUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maze_Knight.Views.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="500"
+             Background="#FF0A1428"
+             >
+    <Border BorderBrush="NavajoWhite" BorderThickness="3">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- User Control Death Image Left -->
+            <Image Grid.Column="0" Height="380" Grid.RowSpan="3" Source="pack://application:,,,/Content/Images/DeathImage.jpg"/>
+            
+            <!-- Died -->
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="You Died!" Foreground="NavajoWhite" FontSize="20px" 
+                       TextWrapping="Wrap" Margin="30,0,0,20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <!-- Death Message -->
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding CurrentPlayer.DeathMessage}" Foreground="NavajoWhite" FontSize="15px"
+                       TextWrapping="Wrap" Margin="30,0,0,20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            
+            <!-- Buttons -->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"  Content="TryAgain" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="150" Height="40" Background="#FFECE4D5" Click="TryAgain" />
+                <Button  Grid.Column="1" Content="Quit" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="150" Height="40" Background="#FFECE4D5" Click="Quit" />
+            </Grid>
+            
+        </Grid>
+    </Grid>
+    </Border>
+</UserControl>

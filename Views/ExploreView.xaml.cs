@@ -39,8 +39,13 @@ namespace Maze_Knight.Views
             InitializeMapGrid((int)PlayerInstances.CurrentPlayerInstance.Level, mapMeasures);
 
             //Setting the DataContext for this View - shall be set to the ExploreViewModel created by the static App class instantiated and stored in the Mediator static class
-            //Also setting Binders between TextBoxes and relevant MapGridCell objects
             DataContext = (ExploreViewModel)Mediator.theApp.SelectedViewModel;
+            //Set Data Context to the DeathUserControl
+            DeathUserControl.DataContext = DataContext;
+            //Set Data Context to ExitExploreUserControl
+            ExitExploreUserControl.DataContext = DataContext;
+
+            //Setting Binders between TextBoxes and relevant MapGridCell objects
             SetBindersToCells((int)PlayerInstances.CurrentPlayerInstance.Level, mapMeasures);
 
         }
@@ -143,6 +148,7 @@ namespace Maze_Knight.Views
         private void Flight(object sender, RoutedEventArgs e)
         {
             Mediator.theApp.SelectedViewModel = new TownViewModel();
+            PlayerInstances.CurrentPlayerInstance.Flight();
         }
 
         //Change player's current weapon to sword

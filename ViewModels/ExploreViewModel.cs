@@ -106,8 +106,17 @@ namespace Maze_Knight.ViewModels
             //Setting Enemies and Exit Propreties on the MapGridCells found on the MapGridCellCollection
             SetEnemiesAndExitOnMap(MapGridCellCollection);
 
+            //Give life to player
+            CurrentPlayer.IsAlive = true;
+            //Set ExploreSuccess to false
+            CurrentPlayer.ExploreSuccess = false;
+
+            //Set initial supplies available for player
+            CurrentPlayer.CalculateInitialSupplies(CurrentPlayer.Level);
+
             //Set Command
             UseRuneCommand = new UseRuneCommand(CurrentPlayer);
+
 
         }
         #endregion

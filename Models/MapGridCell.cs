@@ -48,8 +48,9 @@ namespace Maze_Knight.Models
                         case EnemySubTypes.Dragons: return "🐉";
                     }
                 }
-                if (ExitIsHere) return "🕳";
-                if (WasExplored) return "✔";
+                if (ExitIsHere) return "🏳‍🌈";
+                //Removed following line as I want the game mechanics to also revolve around memory. 
+                //if (WasExplored) return "✔";
                 return _cellTextDisplay;
             }
         }

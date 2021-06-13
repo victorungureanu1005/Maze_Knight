@@ -37,6 +37,11 @@ namespace Maze_Knight.Commands
             //Check if clicked cell corresponds to the move options of the player and player is not locked
             if (moveOptions.Contains(clickedPosition) && !PlayerInstances.CurrentPlayerInstance.PlayerIsLocked)
             {
+               if(PlayerInstances.CurrentPlayerInstance.SuppliesLeft <= 0)
+                {
+                    PlayerInstances.CurrentPlayerInstance.Die("You went out of supplies... you faced a terrible death");
+                    return false;
+                }
                 return true;
             }
             else return false;
@@ -54,6 +59,8 @@ namespace Maze_Knight.Commands
                 _clickedMapGridCell.PlayerIsHere = true;
                 PlayerInstances.CurrentPlayerInstance.CellOfPlayerLocation = _clickedMapGridCell;
                 PlayerInstances.CurrentPlayerInstance.PlayerLocation = new int[] { _clickedMapGridCell.CellColumnNumber, _clickedMapGridCell.CellRowNumber };
+                //Remove 1 supply from the player
+                PlayerInstances.CurrentPlayerInstance.SuppliesLeft--;
 
                 if (_clickedMapGridCell.EnemyIsHere)
                 {
@@ -65,6 +72,16 @@ namespace Maze_Knight.Commands
                     
                     //BattleSystem battle = new BattleSystem(PlayerInstances.CurrentPlayerInstance, _clickedMapGridCell.Enemy, _clickedMapGridCell);
                     //battle.Battle();
+
+                }
+
+                if (_clickedMapGridCell.ExitIsHere)
+                {
+                    //Sets explore succes to true to trigger User control
+                    PlayerInstances.CurrentPlayerInstance.ExploreSuccess = true;
+                    //WARNING - this needs to be changed - setting property to false to have the ExploreView Disabled
+                    PlayerInstances.CurrentPlayerInstance.IsAlive = false;
+                    PlayerInstances.CurrentPlayerInstance.ExploreSuccessMethod();
 
                 }
             }
