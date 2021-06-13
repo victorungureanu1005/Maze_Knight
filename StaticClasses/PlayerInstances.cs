@@ -13,7 +13,7 @@ namespace Maze_Knight.StaticClasses
     public static class PlayerInstances
     {
         //Store Player information
-        public static Player CurrentPlayerInstance = new Player() { Level = 1, GoldDust = 3000};
+        public static Player CurrentPlayerInstance = new Player() { Level = 20, GoldDust = 3000, StatPoints=100, BowSkillLevel=100};
         //Store shady dealer informationthe
         public static ShadyDealerViewModel AvailableShadyDealerViewModel;
     }

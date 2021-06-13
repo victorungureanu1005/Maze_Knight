@@ -43,10 +43,20 @@
         
         
         <!-- ShadyDealerInventory -->
-        <Grid x:Name="ShadyDealerInventory" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"/>
+        <Grid VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0">
+            <StackPanel>
+                <TextBlock Foreground="NavajoWhite" HorizontalAlignment="Left" FontSize="20px" TextWrapping="Wrap" Margin="20,0,0,20">Shady Dealer Inventory</TextBlock>
+                <Grid x:Name="ShadyDealerInventory" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
 
         <!-- PlayerInventory -->
-        <Grid x:Name="PlayerInventory" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1"/>
+        <Grid VerticalAlignment="Center" Grid.Column="2" Grid.Row="1">
+            <StackPanel>
+                <TextBlock Foreground="NavajoWhite" HorizontalAlignment="Left" FontSize="20px" TextWrapping="Wrap" Margin="20,0,0,20">Player Inventory</TextBlock>
+                <Grid x:Name="PlayerInventory" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
 
         <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
 

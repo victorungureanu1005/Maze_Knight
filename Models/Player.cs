@@ -23,8 +23,8 @@ namespace Maze_Knight.Models
         //Number of turns available of rune bonus after rune activation
         const int RUNE_NUMBER_OF_TURNS_AFTER_ACTIVATION = 3;
         //Supplies stats - number of moves
-        const int BASE_SUPPLIES = 1;
-        const int ADDITIONAL_SUPPLIES_PER_LEVEL = 20;
+        const int BASE_SUPPLIES = 20;
+        const int ADDITIONAL_SUPPLIES_PER_LEVEL = 1;
         //After death try again constants
         const int GOLD_DUST_LOST_ON_DEATH_PER_LEVEL = 5;
         const int GOLD_DUST_LOST_ON_FLIGHT = 10;
