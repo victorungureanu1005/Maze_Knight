@@ -28,7 +28,7 @@ namespace Maze_Knight.Views.UserControls
 
         private void GoToTown(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new TownViewModel();
+            Mediator.TheApp.SelectedViewModel = new TownViewModel();
         }
     }
 }

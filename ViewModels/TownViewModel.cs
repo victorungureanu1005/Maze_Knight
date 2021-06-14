@@ -1,10 +1,12 @@
-﻿using Maze_Knight.Models.Items;
+﻿using Maze_Knight.Commands.SaveLoadSystem;
+using Maze_Knight.Models.Items;
 using Maze_Knight.StaticClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Maze_Knight.ViewModels
 {
@@ -15,11 +17,16 @@ namespace Maze_Knight.ViewModels
         private ShadyDealerViewModel _shadyDealerViewModel;
         #endregion
 
+        public ICommand SaveGameCommand { get; set; }
+
         #region Constructor
         public TownViewModel()
         {
             //Check whether new shady dealer inventory can be generated and depending on that it does that
             ShadyDealerMethod();
+
+            //Initialize Command
+            SaveGameCommand = new SaveGameCommand();
         }
         #endregion
 
@@ -44,12 +51,12 @@ namespace Maze_Knight.ViewModels
             if (PlayerInstances.CurrentPlayerInstance.NewShadyDealerAvailable == true)
             {
                 ShadyDealerViewModel = new ShadyDealerViewModel(PlayerInstances.CurrentPlayerInstance);
-                PlayerInstances.AvailableShadyDealerViewModel = ShadyDealerViewModel;
+                PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel = ShadyDealerViewModel;
                 PlayerInstances.CurrentPlayerInstance.NewShadyDealerAvailable = false;
             }
             else
             {
-                ShadyDealerViewModel = PlayerInstances.AvailableShadyDealerViewModel;
+                ShadyDealerViewModel = PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel;
             }
         }
         #endregion

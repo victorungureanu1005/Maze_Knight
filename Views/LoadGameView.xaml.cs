@@ -33,7 +33,7 @@ namespace Maze_Knight.Views
 
         private void GoToMenu(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new MainMenuViewModel();
+            Mediator.TheApp.SelectedViewModel = new MainMenuViewModel();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Maze_Knight
             InitializeComponent();
             
             //DataContext initialization to permit data binding to AppWindowViewModel props
-            DataContext = Mediator.theApp;
+            DataContext = Mediator.TheApp;
         }
     }
 }

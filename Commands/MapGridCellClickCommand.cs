@@ -67,7 +67,7 @@ namespace Maze_Knight.Commands
                     //Lock player to not move. It will get unstuck if the Battle Command is ran
                     PlayerInstances.CurrentPlayerInstance.PlayerIsLocked = true;
                     //Update the TextBlock on the ExploreView indicating what EnemySubType has been engaged
-                    ((ExploreViewModel)Mediator.theApp.SelectedViewModel).EnemyEngagedMessage = _clickedMapGridCell.Enemy.EnemySubType.ToString()+"Attack!";
+                    ((ExploreViewModel)Mediator.TheApp.SelectedViewModel).EnemyEngagedMessage = _clickedMapGridCell.Enemy.EnemySubType.ToString()+"Attack!";
                     
                     
                     //BattleSystem battle = new BattleSystem(PlayerInstances.CurrentPlayerInstance, _clickedMapGridCell.Enemy, _clickedMapGridCell);

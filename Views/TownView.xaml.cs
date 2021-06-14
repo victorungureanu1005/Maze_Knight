@@ -25,19 +25,9 @@ namespace Maze_Knight.Views
         public TownView()
         {
             InitializeComponent();
-            DataContext = (TownViewModel)Mediator.theApp.SelectedViewModel;
+            DataContext = (TownViewModel)Mediator.TheApp.SelectedViewModel;
         }
 
-        private void GoToMainMenu(object sender, RoutedEventArgs e)
-        {
-            Mediator.theApp.SelectedViewModel = new MainMenuViewModel();
-
-        }
-
-        private void SaveGame(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void LoadGame(object sender, RoutedEventArgs e)
         {
@@ -46,19 +36,19 @@ namespace Maze_Knight.Views
 
         private void ExploreOutsideTown(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new ExploreViewModel();
+            Mediator.TheApp.SelectedViewModel = new ExploreViewModel();
         }
 
         private void GoToShadyDealer(object sender, RoutedEventArgs e)
         {
             //Access ShadyDealerViewModel stored on the TownViewModel
-            Mediator.theApp.SelectedViewModel = ((TownViewModel)Mediator.theApp.SelectedViewModel).ShadyDealerViewModel;
+            Mediator.TheApp.SelectedViewModel = ((TownViewModel)Mediator.TheApp.SelectedViewModel).ShadyDealerViewModel;
 
         }
 
         private void UpgradeYourStatsAndCheckYourInventory(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new StatsAndInventoryViewModel();
+            Mediator.TheApp.SelectedViewModel = new StatsAndInventoryViewModel();
         }
     }
 }

@@ -2,6 +2,7 @@
 using Maze_Knight.Models.Enums;
 using Maze_Knight.Models.Items;
 using Maze_Knight.StaticClasses;
+using Maze_Knight.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -586,6 +587,7 @@ namespace Maze_Knight.Models
             PlayerIsLocked = false;
             RuneActive = false;
             RuneNumberOfTurnsActive = 0;
+            NewShadyDealerAvailable = true;
         }
 
         #endregion

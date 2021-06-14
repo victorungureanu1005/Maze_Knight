@@ -139,7 +139,7 @@ namespace Maze_Knight.Views
         //Go back to Town View
         private void GoBack_Click(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new TownViewModel();
+            Mediator.TheApp.SelectedViewModel = new TownViewModel();
         }
         #endregion
 

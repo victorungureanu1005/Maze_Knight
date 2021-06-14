@@ -7,6 +7,10 @@ using System.Windows.Input;
 using Maze_Knight;
 using Maze_Knight.Commands;
 using Maze_Knight.Views;
+using System.Text.Json;
+using Maze_Knight.StaticClasses;
+using Maze_Knight.Models;
+using System.IO;
 
 namespace Maze_Knight.ViewModels
 {
@@ -34,6 +38,14 @@ namespace Maze_Knight.ViewModels
 
         public AppWindowViewModel()
         {
+            //Deserialize the Lastest Played Player Instnace
+            if (File.Exists(@"c:\Lala\CurrentPlayerInstance.json") && File.Exists(@"c:\Lala\CurrentPlayerAvailableShadyDealerViewModel.json"))
+            {
+                PlayerInstances.CurrentPlayerInstance = JsonSerializer.Deserialize<Player>(File.ReadAllText(@"c:\Lala\CurrentPlayerInstance.json"));
+                PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel = JsonSerializer.Deserialize<ShadyDealerViewModel>(File.ReadAllText(@"c:\Lala\CurrentPlayerAvailableShadyDealerViewModel.json"));
+            }
+            
+            //Initialize the Command
             UpdateViewCommand = new UpdateViewCommand(this);
         }
 

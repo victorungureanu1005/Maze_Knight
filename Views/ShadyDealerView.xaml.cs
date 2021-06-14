@@ -35,7 +35,7 @@ namespace Maze_Knight.Views
         {
             InitializeComponent();
             //Setting data context to the shady dealer view model directly and not by creating a new view model
-            CurrentShadyDealerViewModel = (ShadyDealerViewModel)Mediator.theApp.SelectedViewModel;
+            CurrentShadyDealerViewModel = (ShadyDealerViewModel)Mediator.TheApp.SelectedViewModel;
             DataContext = CurrentShadyDealerViewModel;
 
             InitializeShadyDealerInventory();
@@ -45,7 +45,7 @@ namespace Maze_Knight.Views
 
         private void ReturnToMenu_Click(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new TownViewModel();
+            Mediator.TheApp.SelectedViewModel = new TownViewModel();
         }
 
         private void InitializeShadyDealerInventory()
@@ -71,7 +71,7 @@ namespace Maze_Knight.Views
                     {
                         //Create the binding needed for the image display and set its properties linking it to the items in the respective inventory
                         Binding binding = new Binding();
-                        var currentItem = ((ShadyDealerViewModel)Mediator.theApp.SelectedViewModel).ShadyDealer.ShadyDealerInventory.InventoryCollection[itemIndex];
+                        var currentItem = ((ShadyDealerViewModel)Mediator.TheApp.SelectedViewModel).ShadyDealer.ShadyDealerInventory.InventoryCollection[itemIndex];
                         var itemTypeObject = currentItem.ItemType;
                         itemIndex++;
                         binding.Source = itemTypeObject;

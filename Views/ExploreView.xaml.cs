@@ -39,7 +39,7 @@ namespace Maze_Knight.Views
             InitializeMapGrid((int)PlayerInstances.CurrentPlayerInstance.Level, mapMeasures);
 
             //Setting the DataContext for this View - shall be set to the ExploreViewModel created by the static App class instantiated and stored in the Mediator static class
-            DataContext = (ExploreViewModel)Mediator.theApp.SelectedViewModel;
+            DataContext = (ExploreViewModel)Mediator.TheApp.SelectedViewModel;
             //Set Data Context to the DeathUserControl
             DeathUserControl.DataContext = DataContext;
             //Set Data Context to ExitExploreUserControl
@@ -115,7 +115,7 @@ namespace Maze_Knight.Views
                     Binding binding = new Binding();
 
                     //Find the mapGridCellObject to which the binding must be linked
-                    var mapGridCellObject = ((ExploreViewModel)Mediator.theApp.SelectedViewModel).MapGridCellCollection[i];
+                    var mapGridCellObject = ((ExploreViewModel)Mediator.TheApp.SelectedViewModel).MapGridCellCollection[i];
 
                     //Bind the source to the object and set the path to the relevant property
                     binding.Source = mapGridCellObject;
@@ -139,7 +139,7 @@ namespace Maze_Knight.Views
         private void GridCellClick(object sender, MouseButtonEventArgs e)
         {
             int index = _textBlockCollection.IndexOf((TextBlock)sender);
-            ((ExploreViewModel)Mediator.theApp.SelectedViewModel).MapGridCellCollection[index].MapGridCellClickCommand.Execute(sender);
+            ((ExploreViewModel)Mediator.TheApp.SelectedViewModel).MapGridCellCollection[index].MapGridCellClickCommand.Execute(sender);
         }
         #endregion
 
@@ -147,7 +147,7 @@ namespace Maze_Knight.Views
         //Go back to Town
         private void Flight(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new TownViewModel();
+            Mediator.TheApp.SelectedViewModel = new TownViewModel();
             PlayerInstances.CurrentPlayerInstance.Flight();
         }
 

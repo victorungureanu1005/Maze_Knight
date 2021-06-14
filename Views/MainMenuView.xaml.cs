@@ -25,7 +25,7 @@ namespace Maze_Knight.Views
         public MainMenuView()
         {
             InitializeComponent();
-            DataContext = Mediator.theApp;
+            DataContext = Mediator.TheApp;
         }
 
         private void QuitApp(object sender, RoutedEventArgs e)

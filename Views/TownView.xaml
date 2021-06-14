@@ -47,12 +47,11 @@
 
         <!-- Buttons on the bottom bar -->
 
-        <Button  Width="200" Height="40" FontSize="20px" Content="Save Game" Click="SaveGame" 
+        <Button  Width="200" Height="40" FontSize="20px" Command="{Binding SaveGameCommand}" CommandParameter="nothing"
                  Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="0"/>
-        <Button  Width="200" Height="40" FontSize="20px"  Content="Main Menu" Click="GoToMainMenu" 
-                 Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="1"/>
+
         <Button  Width="200" Height="40" FontSize="20px"  Content="Load Game" Click="LoadGame" 
-                 Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="2"/>
+                 Background="#FFECE4D5" Margin="10" Grid.Row="6" Grid.Column="1"/>
 
 
         <Image Grid.Column="3" Grid.RowSpan="3" Source="pack://application:,,,/Content/Images/OldTown_TownView.jpg" Stretch="Fill" Opacity="0.7"/>

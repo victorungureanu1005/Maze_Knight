@@ -12,9 +12,21 @@ namespace Maze_Knight.StaticClasses
     //Static class to keep track of the player isntance
     public static class PlayerInstances
     {
-        //Store Player information
+        //Current Player object
         public static Player CurrentPlayerInstance = new Player() { Level = 20, GoldDust = 3000, StatPoints=100, BowSkillLevel=100};
-        //Store shady dealer informationthe
-        public static ShadyDealerViewModel AvailableShadyDealerViewModel;
+        //Current available ShadyDealerViewModel for the Current Player
+        public static ShadyDealerViewModel CurrentPlayerAvailableShadyDealerViewModel;
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

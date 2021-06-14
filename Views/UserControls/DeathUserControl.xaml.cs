@@ -30,13 +30,13 @@ namespace Maze_Knight.Views.UserControls
 
         private void TryAgain(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new TownViewModel();
+            Mediator.TheApp.SelectedViewModel = new TownViewModel();
             PlayerInstances.CurrentPlayerInstance.TryAgainAfterDeath();
         }
 
         private void Quit(object sender, RoutedEventArgs e)
         {
-            Mediator.theApp.SelectedViewModel = new MainMenuViewModel();
+            Mediator.TheApp.SelectedViewModel = new MainMenuViewModel();
         }
     }
 }
