@@ -23,6 +23,7 @@ namespace Maze_Knight.Models
         #endregion
 
         #region Constructor
+        public ShadyDealerModel() { }
         public ShadyDealerModel(Player player)
         {
             CurrentPlayerLevel = player.Level;

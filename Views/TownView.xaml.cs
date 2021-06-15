@@ -50,5 +50,10 @@ namespace Maze_Knight.Views
         {
             Mediator.TheApp.SelectedViewModel = new StatsAndInventoryViewModel();
         }
+
+        private void QuitApp(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+                    }
     }
 }

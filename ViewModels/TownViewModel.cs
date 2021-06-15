@@ -1,4 +1,5 @@
 ﻿using Maze_Knight.Commands.SaveLoadSystem;
+using Maze_Knight.Models;
 using Maze_Knight.Models.Items;
 using Maze_Knight.StaticClasses;
 using System;
@@ -53,6 +54,7 @@ namespace Maze_Knight.ViewModels
                 ShadyDealerViewModel = new ShadyDealerViewModel(PlayerInstances.CurrentPlayerInstance);
                 PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel = ShadyDealerViewModel;
                 PlayerInstances.CurrentPlayerInstance.NewShadyDealerAvailable = false;
+
             }
             else
             {

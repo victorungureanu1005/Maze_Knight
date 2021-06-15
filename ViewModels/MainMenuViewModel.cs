@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Text.Json;
 using Maze_Knight.StaticClasses;
 using Maze_Knight.Models;
 
@@ -22,8 +21,6 @@ namespace Maze_Knight.ViewModels
             //Initialize Commands
             ContinueGameCommand = new ContinueGameCommand();
             NewGameCommand = new NewGameCommand();
-
-            //Deserialize Current Player Instance
 
         }
 

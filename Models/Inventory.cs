@@ -40,7 +40,7 @@ namespace Maze_Knight.Models
         public Armour EquipedArmour { get => _equipedArmour; set => _equipedArmour = value; }
 
         #endregion
-
+        
         #region Inventory Methods
 
         #endregion

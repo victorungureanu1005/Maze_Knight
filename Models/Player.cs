@@ -3,6 +3,7 @@ using Maze_Knight.Models.Enums;
 using Maze_Knight.Models.Items;
 using Maze_Knight.StaticClasses;
 using Maze_Knight.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +37,8 @@ namespace Maze_Knight.Models
         #region Backing Fields and Privates
         //Generic Player information
         private string _name;
-        private int _level;
-        private int _goldDust;
+        private int _level = 1;
+        private int _goldDust = 200;
         private int _currentExperience;
         private int _experienceNeededForLevelUp;
         private int _statPoints;
@@ -252,6 +253,7 @@ namespace Maze_Knight.Models
             set { _playerLocation = value; OnPropertyChanged(nameof(PlayerLocation)); }
         }
 
+        [JsonIgnore]
         public MapGridCell CellOfPlayerLocation
         {
             get { return _cellOfPlayerLocation; }

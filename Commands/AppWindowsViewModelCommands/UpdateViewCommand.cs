@@ -1,4 +1,6 @@
-﻿using Maze_Knight.ViewModels;
+﻿using Maze_Knight.Models;
+using Maze_Knight.StaticClasses;
+using Maze_Knight.ViewModels;
 using System;
 using System.Windows.Input;
 
@@ -19,13 +21,19 @@ namespace Maze_Knight.Commands
 
         public void Execute(object parameter)
         {      
-            //Intrebare
-            //Try-catch-la catch intru in debug mode, e ok???!?!?
-            //Intrebare!
-
+            if(parameter is object[])
+            {
+                var parameterValues = (object[])parameter;
+                if (parameterValues[1].ToString() == "NameTextBox")
+                {
+                    PlayerInstances.CurrentPlayerInstance = new Player() { Name = parameterValues[0].ToString()};
+                    viewModel.SelectedViewModel = new TownViewModel();
+                    return;
+                }
+            }
             switch (parameter.ToString())
             {
-                case "TownView": viewModel.SelectedViewModel = new TownViewModel(); break;
+                //case "TownView": viewModel.SelectedViewModel = new TownViewModel(); break;
                 case "LoadView": viewModel.SelectedViewModel = new LoadGameViewModel(); break;
                 case "MainMenuView": viewModel.SelectedViewModel = new MainMenuViewModel(); break;
                 case "CreditsView": viewModel.SelectedViewModel = new CreditsViewModel(); break;

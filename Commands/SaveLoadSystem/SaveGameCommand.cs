@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Text.Json;
 using Maze_Knight.StaticClasses;
 using Maze_Knight.Models;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Maze_Knight.Commands.SaveLoadSystem
 {
@@ -22,9 +22,14 @@ namespace Maze_Knight.Commands.SaveLoadSystem
 
         public void Execute(object parameter)
         {
-            var jsonText = JsonSerializer.Serialize(PlayerInstances.CurrentPlayerInstance);
-            File.WriteAllText(@"c:\Lala\CurrentPlayerInstance.json", jsonText);
-            jsonText = JsonSerializer.Serialize(PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel);
+            //Serialize Setting to keep types of properties
+            JsonSerializerSettings jsonSettings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
+
+            //Below not needed anymore as I set the player instances from the shadydealerviewmodel object deserialized - will need to fix this. 
+            //var jsonText = JsonConvert.SerializeObject(PlayerInstances.CurrentPlayerInstance, jsonSettings);
+            //File.WriteAllText(@"c:\Lala\CurrentPlayerInstance.json", jsonText);
+
+            var jsonText = JsonConvert.SerializeObject(PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel, jsonSettings);
             File.WriteAllText(@"c:\Lala\CurrentPlayerAvailableShadyDealerViewModel.json", jsonText);
         }
     }

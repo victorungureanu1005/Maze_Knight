@@ -1,6 +1,7 @@
 ﻿using Maze_Knight.Commands;
 using Maze_Knight.Models.Enums;
 using Maze_Knight.StaticClasses;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -119,7 +120,7 @@ namespace Maze_Knight.Models
         #endregion
 
         #region Commands bound in the ExploreView
-        public ICommand MapGridCellClickCommand { get; set; }
+                public ICommand MapGridCellClickCommand { get; set; }
 
         public MapGridCell()
         {

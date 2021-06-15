@@ -26,11 +26,20 @@ namespace Maze_Knight.Views
         {
             InitializeComponent();
             DataContext = Mediator.TheApp;
+            NewGameUserControl.DataContext = DataContext;
+
         }
 
         private void QuitApp(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void NewGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            NewGameUserControl.Visibility = Visibility.Visible;
+            MainMenu.Opacity = 0.4;
+            MainMenu.IsEnabled = false;
         }
     }
 }
