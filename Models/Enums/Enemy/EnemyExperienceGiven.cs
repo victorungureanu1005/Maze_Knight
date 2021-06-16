@@ -8,13 +8,13 @@ namespace Maze_Knight.Models.Enums
 {
     public enum EnemyExperienceGiven
     {
-        Rogues = 1,
-        ThievyArchers = 3,
-        CorruptPaladins = 6,
-        CorruptMages = 12,
-        Goblins = 2,
-        Orcs = 4,
-        Trolls = 7,
-        Dragons = 20
+        Rogues = 5,
+        ThievyArchers = 7,
+        CorruptPaladins = 10,
+        CorruptMages = 15,
+        Goblins = 6,
+        Orcs = 10,
+        Trolls = 18,
+        Dragons = 25
     }
 }

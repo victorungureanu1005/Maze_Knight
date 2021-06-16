@@ -17,7 +17,7 @@ namespace Maze_Knight.Models.Items
         //Buy price increase factor for price, further down to be adjusted as well
         private int STAT_POINT_BUY_PRICE_INCREASE_FACTOR = 4;
         //Max number of stats to bestow per number. Random value will be used, but a max should be establishedfor this item type
-        private int MAX_NUMBER_OF_STATS_TO_BESTOW = 4;
+        private int MAX_NUMBER_OF_STATS_TO_BESTOW = 6;
         #endregion
 
         #region Backing Fields

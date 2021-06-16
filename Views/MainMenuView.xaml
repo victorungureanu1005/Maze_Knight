@@ -32,13 +32,14 @@
             <!-- Labels and Buttons-->
 
             <Label x:Name="Menu_Title" Content="Maze Knight" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20px"  Grid.ColumnSpan="2" Foreground="#FFECE4D5"  />
-            <Button x:Name="Menu_ContinueGameButton" Content="Continue" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="10" 
-                FontSize="20px" Width="200" Height="40" Grid.Row="1" Background="#FFECE4D5" />
+            
+            <Button x:Name="Menu_ContinueGameButton" Content="Continue Game" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="10" 
+                FontSize="20px" Width="200" Height="40" Grid.Row="1" Background="#FFECE4D5" Command="{Binding UpdateViewCommand}" CommandParameter="TownView" />
 
             <Button x:Name="Menu_NewGameButton" Content="New Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
                 FontSize="20px" Width="200" Height="40" Grid.Row="2" Background="#FFECE4D5" Click="NewGameButton_Click"/>
-
-            <Button x:Name="Menu_LoadGameButton" Content="Load Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
+            <!-- Not implemented yet -->
+            <Button IsEnabled="False" x:Name="Menu_LoadGameButton" Content="Load Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
                 FontSize="20px" Width="200" Height="40" Grid.Row="3" Background="#FFECE4D5"
                 Command="{Binding LoadGameCommand}" CommandParameter="nothing" />
 

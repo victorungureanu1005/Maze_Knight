@@ -25,5 +25,25 @@ namespace Maze_Knight.Views.UserControls
             InitializeComponent();
         }
 
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            NameGameUserControl.Visibility = Visibility.Hidden;
+            //Finds the root parent of this user control in the MainMenu View
+            FrameworkElement parentFrameWorkElementToBe = (FrameworkElement)NameGameUserControl.Parent;
+            while (parentFrameWorkElementToBe.Parent is FrameworkElement)
+            {
+                parentFrameWorkElementToBe = (FrameworkElement)parentFrameWorkElementToBe.Parent;
+            }
+            //Sets the mainMenuGrid to the Grid named "MainMenu" in the MainMenuView
+            var mainMenuGrid = parentFrameWorkElementToBe.FindName("MainMenu");
+
+            //Sets the Opacity level and enabled setting accordingly 
+            if (mainMenuGrid is Grid)
+            {
+                ((Grid)mainMenuGrid).Opacity = 1.00;
+                ((Grid)mainMenuGrid).IsEnabled = true;
+            }
+
+        }
     }
 }

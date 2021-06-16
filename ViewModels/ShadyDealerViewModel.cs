@@ -33,17 +33,6 @@ namespace Maze_Knight.ViewModels
         [JsonIgnore]
         public ICommand SellCommand { get; set; }
 
-        //[JsonConstructor]
-        //public ShadyDealerViewModel(ShadyDealerModel shadyDealer, Player player)
-        //{
-        //    ShadyDealer = shadyDealer;
-        //    Player = player;
-        //    BuyCommand = new BuyCommand(this);
-        //    SellCommand = new SellCommand(this);
-        //    ShadyDealerInventorySelectedItem = null;
-        //    PlayerInventorySelectedItem = null;
-        //    MessageToBeDisplayed = "";
-        //}
         #endregion
 
         #region Constructor

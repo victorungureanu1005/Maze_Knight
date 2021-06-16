@@ -86,6 +86,7 @@
     <Compile Include="AppWindow.xaml.cs">
       <DependentUpon>AppWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\ExploreViewModelCommands\DrinkPotionCommand.cs" />
     <Compile Include="Commands\SaveLoadSystem\ContinueGameCommand.cs" />
     <Compile Include="Commands\SaveLoadSystem\LoadGameCommand.cs" />
     <Compile Include="Commands\SaveLoadSystem\NewGameCommand.cs" />

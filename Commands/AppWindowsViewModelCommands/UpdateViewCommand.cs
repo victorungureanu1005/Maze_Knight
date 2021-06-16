@@ -33,7 +33,7 @@ namespace Maze_Knight.Commands
             }
             switch (parameter.ToString())
             {
-                //case "TownView": viewModel.SelectedViewModel = new TownViewModel(); break;
+                case "TownView": viewModel.SelectedViewModel = new TownViewModel(); break;
                 case "LoadView": viewModel.SelectedViewModel = new LoadGameViewModel(); break;
                 case "MainMenuView": viewModel.SelectedViewModel = new MainMenuViewModel(); break;
                 case "CreditsView": viewModel.SelectedViewModel = new CreditsViewModel(); break;

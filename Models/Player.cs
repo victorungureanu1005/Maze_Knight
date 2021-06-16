@@ -18,10 +18,12 @@ namespace Maze_Knight.Models
         //To be used in order to check whether inventory is full or not
         private const int MAX_INVENTORY_COLLECTION_COUNT = 16;
         //Used in the level up calculations
-        const float EXPERIENCE_NEEDED_INCREASE_FACTOR = 25f;
-        const int EXPERIENCE_NEEDED_INCREASE_MARGIN = 5;
-        //Stat points received per level
+        const float EXPERIENCE_NEEDED_INCREASE_BASE = 25f;
+        const int EXPERIENCE_NEEDED_INCREASE_MARGIN = 15;
+        //Stat points received per level + MinMaxDamage bonus received
         const int STAT_POINTS_PER_LEVEL = 3;
+        const int MIN_DAMAGE_RECEIVED_PER_LEVEL = 3;
+        const int MAX_DAMAGE_RECEIVED_PER_LEVEL = 5;
         //Number of turns available of rune bonus after rune activation
         const int RUNE_NUMBER_OF_TURNS_AFTER_ACTIVATION = 3;
         //Supplies stats - number of moves
@@ -39,8 +41,8 @@ namespace Maze_Knight.Models
         private string _name;
         private int _level = 1;
         private int _goldDust = 200;
-        private int _currentExperience;
-        private int _experienceNeededForLevelUp;
+        private int _currentExperience = 0;
+        private int _experienceNeededForLevelUp = 10;
         private int _statPoints;
         private Inventory _playerInventory = new Inventory();
         private Weapon _equippedWeapon = null;
@@ -104,7 +106,7 @@ namespace Maze_Knight.Models
         public int ExperienceNeededForLevelUp
         {
             get { return _experienceNeededForLevelUp; }
-            set { _experienceNeededForLevelUp = value; }
+            set { _experienceNeededForLevelUp = value; OnPropertyChanged(nameof(ExperienceNeededForLevelUp)); }
         }
         //Statpoints of Player
         public int StatPoints
@@ -443,10 +445,17 @@ namespace Maze_Knight.Models
         }
 
         //Activate rune of the player
-        public void ActivateRune()
+        public void ActivateRune(Rune rune)
         {
             RuneActive = true;
             RuneNumberOfTurnsActive = RUNE_NUMBER_OF_TURNS_AFTER_ACTIVATION;
+            PlayerInventory.InventoryCollection.Remove(rune);
+        }
+        //Drinks potion
+        public void DrinkPotion(Potion potion)
+        {
+            IncreaseHealth(potion.RestoredHealth);
+            PlayerInventory.InventoryCollection.Remove(potion);
         }
 
         //Equip Weapon method used in the StatsAndInventory View
@@ -545,12 +554,14 @@ namespace Maze_Knight.Models
             StatPoints += STAT_POINTS_PER_LEVEL;
             Health = MaxHealth;
             ExperienceNeededForLevelUp = CalculateExperienceNeededForNextLevel();
+            MinDamage += MIN_DAMAGE_RECEIVED_PER_LEVEL;
+            MaxDamage += MAX_DAMAGE_RECEIVED_PER_LEVEL;
         }
 
         //Provides int for experience needed for next level;
         private int CalculateExperienceNeededForNextLevel()
         {
-            return (int)Math.Round((Level * EXPERIENCE_NEEDED_INCREASE_FACTOR) + EXPERIENCE_NEEDED_INCREASE_MARGIN);
+            return (int)Math.Round((Level * EXPERIENCE_NEEDED_INCREASE_MARGIN ) + EXPERIENCE_NEEDED_INCREASE_BASE);
         }
 
         #endregion

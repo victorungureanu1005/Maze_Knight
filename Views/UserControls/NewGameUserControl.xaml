@@ -6,7 +6,8 @@
              xmlns:Converters="clr-namespace:Maze_Knight.Converters"
              xmlns:local="clr-namespace:Maze_Knight.Views.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="500"  Background="#FF0A1428">
+             d:DesignHeight="350" d:DesignWidth="500"  Background="#FF0A1428"
+             x:Name="NameGameUserControl">
     
     <UserControl.Resources>
         <Converters:NewGameMultiValueConverter x:Key="NewGameMultiValueConverter"/>
@@ -19,14 +20,18 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="What is your hero's name?" Foreground="NavajoWhite" FontSize="20px" 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/> 
+                <ColumnDefinition/> 
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="What is your hero's name?" Foreground="NavajoWhite" FontSize="20px" 
                        TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-            <TextBox x:Name="NameTextBox" Grid.Row="1" BorderThickness="3" Foreground="NavajoWhite" FontSize="20px" 
+            <TextBox x:Name="NameTextBox" Grid.ColumnSpan="2" Grid.Row="1" BorderThickness="3" Foreground="NavajoWhite" FontSize="20px" 
                    MaxLength="30" Width="300" Height="50" VerticalContentAlignment="Center" Text="" TextWrapping="Wrap" 
                      VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FF0A1428"/>
 
-            <Button  Grid.Row="2" Content="Confirm" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
+            <Button  Grid.Row="2" Grid.Column="0"  Content="Confirm" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
                 FontSize="20px" Width="200" Height="40" Background="#FFECE4D5"
                      Command="{Binding UpdateViewCommand}">
                 <Button.CommandParameter>
@@ -36,6 +41,9 @@
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
+
+            <Button Grid.Row="2" Grid.Column="1" Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
+                FontSize="20px" Width="200" Height="40" Background="#FFECE4D5" Click="Cancel_Click"></Button>
 
         </Grid>
     </Border>

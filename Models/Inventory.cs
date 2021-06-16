@@ -1,5 +1,6 @@
 ﻿using Maze_Knight.Models.Items;
 using Maze_Knight.StaticClasses;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Maze_Knight.Models
 {
+    [JsonObject]
     public class Inventory : BaseModel
     {
 

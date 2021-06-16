@@ -37,8 +37,8 @@
 
             <!-- Battle Event Block -->
             <StackPanel Grid.Row="0" Grid.Column="1">
-                <!-- Here we have the Textblock which is bound to the battle report property found in the explore view model -->
-                <TextBlock x:Name="BattleReport" Height="100" Text="{Binding BattleReport}" FontSize="15px"  Width="auto" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10"  />
+                <!-- Here we have the Textblock which is bound to the reported messages property found in the explore view model -->
+                <TextBlock x:Name="BattleReport" Height="100" Text="{Binding ReportedMessages}" FontSize="15px"  Width="auto" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10"  />
                 <!-- Textblock bound to enemy describing enemySubType -->
                 <TextBlock x:Name="SubTypeEnemiesFound" Text="{Binding EnemyEngagedMessage}" FontSize="18px" Foreground="NavajoWhite" TextWrapping="Wrap" Margin="0,10" HorizontalAlignment="Center"/>
                 <!-- This button should start the fight/battle - I know, the choice of words is not great here, there should be consistency..., but Battle didn't work and I don't want to change now all the code :) - I must do this one day!!! -->
@@ -80,7 +80,7 @@
 
                 <!-- Actions Block Actions -->
                 <Button Content="Drink Potion" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
-                FontSize="20px" Width="150" Height="40" Grid.Column="0" Background="#FFECE4D5" />
+                FontSize="20px" Width="150" Height="40" Grid.Column="0" Background="#FFECE4D5" Command="{Binding DrinkPotionCommand}" />
                 <Button Content="Use Rune" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
                 FontSize="20px" Width="150" Height="40" Grid.Column="1" Background="#FFECE4D5" Command="{Binding UseRuneCommand}" />
                 <Button  Content="Flight!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" 
@@ -106,6 +106,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <!-- Stats description -->
@@ -120,6 +121,7 @@
                 <TextBlock Foreground="NavajoWhite" Grid.Row="8" FontSize="15px" TextWrapping="Wrap"><Run Text="Halberd Skill"/></TextBlock>
                 <TextBlock Foreground="NavajoWhite" Grid.Row="9" FontSize="15px" TextWrapping="Wrap"><Run Text="Humanoid Res"/></TextBlock>
                 <TextBlock Foreground="NavajoWhite" Grid.Row="10" FontSize="15px" TextWrapping="Wrap"><Run Text="Mystical Res"/></TextBlock>
+                <TextBlock Foreground="NavajoWhite" Grid.Row="11" FontSize="15px" TextWrapping="Wrap"><Run Text="Experience"/></TextBlock>
                 <!-- Stats values -->
                 <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="0" Text="{Binding CurrentPlayer.SuppliesLeft}" FontSize="15px" TextWrapping="Wrap"/>
                 <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="1" Text="{Binding CurrentPlayer.Health}" FontSize="15px" TextWrapping="Wrap"/>
@@ -132,6 +134,14 @@
                 <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="8" Text="{Binding CurrentPlayer.HalberdSkillLevel}" FontSize="15px" TextWrapping="Wrap"/>
                 <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="9" Text="{Binding CurrentPlayer.HumanoidResistance}" FontSize="15px" TextWrapping="Wrap"/>
                 <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="10" Text="{Binding CurrentPlayer.MysticalResistance}" FontSize="15px" TextWrapping="Wrap"/>
+                <TextBlock Foreground="NavajoWhite" Grid.Column="1" Grid.Row="11" FontSize="15px" TextWrapping="Wrap">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat=" {0} / {1}">
+                            <Binding Path="CurrentPlayer.CurrentExperience"/>
+                            <Binding Path="CurrentPlayer.ExperienceNeededForLevelUp"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
             </Grid>
         </Grid>
 

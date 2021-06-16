@@ -34,13 +34,13 @@
         </StackPanel>
 
         <!-- Actions to take as a player -->
-        <Button Width="170" Height="40" FontSize="14px" Content="Not Implemented - Dice" 
+        <Button Width="170" Height="40" FontSize="14px" Content="Not Implemented - Dice"  IsEnabled="False"
                 Background="#FFECE4D5" Margin="10" Grid.Row="2" Grid.Column="0"/>
         <Button Width="170" Height="40" FontSize="14px" Content="Explore outside the town" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="3" Grid.Column="0" Click="ExploreOutsideTown"/>
         <Button Width="170" Height="40" FontSize="14px" Content="Go to the shady dealer" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="2" Grid.Column="1" Click="GoToShadyDealer"/>
-        <Button Width="170" Height="40" FontSize="14px" Content="Not Implemented - Quest"  
+        <Button Width="170" Height="40" FontSize="14px" Content="Not Implemented - Quest"  IsEnabled="False" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="3" Grid.Column="1"/>
         <Button Width="300" Height="40" FontSize="14px" Content="Upgrade your stats and check your inventory" 
                 Background="#FFECE4D5" Margin="10" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Click="UpgradeYourStatsAndCheckYourInventory" />

@@ -38,17 +38,18 @@ namespace Maze_Knight.ViewModels
 
         public AppWindowViewModel()
         {
-            //Deserialize the Lastest Played Player Instnace
-            if (File.Exists(@"c:\Lala\CurrentPlayerInstance.json")) 
-                //&& File.Exists(@"c:\Lala\CurrentPlayerAvailableShadyDealerViewModel.json"))
+            //Deserialize the Lastest Shady Dealer View Model
+            if (File.Exists(@"c:\Lala\CurrentPlayerAvailableShadyDealerViewModel.json"))
             {
+                //Set the Serializer Settings to take types into consideration
                 JsonSerializerSettings jsonSettings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
-                //PlayerInstances.CurrentPlayerInstance = JsonConvert.DeserializeObject<Player>(File.ReadAllText(@"c:\Lala\CurrentPlayerInstance.json"), jsonSettings);
+                //Deserialize Shady Dealer View Model
                 PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel = JsonConvert.DeserializeObject<ShadyDealerViewModel>(File.ReadAllText(@"c:\Lala\CurrentPlayerAvailableShadyDealerViewModel.json"), jsonSettings);
+                //Set Player instance to the player stored in the shady dealer view model
                 PlayerInstances.CurrentPlayerInstance = PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel.Player;
-                //PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel.BuyCommand = new BuyCommand(PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel);
-                //PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel.SellCommand = new SellCommand(PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel);
-            
+                PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel.BuyCommand = new BuyCommand(PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel);
+                PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel.SellCommand = new SellCommand(PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel);
+
             }
 
             //Initialize the Command
