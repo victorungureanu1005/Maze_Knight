@@ -38,13 +38,15 @@ namespace Maze_Knight.ViewModels
 
         public AppWindowViewModel()
         {
+            //Set destination path for the file where data is found as serialized
+            string destPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CurrentPlayerAvailableShadyDealerViewModel.json");
             //Deserialize the Lastest Shady Dealer View Model
-            if (File.Exists(@"c:\Lala\CurrentPlayerAvailableShadyDealerViewModel.json"))
+            if (File.Exists(destPath))
             {
                 //Set the Serializer Settings to take types into consideration
                 JsonSerializerSettings jsonSettings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
                 //Deserialize Shady Dealer View Model
-                PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel = JsonConvert.DeserializeObject<ShadyDealerViewModel>(File.ReadAllText(@"c:\Lala\CurrentPlayerAvailableShadyDealerViewModel.json"), jsonSettings);
+                PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel = JsonConvert.DeserializeObject<ShadyDealerViewModel>(File.ReadAllText(destPath), jsonSettings);
                 //Set Player instance to the player stored in the shady dealer view model
                 PlayerInstances.CurrentPlayerInstance = PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel.Player;
                 PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel.BuyCommand = new BuyCommand(PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel);

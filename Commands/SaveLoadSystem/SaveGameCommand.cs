@@ -24,13 +24,11 @@ namespace Maze_Knight.Commands.SaveLoadSystem
         {
             //Serialize Setting to keep types of properties
             JsonSerializerSettings jsonSettings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
-
-            //Below not needed anymore as I set the player instances from the shadydealerviewmodel object deserialized - will need to fix this. 
-            //var jsonText = JsonConvert.SerializeObject(PlayerInstances.CurrentPlayerInstance, jsonSettings);
-            //File.WriteAllText(@"c:\Lala\CurrentPlayerInstance.json", jsonText);
-
+            //Serialize
             var jsonText = JsonConvert.SerializeObject(PlayerInstances.CurrentPlayerAvailableShadyDealerViewModel, jsonSettings);
-            File.WriteAllText(@"c:\Lala\CurrentPlayerAvailableShadyDealerViewModel.json", jsonText);
+            //Get the Path specific for the OS 
+            string destPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CurrentPlayerAvailableShadyDealerViewModel.json");
+            File.WriteAllText(destPath, jsonText);
         }
     }
 }
